@@ -1,0 +1,56 @@
+{
+  
+  "name": "pdt-development",
+  
+  "version": "1.0.0",
+  
+  "description": "",
+  
+  "main": "index.js",
+  
+  "scripts": {
+  
+    
+  "server": "npm start --workspace=server",
+  
+    
+  "client": "npm start --workspace=client",
+  
+    
+  "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  
+  },
+  
+  "keywords": [],
+  
+  "author": "",
+  
+  "license": "ISC",
+  
+  "workspaces": [
+  
+    
+  "packages/server",
+  
+    
+  "packages/client"
+  
+  ],
+  
+  "dependencies": {
+  
+    
+  "concurrently": "^7.6.0"
+  
+  },
+  
+  "devDependencies": {
+  
+    
+  "@babel/core": "^7.20.5",
+  
+    
+  "@babel/node": "^7.20.5"
+  
+  }
+}
