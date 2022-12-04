@@ -4,11 +4,11 @@
 
 Clone the project and CD into the root directory and run
 
-``NPM install```
+`NPM install`
 
 Then run
 
-``NPM start```
+`NPM start`
 
 We have configured this application to use Concurrently to start the client/server at the same time
 with Nodemon to watch for changes on the backend.
