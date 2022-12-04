@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Kenzie FSWD Capstone project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tim-Quattrochi/PDT-Development.git"
+  },
+  "keywords": [
+    "MERN"
+  ],
+  "author": "Destiny Daffin, Pete Peperakis, Tim Quattrochi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tim-Quattrochi/PDT-Development/issues"
+  },
+  "homepage": "https://github.com/Tim-Quattrochi/PDT-Development#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.7.5"
+  },
+  "devDependencies": {
+     "@babel/core": "^7.19.3",
+    "@babel/node": "^7.19.1",
+    "@babel/preset-env": "^7.19.4",
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  }
+}
