@@ -7,7 +7,7 @@ export default function HomePage(props) {
     
 return (
 
-    <div>   Registration PAGE   </div>
+    <div>   Profile PAGE   </div>
 
 
 )}
