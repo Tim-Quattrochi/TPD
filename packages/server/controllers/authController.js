@@ -1,10 +1,3 @@
-export const api = async (req, res) => {
-  res.send('PDT API endpoint');
-};
-
-export const signUp = async (req, res) => {
-  res.send('sign up endpoint.');
-};
 //destructure form information from the req.body
 //first name, last name, email, password, confirmPassword
 //and any user details we need to sign up
