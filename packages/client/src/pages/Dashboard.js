@@ -8,7 +8,7 @@ import UserInfo from '../components/UserInfo'
 import UserProjects from '../components/UserProjects'
 
 
-export default function HomePage(props) {
+export default function Dashboard (props) {
 
     
 return (

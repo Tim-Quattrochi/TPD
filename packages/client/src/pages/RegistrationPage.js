@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Form } from 'react-router-dom'
 
 
-export default function HomePage(props) {
+export default function RegistrationPage (props) {
 
     
 return (

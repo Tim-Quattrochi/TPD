@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 
-export default function HomePage(props) {
+export default function TemplatesPage (props) {
 
     
 return (

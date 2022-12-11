@@ -9,6 +9,10 @@ import Staff from './pages/Staff'
 
 import Footer from './components/Footer'
 import NavBar from './components/NavBar'
+import StaffPage from './pages/StaffPage';
+import RegistrationPage from './pages/RegistrationPage';
+import TemplatesPage from './pages/TemplatesPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -21,11 +25,11 @@ function App() {
       <Routes>
 
           <Route path="/" element= { <HomePage /> } />
-          <Route path="/staff" element= { <Staff /> } />
-          <Route path="/register" element={ <Registration /> } />
-          <Route path='/ideas' element={ <Templates /> } />
+          <Route path="/staff" element= { <StaffPage /> } />
+          <Route path="/register" element={ <RegistrationPage /> } />
+          <Route path='/ideas' element={ <TemplatesPage /> } />
           <Route path='/dashboard' element={ <Dashboard /> } />
-          <Route path='/login' element={ <Login /> } />
+          <Route path='/login' element={ <LoginPage /> } />
 
       </Routes>
       
