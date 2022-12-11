@@ -1,65 +1,358 @@
 {
   
-  "name": "pdt-development",
+
+
+
+
+
+
+
+"name": "pdt-development",
   
-  "version": "1.0.0",
+
+
+
+
+
+
+
+"version": "1.0.0",
   
-  "description": "",
+
+
+
+
+
+
+
+"description": "",
   
-  "main": "index.js",
+
+
+
+
+
+
+
+"main": "index.js",
   
-  "scripts": {
+
+
+
+
+
+
+
+"scripts": {
   
-    
-  "server": "npm start --workspace=server",
+
+
+
+
+
+
+
   
-    
-  "client": "npm start --workspace=client",
+
+
+
+
+
+
+
+"server": "npm start --workspace=server",
   
-    
-  "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+
+
+
+
+
+
+
   
-  },
+
+
+
+
+
+
+
+"client": "npm start --workspace=client",
   
-  "keywords": [],
+
+
+
+
+
+
+
   
-  "author": "",
+
+
+
+
+
+
+
+"start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   
-  "license": "ISC",
+
+
+
+
+
+
+
+},
   
-  "workspaces": [
+
+
+
+
+
+
+
+"keywords": [],
   
-    
-  "packages/server",
+
+
+
+
+
+
+
+"author": "",
   
-    
-  "packages/client"
+
+
+
+
+
+
+
+"license": "ISC",
   
-  ],
+
+
+
+
+
+
+
+"workspaces": [
   
-  "dependencies": {
+
+
+
+
+
+
+
   
-    
-  "colors": "^1.4.0",
+
+
+
+
+
+
+
+"packages/server",
   
-    
-  "concurrently": "^7.6.0",
+
+
+
+
+
+
+
   
-    
-  "cors": "^2.8.5",
+
+
+
+
+
+
+
+"packages/client"
   
-    
-  "server": "file:packages/server"
+
+
+
+
+
+
+
+],
   
-  },
+
+
+
+
+
+
+
+"dependencies": {
   
-  "devDependencies": {
+
+
+
+
+
+
+
   
-    
-  "@babel/core": "^7.20.5",
+
+
+
+
+
+
+
+"@craco/craco": "^7.0.0",
   
-    
-  "@babel/node": "^7.20.5"
+
+
+
+
+
+
+
   
-  }
+
+
+
+
+
+
+
+"concurrently": "^7.6.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"react-router-dom": "^6.4.5"
+  
+
+
+
+
+
+
+
+},
+  
+
+
+
+
+
+
+
+"devDependencies": {
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"@babel/core": "^7.20.5",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"@babel/node": "^7.20.5",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"autoprefixer": "^9.8.8",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"postcss": "^7.0.39",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
+  
+
+
+
+
+
+
+
+}
 }
