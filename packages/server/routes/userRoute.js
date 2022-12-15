@@ -39,15 +39,15 @@ module.exports = router;
 
 // test endpoints using postman and the following commands:
 
-// POST http://localhost:3000/api/v1/users/signup
-// POST http://localhost:3000/api/v1/users/login
-// GET http://localhost:3000/api/v1/users/me
-// PATCH http://localhost:3000/api/v1/users/updateMe
-// DELETE http://localhost:3000/api/v1/users/deleteMe
-// PATCH http://localhost:3000/api/v1/users/updateMyPassword
-// POST http://localhost:3000/api/v1/users/forgotPassword
-// PATCH http://localhost:3000/api/v1/users/resetPassword/1234567890
-// GET http://localhost:3000/api/v1/users
-// GET http://localhost:3000/api/v1/users/5f7e1b9b9c1b9c1b9c1b9c1b
-// PATCH http://localhost:3000/api/v1/users/5f7e1b9b9c1b9c1b9c1b9c1b
-// DELETE http://localhost:3000/api/v1/users/5f7e1b9b9c1b9c1b9c1b9c1b~
+// POST http://localhost:3001/api/v1/users/signup
+// POST http://localhost:3001/api/v1/users/login
+// GET http://localhost:3001/api/v1/users/me
+// PATCH http://localhost:3001/api/v1/users/updateMe
+// DELETE http://localhost:3001/api/v1/users/deleteMe
+// PATCH http://localhost:3001/api/v1/users/updateMyPassword
+// POST http://localhost:3001/api/v1/users/forgotPassword
+// PATCH http://localhost:3001/api/v1/users/resetPassword/1234567890
+// GET http://localhost:3001/api/v1/users
+// GET http://localhost:3001/api/v1/users/5f7e1b9b9c1b9c1b9c1b9c1b
+// PATCH http://localhost:3001/api/v1/users/5f7e1b9b9c1b9c1b9c1b9c1b
+// DELETE http://localhost:3001/api/v1/users/5f7e1b9b9c1b9c1b9c1b9c1b~
