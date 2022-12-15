@@ -4,9 +4,7 @@ import mongoose from 'mongoose';
 import path from 'path';
 import cors from 'cors';
 import colors from 'colors';
-import { api } from './controllers/apiController';
 import { signup } from './controllers/userController';
-import { sign } from 'crypto';
 import { AppError } from './middleware/appError';
 
 const DB_URI = process.env.DB_URI;
@@ -36,8 +34,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(AppError);
 
-//use the api from api.controller.js
-app.use('/', signup);
+//routes
+app.use('/api/v1/users/signup', signup);
 
 app.listen(PORT, () =>
   console.log(`Server is listening on port ${PORT}`.bgBlue)
