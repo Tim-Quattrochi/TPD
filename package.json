@@ -18,6 +18,8 @@
   "dependencies": {
     "@craco/craco": "^7.0.0",
     "concurrently": "^7.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "react-icons": "^4.7.1",
     "react-router-dom": "^6.4.5"
   },
   "devDependencies": {
