@@ -15,7 +15,7 @@ function App() {
   
     <Router>
 
-      <NavBar />
+      {/* <NavBar /> */}
       
       <Routes>
 
