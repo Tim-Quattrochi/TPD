@@ -26,5 +26,4 @@ submitted: {
 })
 
 
-
-export default taskSchema;
+const Task = mongoose.model('Task', taskSchema);

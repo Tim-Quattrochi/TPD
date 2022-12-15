@@ -31,4 +31,4 @@ deadlines: {
 })
 
 
-export default projectsSchema;
+const Project = mongoose.model('Project', projectsSchema);

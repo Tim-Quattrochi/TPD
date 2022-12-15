@@ -41,4 +41,4 @@ comments: {
 
 
 
-export default messageSchema;
+const Message = mongoose.model('Message', messageSchema);

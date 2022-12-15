@@ -1,74 +1,67 @@
 import mongoose from 'mongoose';
 
-import projectsSchema from './projectModel';
-
+const { ObjectId } = mongoose.Schema.Types;
+import { MdAccountCircle } from 'react-icons/md';
 
 const userSchema = new mongoose.Schema({
-
-companyName: {
+  username: {
     type: String,
     unique: true,
-    required: true 
-},
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  passwordHash: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 
-username: {
+
+  email: {
     type: String,
     unique: true,
-    required: true 
-},
-
-password: {
+    required: true,
+  },
+  profileImage: {
     type: String,
-    required: true 
-},
-
-email: {
-    type: String,
-    unique: true,
-    required: true 
-},
-
-profileImage: {
-    type: String,
-    default: "needsimg.jpg" 
-},
-
-posts: {
+    default: MdAccountCircle,
+  },
+  posts: {
     type: ObjectId,
-    ref: ""
-},
-
-projects: {
+    ref: 'User',
+  },
+  commissions: {
     type: ObjectId,
-    ref: projectsSchema, 
-},
-
-tasks: {
+    ref: 'User',
+  },
+  tickets: {
     type: ObjectId,
-    ref: ""
-},
+    ref: 'User',
+  },
+});
 
-projects: {
-    type: ObjectId,
-    ref: "" 
-},
+const User = mongoose.model('User', userSchema);
 
-authorizedUsers: {
-    username: {
-    type: String,
-    unique: true,
-    required: true },
-
-    password: {
-    type: String,
-    required: true },
-
-    email: {
-    type: String,
-    unique: true,
-    required: true },
-},
-
-})
-
-export default userSchema;
+/* Stretch goal for sub users */
+//     authorizedUsers: {
+//         [
+// username: {
+// type: String,
+// unique: true,
+// required: true },
+// password: {
+// type: String,
+// required: true },
+// email: {
+// type: String,
+// unique: true,
+// required: true },
+// ]},
+// )
