@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const { ObjectId } = mongoose.Schema.Types;
 import { MdAccountCircle } from 'react-icons/md';
 
@@ -21,6 +22,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+
 
   email: {
     type: String,
