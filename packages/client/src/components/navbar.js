@@ -1,5 +1,7 @@
-import React from 'react'
-import [Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink] from './NavbarElements';
+import React from 'react';
+
+
+import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements';
 
 
 const NavBar = () => {
@@ -30,7 +32,7 @@ const NavBar = () => {
                 <NavBtnLink to='/sign-in'>Sign In</NavBtnLink>
             </NavBtn>
         </Nav>
-        
+
         
         </>
        
