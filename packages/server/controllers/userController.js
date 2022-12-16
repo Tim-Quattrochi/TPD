@@ -119,6 +119,7 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
+  console.log(req.body);
   const { email, password } = req.body;
   if (!email || !password) {
     return next(new Error('Please provide email and password', 400));
@@ -126,7 +127,8 @@ exports.login = async (req, res, next) => {
   const user = await User.findOne({
     email,
   }).select('+password');
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+  console.log(user);
+  if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
     return next(new Error('Incorrect email or password', 401));
   }
   const token = jwt.sign(
@@ -144,6 +146,7 @@ exports.login = async (req, res, next) => {
   });
 };
 
+//require authentication
 exports.protect = async (req, res, next) => {
   let token;
   if (

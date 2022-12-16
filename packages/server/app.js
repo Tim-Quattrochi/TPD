@@ -6,6 +6,7 @@ import cors from 'cors';
 import colors from 'colors';
 import { signup } from './controllers/userController';
 import { AppError } from './middleware/appError';
+import router from './routes/userRoute';
 
 const DB_URI = process.env.DB_URI;
 const PORT = process.env.PORT;
@@ -35,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(AppError);
 
 //routes
-app.use('/api/v1/users/signup', signup);
+app.use('/api/v1/', router);
 
 app.listen(PORT, () =>
   console.log(`Server is listening on port ${PORT}`.bgBlue)
