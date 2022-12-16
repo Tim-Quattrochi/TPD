@@ -1,6 +1,5 @@
 const User = require('../models/userModel');
 // const  = require('../utils/');
-const AppError = require('../middleware/appError');
 
 exports.getAllUsers = async (req, res, next) => {
   const users = await User.find();
@@ -79,10 +78,14 @@ exports.signup = async (req, res, next) => {
     userName,
   } = req.body;
 
-  console.log(req.body);
+  if (!email || !password || !name) {
+    return next(new Error('Please enter all the fields.', 400));
+  }
+
   const user = await User.findOne({
     email,
   });
+
   if (user) {
     return next(new Error('User already exists', 422));
   }
