@@ -27,9 +27,9 @@ router.post('/users/login', userController.login);
 router.route('/').get(userController.getAllUsers);
 // .post(userController.createUser);
 
-//http://localhost:3001/api/v1/users/639aa4f7e45cf994cb11cd23 request URL for POSTMAN. Works but we want
+//localhost:3001/api/v1/users/639aa4f7e45cf994cb11cd23 request URL for POSTMAN. Works but we want
 //to protect this route
-router.route('/:id').get(userController.getUserById);
+http: router.route('/:id').get(userController.getUserById);
 
 //   .patch(userController.updateUser)
 //   .delete(userController.deleteUser);
