@@ -15,10 +15,10 @@ with Nodemon to watch for changes on the backend.
 
 # Roles
 
-Scrum Master - Destiny Daffin
+Scrum Master - Petey Peperakis
 
-Quality Assurance and Tester - Petey Peperakis
+Product Owner - Destiny Daffin
 
-Product Owner - Tim Quattrochi
+Quality Assurance and Tester - Tim Quattrochi
 
 # PDT-Development
