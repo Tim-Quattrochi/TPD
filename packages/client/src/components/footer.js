@@ -1,17 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+
 
 const Footer = () => {
-  return (
-    <footer>
-      <h5> Some Footer Details here </h5>
+    return (
+        
+   <footer>
+        <h5> Some Footer Details here </h5>
 
-      <div className="text-red-500">
-        ~ signIn link ~ register link ~ copyright info ? ~
-      </div>
+        <div>
+        <Link to='/register' > SIGN-UP  </Link> 
+        
+        <Link to='/login' > LOG-IN   </Link> 
+            ~ copyright info ? ~
+        </div>
 
-      <img src="../images/temp.jpg"></img>
-    </footer>
-  );
-};
+        <img src='../images/temp.jpg' ></img>
+
+   </footer>
+
+     );
+}
 
 export default Footer;

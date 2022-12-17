@@ -9,8 +9,6 @@ return (
 
     <div>   
     
- 
-    
     Templates PAGE   
     
     <div id='templates'>   templates go  in this div </div>
@@ -21,8 +19,6 @@ return (
     
     <div id='artists' > Maybe place promoted art sites here that  people can  go search  or commision  for things </div>
      
-    
-    
     </div>
 
 

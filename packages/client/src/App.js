@@ -4,9 +4,9 @@ import {
   Routes,
 } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import Dashboard from './pages/dashboard';
+import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
-import NavBar from './components/NavBar';
+import NavBarComp from './components/NavBar';
 import StaffPage from './pages/StaffPage';
 import RegistrationPage from './pages/RegistrationPage';
 import TemplatesPage from './pages/TemplatesPage';
@@ -15,7 +15,7 @@ import LoginPage from './pages/LoginPage';
 function App() {
   return (
     <Router>
-      {/* <NavBar /> */}
+      <NavBarComp />
 
       <Routes>
         <Route path="/" element={<HomePage />} />

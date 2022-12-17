@@ -1,39 +1,61 @@
-// import React from 'react';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-// import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements';
+const NavBar = () => {
+    return (
+    
+        <>       
+        
+        {/* No user signed in show this
+        
+            <span> <Link to='/' > Home  </Link> </span>
+            <span> <Link to='/staff' > About TPD  </Link> </span>
+            <span> <Link to='/ideas' > Designs  </Link> </span>
+            <span> <Link to='/login' > Login  </Link> </span>
+            <span> <Link to='/register' > SIGN-UP  </Link> </span>
 
-// const NavBar = () => {
-//     return (
 
-//         <>
+            maybe add image to link to login  with some default image ? 
+        
+         */}
 
-//         <Nav>
-//             <NavLink to='/'>
-//                 <h1>Logo</h1>
-//             </NavLink>
-//             <Bars />
-//             <NavMenu>
-//                 <NavLink to='/about' activeStyle>
-//                     About
-//                 </NavLink>
-//                 <NavLink to='/services' activeStyle>
-//                     Services
-//                 </NavLink>
-//                 <NavLink to='/contact-us' activeStyle>
-//                     Contact Us
-//                 </NavLink>
-//                 <NavLink to='/sign-up' activeStyle>
-//                     Sign Up
-//                 </NavLink>
-//             </NavMenu>
-//             <NavBtn>
-//                 <NavBtnLink to='/sign-in'>Sign In</NavBtnLink>
-//             </NavBtn>
-//         </Nav>
 
-//         </>
+        {/* user signed in? 
+        
+        
+            <span> <Link to='/' > Home  </Link> </span>
+            <span> <Link to='/ideas' > Designs  </Link> </span>
+            <span> <Link to='/dashboard' > Profile Page  </Link> </span>
+            <span> <Link to='/login' > Login  </Link> </span>
 
-//      );
-// }
+            Maybe add a drop  down  with links to  profile page and sign out      
+        
+        */}
 
-// export default NavBar;
+
+
+
+        <nav > 
+        
+        <div>
+            <h1> TPD </h1>
+
+            <span> <Link to='/' > Home  </Link> </span>
+            <span> <Link to='/staff' > About TPD  </Link> </span>
+            <span> <Link to='/ideas' > Designs  </Link> </span>
+            <span> <Link to='/dashboard' > Profile Page  </Link> </span>
+            <span> <Link to='/login' > Login  </Link> </span>
+            <span> <Link to='/register' > SIGN-UP  </Link> </span>
+            
+        </div>
+        
+        
+        </nav>
+        
+
+        </>
+       
+     );
+}
+
+export default NavBar;
