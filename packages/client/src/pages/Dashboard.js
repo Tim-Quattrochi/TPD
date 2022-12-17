@@ -26,12 +26,12 @@ return (
         <UserProjects />
     </div>
 
+
     <div id='msgBoard'>  
         <UserMessages />
     </div>
 
     </div>
-
 
 
 
