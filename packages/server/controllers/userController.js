@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
-// const  = require('../utils/');
+const asyncHandler = require('express-async-handler');
 
+//http://localhost:3001/api/v1/users /* Postman request URL for testing */
 exports.getAllUsers = async (req, res, next) => {
   const users = await User.find();
   res.status(200).json({
@@ -12,7 +13,7 @@ exports.getAllUsers = async (req, res, next) => {
   });
 };
 
-exports.getUserById = async (req, res, next) => {
+exports.getUserById = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return next(new Error('No user found with that ID', 404));
@@ -23,7 +24,7 @@ exports.getUserById = async (req, res, next) => {
       user,
     },
   });
-};
+});
 
 exports.createUser = async (req, res, next) => {
   const newUser = await User.create(req.body);

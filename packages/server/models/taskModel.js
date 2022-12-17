@@ -1,29 +1,25 @@
-import mongoose from "mongoose";
-
+import mongoose from 'mongoose';
 
 const taskSchema = new mongoose.Schema({
-
-companyName: {
+  companyName: {
     type: String,
-    required: true 
-},
+    required: true,
+  },
 
-issue: {
+  issue: {
     type: String,
-    required: true 
-},
+    required: true,
+  },
 
-description: {
+  description: {
     type: String,
-    required: true 
-},
+    required: true,
+  },
 
-submitted: {
+  submitted: {
     type: Date,
-    required: date.Now 
-}, 
+    required: Date.Now,
+  },
+});
 
-})
-
-
-const Task = mongoose.model('Task', taskSchema);
+module.exports = mongoose.model('Task', taskSchema);

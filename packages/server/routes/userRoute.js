@@ -24,12 +24,12 @@ router.post('/users/login', userController.login);
 
 // router.use(authController.restrictTo('admin'));
 
-router.route('/users').get(userController.getAllUsers);
+router.route('/').get(userController.getAllUsers);
 // .post(userController.createUser);
 
 //http://localhost:3001/api/v1/users/639aa4f7e45cf994cb11cd23 request URL for POSTMAN. Works but we want
 //to protect this route
-router.route('/users/:id').get(userController.getUserById);
+router.route('/:id').get(userController.getUserById);
 
 //   .patch(userController.updateUser)
 //   .delete(userController.deleteUser);

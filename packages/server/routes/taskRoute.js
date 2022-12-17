@@ -1,20 +1,22 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const taskController = require("../controllers/taskController");
-const authController = require("../controllers/authController");
+const taskController = require('../controllers/taskController');
+// const authController = require('../controllers/authController');
 
-router.use(authController.protect);
-
-router
-	.route("/")
-	.get(taskController.getAllTasks)
-	.post(taskController.createTask);
+// router.use(authController.protect);
 
 router
-	.route("/:id")
-	.get(taskController.getTask)
-	.patch(taskController.updateTask)
-	.delete(taskController.deleteTask);
+  .route('/')
+  .get(taskController.getAllTasks)
+
+  //Request URL for postMan http://localhost:3001/api/v1/tasks
+  .post(taskController.createTask);
+
+router
+  .route('/:id')
+  //   .get(taskController.getTask)
+  .patch(taskController.updateTask)
+  .delete(taskController.deleteTask);
 
 module.exports = router;
 

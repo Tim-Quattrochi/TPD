@@ -4,9 +4,7 @@ import mongoose from 'mongoose';
 import path from 'path';
 import cors from 'cors';
 import colors from 'colors';
-import { signup } from './controllers/userController';
 import { AppError } from './middleware/appError';
-import router from './routes/userRoute';
 
 const DB_URI = process.env.DB_URI;
 const PORT = process.env.PORT;
@@ -34,7 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(AppError);
 
 //routes
-app.use('/api/v1/', router);
+app.use('/api/v1/users', require('./routes/userRoute'));
+app.use('/api/v1/tasks', require('./routes/taskRoute'));
 
 app.listen(PORT, () =>
   console.log(`Server is listening on port ${PORT}`.bgBlue)
