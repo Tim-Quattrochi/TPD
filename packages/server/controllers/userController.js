@@ -1,4 +1,6 @@
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 
 //http://localhost:3001/api/v1/users /* Postman request URL for testing */
@@ -24,6 +26,22 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
       user,
     },
   });
+});
+
+exports.getUser = asyncHandler(async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return next(new Error('No user found with that ID', 404));
+    }
+  } catch (error) {
+    res.status(404).json({
+      status: 'failed',
+    });
+  }
 });
 
 exports.createUser = async (req, res, next) => {
@@ -52,7 +70,7 @@ exports.updateUser = async (req, res, next) => {
   });
 };
 
-exports.deleteUser = async (req, res, next) => {
+exports.deleteUser = asyncHandler(async (req, res, next) => {
   const user = await User.findByIdAndDelete(req.params.id);
   if (!user) {
     return next(new Error('No user found with that ID', 404));
@@ -61,15 +79,9 @@ exports.deleteUser = async (req, res, next) => {
     status: 'success',
     data: null,
   });
-};
+});
 
-// const User = require("../models/userModel");
-// const  = require("../utils/");
-// const Error = require("../utils/Error");
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-
-exports.signup = async (req, res, next) => {
+exports.signup = asyncHandler(async (req, res, next) => {
   const {
     firstName,
     lastName,
@@ -77,6 +89,7 @@ exports.signup = async (req, res, next) => {
     password,
     confirmPassword,
     userName,
+    role,
   } = req.body;
 
   if (!email || !password || !userName) {
@@ -100,6 +113,7 @@ exports.signup = async (req, res, next) => {
     email: email,
     passwordHash: hashedPassword,
     userName: userName,
+    role,
   });
   const token = jwt.sign(
     {
@@ -117,7 +131,7 @@ exports.signup = async (req, res, next) => {
       user: newUser,
     },
   });
-};
+});
 
 exports.login = async (req, res, next) => {
   console.log(req.body);
@@ -148,7 +162,7 @@ exports.login = async (req, res, next) => {
 };
 
 //require authentication
-exports.protect = async (req, res, next) => {
+exports.protect = asyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -184,12 +198,22 @@ exports.protect = async (req, res, next) => {
   // }
   req.user = freshUser;
   next();
-};
+});
+
+//sends the client with the current users data as middleware.
+exports.getMe = asyncHandler(async (req, res) => {
+  const user = {
+    id: req.user.id,
+    email: req.user.email,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    role: req.user.role,
+  };
+  res.status(200).json(user);
+});
 
 exports.restrictTo = (...roles) => {
-  console.log(...roles);
   return (req, res, next) => {
-    console.log(req);
     if (!roles.includes(req.user.role)) {
       return next(
         new Error(
