@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import logo from '../images/temp.jpg'
 
 
 export default function HomePage (props) {
@@ -9,9 +10,10 @@ export default function HomePage (props) {
     
 return (
     <>
-    <div id='container'>  
+    <div>  
      
-        <h1 className='text-red-900' > Logo </h1>  
+        <h1 className='text-red-900 font' > Logo </h1> 
+         
 
         {/* <img src='../images/temp.jpg'/> */}
 
