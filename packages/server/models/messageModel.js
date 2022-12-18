@@ -1,44 +1,43 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+const { ObjectId } = mongoose.Schema.Types;
 
-const messageSchema = new mongoose.Schema({
-
-author: {
-    type: ObjectId,
-    ref: "" 
-},
-
-created: {
-    type: Date,
-    required: date.Now 
-},
-
-text: {
-    type: String,
-    maxlength: 500,
-    required: true 
-},
-
-comments: {
-    text: {
-        type: String,
-        required: true,
-        maxlength: 200 
-    },
-
+const messageSchema = new mongoose.Schema(
+  {
     author: {
-        type: ObjectId,
-        ref: 'User' 
+      type: ObjectId,
+      ref: '',
     },
 
     created: {
-        type: Date,
-        default: Date.now 
+      type: Date,
+      default: date.Now,
     },
-},
 
-}, {timestamps: true} )
+    text: {
+      type: String,
+      maxlength: 500,
+      required: true,
+    },
 
+    comments: {
+      text: {
+        type: String,
+        required: true,
+        maxlength: 200,
+      },
 
+      author: {
+        type: ObjectId,
+        ref: 'User',
+      },
 
+      created: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  },
+  { timestamps: true }
+);
 
 const Message = mongoose.model('Message', messageSchema);
