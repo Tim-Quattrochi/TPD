@@ -1,5 +1,0 @@
-NODE_ENV = development
-DB_URI = mongodb+srv://pdt:pdtcap@cluster0.c0lidur.mongodb.net/?retryWrites=true&w=majority
-PORT = 3001
-JWT_SECRET = test
-JWT_EXPIRES_IN = "5 days"
