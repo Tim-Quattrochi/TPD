@@ -28,6 +28,22 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.getUser = asyncHandler(async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return next(new Error('No user found with that ID', 404));
+    }
+  } catch (error) {
+    res.status(404).json({
+      status: 'failed',
+    });
+  }
+});
+
 exports.createUser = async (req, res, next) => {
   const newUser = await User.create(req.body);
   res.status(201).json({
@@ -73,6 +89,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
     password,
     confirmPassword,
     userName,
+    role,
   } = req.body;
 
   if (!email || !password || !userName) {
@@ -96,6 +113,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
     email: email,
     passwordHash: hashedPassword,
     userName: userName,
+    role,
   });
   const token = jwt.sign(
     {
@@ -191,6 +209,7 @@ exports.getMe = asyncHandler(async (req, res) => {
     lastName: req.user.lastName,
     role: req.user.role,
   };
+  res.status(200).json(user);
 });
 
 exports.restrictTo = (...roles) => {
