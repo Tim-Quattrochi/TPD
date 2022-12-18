@@ -31,10 +31,17 @@ const userSchema = new mongoose.Schema({
   profileImage: {
     type: String,
   },
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
+  posts: {
+    type: ObjectId,
+    ref: 'User',
+  },
+  commissions: {
+    type: ObjectId,
+    ref: 'User',
+  },
+  tickets: {
+    type: ObjectId,
+    ref: 'User',
   },
 });
 
