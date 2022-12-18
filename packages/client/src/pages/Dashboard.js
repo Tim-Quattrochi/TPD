@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 
 
 import UserTickets from '../components/UserTickets'
-import UserMessages from '../components/UserMessages'
+import UserMessages from '../components/MessagerComponents/UserMessages'
 import UserInfo from '../components/UserInfo'
 import UserProjects from '../components/UserProjects'
 
@@ -32,8 +32,5 @@ return (
     </div>
 
     </div>
-
-
-
 
 )}
