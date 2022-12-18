@@ -182,10 +182,19 @@ exports.protect = asyncHandler(async (req, res, next) => {
   next();
 });
 
+//sends the client with the current users data as middleware.
+exports.getMe = asyncHandler(async (req, res) => {
+  const user = {
+    id: req.user.id,
+    email: req.user.email,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    role: req.user.role,
+  };
+});
+
 exports.restrictTo = (...roles) => {
-  console.log(...roles);
   return (req, res, next) => {
-    console.log(req);
     if (!roles.includes(req.user.role)) {
       return next(
         new Error(
