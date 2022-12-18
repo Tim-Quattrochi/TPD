@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-const authController = require('../controllers/authController');
+// const authController = require('../controllers/authController');
 
-router.post('/users/signup', userController.signup);
-router.post('/users/login', userController.login);
+router.post('/signup', userController.signup);
+router.post('/login', userController.login);
 // router.get('/logout', userController.logout);
 
 // router.post('/forgotPassword', authController.forgotPassword);
@@ -24,12 +24,13 @@ router.post('/users/login', userController.login);
 
 // router.use(authController.restrictTo('admin'));
 
-router.route('/users').get(userController.getAllUsers);
+router.route('/').get(userController.getAllUsers);
 // .post(userController.createUser);
 
-// router
-//   .route('/:id')
-//   .get(userController.getUser)
+//localhost:3001/api/v1/users/639aa4f7e45cf994cb11cd23 request URL for POSTMAN. Works but we want
+//to protect this route
+http: router.route('/:id').get(userController.getUserById);
+
 //   .patch(userController.updateUser)
 //   .delete(userController.deleteUser);
 
