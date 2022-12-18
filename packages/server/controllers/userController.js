@@ -52,7 +52,7 @@ exports.updateUser = async (req, res, next) => {
   });
 };
 
-exports.deleteUser = async (req, res, next) => {
+exports.deleteUser = asyncHandler(async (req, res, next) => {
   const user = await User.findByIdAndDelete(req.params.id);
   if (!user) {
     return next(new Error('No user found with that ID', 404));
@@ -61,7 +61,7 @@ exports.deleteUser = async (req, res, next) => {
     status: 'success',
     data: null,
   });
-};
+});
 
 // const User = require("../models/userModel");
 // const  = require("../utils/");
@@ -69,7 +69,7 @@ exports.deleteUser = async (req, res, next) => {
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-exports.signup = async (req, res, next) => {
+exports.signup = asyncHandler(async (req, res, next) => {
   const {
     firstName,
     lastName,
@@ -117,7 +117,7 @@ exports.signup = async (req, res, next) => {
       user: newUser,
     },
   });
-};
+});
 
 exports.login = async (req, res, next) => {
   console.log(req.body);
@@ -148,7 +148,7 @@ exports.login = async (req, res, next) => {
 };
 
 //require authentication
-exports.protect = async (req, res, next) => {
+exports.protect = asyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -184,7 +184,7 @@ exports.protect = async (req, res, next) => {
   // }
   req.user = freshUser;
   next();
-};
+});
 
 exports.restrictTo = (...roles) => {
   console.log(...roles);
