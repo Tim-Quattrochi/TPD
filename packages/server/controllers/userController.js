@@ -1,4 +1,6 @@
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 
 //http://localhost:3001/api/v1/users /* Postman request URL for testing */
@@ -62,12 +64,6 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
     data: null,
   });
 });
-
-// const User = require("../models/userModel");
-// const  = require("../utils/");
-// const Error = require("../utils/Error");
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 
 exports.signup = asyncHandler(async (req, res, next) => {
   const {
