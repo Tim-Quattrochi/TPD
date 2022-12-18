@@ -1,7 +1,6 @@
 const User = require('../models/userModel');
-const asyncHandler = require('express-async-handler');
+// const  = require('../utils/');
 
-//http://localhost:3001/api/v1/users /* Postman request URL for testing */
 exports.getAllUsers = async (req, res, next) => {
   const users = await User.find();
   res.status(200).json({
@@ -13,7 +12,7 @@ exports.getAllUsers = async (req, res, next) => {
   });
 };
 
-exports.getUserById = asyncHandler(async (req, res, next) => {
+exports.getUserById = async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return next(new Error('No user found with that ID', 404));
@@ -24,7 +23,7 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
       user,
     },
   });
-});
+};
 
 exports.createUser = async (req, res, next) => {
   const newUser = await User.create(req.body);
@@ -79,7 +78,7 @@ exports.signup = async (req, res, next) => {
     userName,
   } = req.body;
 
-  if (!email || !password || !userName) {
+  if (!email || !password || !name) {
     return next(new Error('Please enter all the fields.', 400));
   }
 
@@ -120,7 +119,6 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-  console.log(req.body);
   const { email, password } = req.body;
   if (!email || !password) {
     return next(new Error('Please provide email and password', 400));
@@ -128,8 +126,7 @@ exports.login = async (req, res, next) => {
   const user = await User.findOne({
     email,
   }).select('+password');
-  console.log(user);
-  if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     return next(new Error('Incorrect email or password', 401));
   }
   const token = jwt.sign(
@@ -147,7 +144,6 @@ exports.login = async (req, res, next) => {
   });
 };
 
-//require authentication
 exports.protect = async (req, res, next) => {
   let token;
   if (
@@ -174,22 +170,20 @@ exports.protect = async (req, res, next) => {
       )
     );
   }
-  // if (freshUser.changedPasswordAfter(decoded.iat)) {
-  //   return next(
-  //     new Error(
-  //       'User recently changed password! Please log in again.',
-  //       401
-  //     )
-  //   );
-  // }
+  if (freshUser.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new Error(
+        'User recently changed password! Please log in again.',
+        401
+      )
+    );
+  }
   req.user = freshUser;
   next();
 };
 
 exports.restrictTo = (...roles) => {
-  console.log(...roles);
   return (req, res, next) => {
-    console.log(req);
     if (!roles.includes(req.user.role)) {
       return next(
         new Error(
