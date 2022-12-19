@@ -9,7 +9,7 @@ const protectRoute = protect.protect;
 
 router
   .route('/')
-  .get(protect.restrictTo('admin'), taskController.getAllTasks)
+  .get(taskController.getAllTasks)
 
   //Request URL for postMan http://localhost:3001/api/v1/tasks
   .post(protectRoute, taskController.createTask);
