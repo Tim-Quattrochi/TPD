@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 
+
+// @requestUrl: http://localhost:3001/api/v1/auth/login
+//@method: POST
+//@access: PUBLIC
 exports.login = asyncHandler(async (req, res, next) => {
   console.log(req.body);
   const { userName, password } = req.body;
