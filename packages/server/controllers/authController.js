@@ -60,8 +60,6 @@ exports.login = asyncHandler(async (req, res, next) => {
   //create http cookie containing refresh token.
   res.cookie('jwt', refreshToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: 'none',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 

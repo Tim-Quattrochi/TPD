@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 
-//http://localhost:3001/api/v1/users /* Postman request URL for testing */
+//http://localhost:3001/api/v1/users /* Postman request URL for testing */ //protected with bearer
 exports.getAllUsers = async (req, res, next) => {
   const users = await User.find();
   res.status(200).json({
@@ -99,6 +99,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({
     email,
   });
+  console.log(user)
 
   if (user) {
     return next(new Error('User already exists', 422));
@@ -107,6 +108,8 @@ exports.signup = asyncHandler(async (req, res, next) => {
     return next(new Error('Passwords do not match', 422));
   }
   const hashedPassword = await bcrypt.hash(password, 12);
+
+    //the order of these must match the order they come from in the front
   const newUser = await User.create({
     firstName: firstName,
     lastName: lastName,
@@ -115,15 +118,24 @@ exports.signup = asyncHandler(async (req, res, next) => {
     userName: userName,
     role,
   });
+  console.log(newUser)
   const token = jwt.sign(
     {
-      id: newUser._id,
+      "UserInfo": {
+        "id": newUser._id,
+        "role": newUser.role
+      }
     },
     process.env.JWT_SECRET,
     {
       expiresIn: process.env.JWT_EXPIRES_IN,
     }
   );
+
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
   res.status(201).json({
     status: 'success',
     token,
