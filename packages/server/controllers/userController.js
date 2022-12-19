@@ -133,34 +133,6 @@ exports.signup = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.login = async (req, res, next) => {
-  console.log(req.body);
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return next(new Error('Please provide email and password', 400));
-  }
-  const user = await User.findOne({
-    email,
-  }).select('+password');
-  console.log(user);
-  if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
-    return next(new Error('Incorrect email or password', 401));
-  }
-  const token = jwt.sign(
-    {
-      id: user._id,
-    },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    }
-  );
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
-};
-
 //require authentication
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
