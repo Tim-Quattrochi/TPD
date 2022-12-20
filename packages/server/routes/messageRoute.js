@@ -12,7 +12,7 @@ router
     .post(messageController.createMessage);
 
 router
-    .route("/:id")
+    .route("/:id/messages")
 
     .get(messageController.getMessage)
     .patch(messageController.updateMessage)
