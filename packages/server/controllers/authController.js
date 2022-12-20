@@ -32,6 +32,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!passMatch) {
     return res.status(401).json({ message: 'Not authorized' });
   }
+ 
 
   const token = jwt.sign(
     {
@@ -42,6 +43,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     },
 
     process.env.JWT_SECRET,
+  
     {
       expiresIn: process.env.JWT_EXPIRES_IN,
     }
@@ -94,7 +96,7 @@ exports.refresh = (req, res) => {
       if (!user) {
         return res.status(401).json({ message: 'Not authorized.' });
       }
-
+      console.log(process.env.JWT_SECRET)
       const token = jwt.sign(
         {
           "UserInfo": {

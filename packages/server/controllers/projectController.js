@@ -1,5 +1,6 @@
 const Project = require("../models/projectModel");
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require('express-async-handler')
+
 
 exports.getAllProjects = catchAsync(async (req, res, next) => {
 	const projects = await Project.find();

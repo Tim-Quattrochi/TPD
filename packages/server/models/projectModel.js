@@ -31,4 +31,6 @@ deadlines: {
 })
 
 
-const Project = mongoose.model('Project', projectsSchema);
+
+module.exports = mongoose.model('Project', projectsSchema);
+

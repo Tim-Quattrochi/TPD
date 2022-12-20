@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const verifyJWT = (req, res, next) => {
+    req.user
     const authHeader = req.headers.authorization || req.headers.Authorization //check for both capitalization
 
     if(!authHeader?.startsWith('Bearer')){
@@ -16,8 +17,8 @@ const verifyJWT = (req, res, next) => {
             if (err) {
                 return res.status(403).json({message: 'Forbidden'})
             }
-            req.user = decoded.UserInfo.userName,
-            req.role = decoded.UserInfo.role
+            req.user = decoded.userInfo.userName,
+            req.role = decoded.userInfo.role
             next()
         }
     )

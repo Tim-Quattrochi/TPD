@@ -145,44 +145,6 @@ exports.signup = asyncHandler(async (req, res, next) => {
   });
 });
 
-//require authentication
-exports.protect = asyncHandler(async (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    token = req.headers.authorization.split(' ')[1];
-  }
-  if (!token) {
-    return next(
-      new Error(
-        'You are not logged in! Please log in to get access.',
-        401
-      )
-    );
-  }
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const freshUser = await User.findById(decoded.id);
-  if (!freshUser) {
-    return next(
-      new Error(
-        'The user belonging to this token does no longer exist.',
-        401
-      )
-    );
-  }
-  // if (freshUser.changedPasswordAfter(decoded.iat)) {
-  //   return next(
-  //     new Error(
-  //       'User recently changed password! Please log in again.',
-  //       401
-  //     )
-  //   );
-  // }
-  req.user = freshUser;
-  next();
-});
 
 //sends the client with the current users data as middleware.
 exports.getMe = asyncHandler(async (req, res) => {
