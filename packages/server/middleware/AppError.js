@@ -1,10 +1,14 @@
+const {logEvents} = require('./logger')
+
 const AppError = (err, req, res, next) => {
-  const statusCode = res.statusCode ? res.statusCode : 500;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? null : err.stack, //check if in production or development
-  });
+  logEvents(`${err.name}: ${err.message}\t${req.method}\t${req.url}\t${req.headers.origin}`, 'errLog.log')
+  console.log(err.stack)
+
+  const status = res.statusCode ? res.statusCode : 500 //server error
+
+  res.status(status)
+
+  res.json({message: err.message})
 };
 
 module.exports = { AppError };

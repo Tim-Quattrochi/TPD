@@ -21,7 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.12.1",
     "react-icons": "^4.7.1",
-    "react-router-dom": "^6.4.5"
+    "react-router-dom": "^6.4.5",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",

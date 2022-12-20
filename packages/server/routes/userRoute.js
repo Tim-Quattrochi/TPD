@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-// const authController = require('../controllers/authController');
+const verifyJWT = require('../middleware/verifyJWT')
 
+//sign up, no verify JWT needed.
 router.post('/signup', userController.signup);
-router.post('/login', userController.login);
+
+
+
+router.use(verifyJWT)
+//authenticate after this
+
+router.route('/')
+    .get(userController.getAllUsers)
+
+// router.post('/login', authController.login);
 // router.get('/logout', userController.logout);
 
 // router.post('/forgotPassword', authController.forgotPassword);

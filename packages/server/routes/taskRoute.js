@@ -4,15 +4,18 @@ const taskController = require('../controllers/taskController');
 const protect = require('../controllers/userController');
 const restrict = require('../controllers/userController');
 const protectRoute = protect.protect;
+const verifyJWT = require('../middleware/verifyJWT')
 
 // router.use(authController.protect);
 
+router.use(verifyJWT)
+
 router
   .route('/')
-  .get(protect.restrictTo('admin'), taskController.getAllTasks)
+  .get(taskController.getAllTasks)
 
   //Request URL for postMan http://localhost:3001/api/v1/tasks
-  .post(protectRoute, taskController.createTask);
+  .post(taskController.createTask);
 
 router
   .route('/:id')
