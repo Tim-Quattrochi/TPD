@@ -13,8 +13,11 @@ import TemplatesPage from './pages/TemplatesPage';
 import LoginPage from './pages/LoginPage';
 
 function App() {
+
+  
   return (
     <Router>
+
       <NavBarComp />
 
       <Routes>
@@ -27,23 +30,11 @@ function App() {
       </Routes>
 
       <Footer />
+
     </Router>
   );
 }
 
 export default App;
 
-/*    <div className="App mt-20">
 
-      <div>
-
-        <h1 className="text-4xl font-bold">  TPD DEVELOPERS  </h1>
-
-        <HomePage />
-
-      </div>
-
-    </div>
-    
-    
-*/
