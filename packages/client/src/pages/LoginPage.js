@@ -20,7 +20,7 @@ export default function LoginPage (props) {
     }, [])
 
     useEffect(() => {
-        setErrMsg('');
+        setErrMessage('');
     }, [userName, password])
 
 
@@ -41,24 +41,24 @@ export default function LoginPage (props) {
             const accessToken = response?.data?.accessToken
             // const roles = response?.data?.roles
             //Authcontroller in  controllers  to define roles minute 28:00
-            setAuth({ user, password, accessToken }) // wemay not have roles implemeneted yet and it ay  throw errors
+            setAuth({ userName, password, accessToken }) // wemay not have roles implemeneted yet and it ay  throw errors
 
-            setUser('')
+            setUserName('')
             setPassword('')
             setSuccess(true)
 
         } catch (err) {
             if( !err?.rsponse) {
-                setErrMsg('No Server Response')
+                setErrMessage('No Server Response')
 
             } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password')
+                setErrMessage('Missing Username or Password')
 
             } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized')
+                setErrMessage('Unauthorized')
 
             } else {
-                setErrMsg('Login Failed')
+                setErrMessage('Login Failed')
 
             }
             errRef.current.focus() // this is use with aria for onscreen  reading
@@ -83,7 +83,7 @@ return (
                     id='username'
                     placeholder='Username...'
                     ref={userRef}
-                    value={user}
+                    value={userName}
                     required
                     autoComplete="off"
                     onChange={(e) => setUserName(e.target.value)}
@@ -95,7 +95,7 @@ return (
                     name="password" 
                     id='password'
                     onChange={(e) => setPassword(e.target.value)}
-                    value={pwd}
+                    value={password}
                     required
                     className=' bg-slate-200 w-6/12 mb-3' /> 
 
