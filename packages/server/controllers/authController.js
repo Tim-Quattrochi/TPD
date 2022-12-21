@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 
-
 // @requestUrl: http://localhost:3001/api/v1/auth/login
 //@method: POST
 //@access: PUBLIC
@@ -32,7 +31,6 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!passMatch) {
     return res.status(401).json({ message: 'Not authorized' });
   }
- 
 
   const token = jwt.sign(
     {
@@ -43,16 +41,16 @@ exports.login = asyncHandler(async (req, res, next) => {
     },
 
     process.env.JWT_SECRET,
-  
+
     {
       expiresIn: process.env.JWT_EXPIRES_IN,
     }
   );
   const refreshToken = jwt.sign(
     {
-      "userName": user.userName,
+      userName: user.userName,
     },
-    
+
     process.env.REFRESH_TOKEN_SECRET,
     {
       expiresIn: process.env.REFRESH_EXPIRES_IN,
@@ -69,8 +67,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   res.json({ token });
 });
 
-
-
+//Postman request url for test. GET. http://localhost:3001/api/v1/auth/refresh
 //refresh token when it has expired.
 exports.refresh = (req, res) => {
   const cookies = req.cookies;
@@ -96,12 +93,12 @@ exports.refresh = (req, res) => {
       if (!user) {
         return res.status(401).json({ message: 'Not authorized.' });
       }
-      console.log(process.env.JWT_SECRET)
+      console.log(process.env.JWT_SECRET);
       const token = jwt.sign(
         {
-          "UserInfo": {
-            "userName": user.userName,
-            "role": user.role,
+          UserInfo: {
+            userName: user.userName,
+            role: user.role,
           },
         },
         process.env.JWT_SECRET,
@@ -114,12 +111,16 @@ exports.refresh = (req, res) => {
 
 //clear cookies if they exist.
 exports.logout = (req, res) => {
-    const cookies = req.cookies
+  const cookies = req.cookies;
 
-    if(!cookies?.jwt){
-        return res.sendStatus(204) //no content
-    }
+  if (!cookies?.jwt) {
+    return res.sendStatus(204); //no content
+  }
 
-    res.clearCookie('jwt', {httpOnly:true, sameSite: 'none', secure: true})
-    res.json({message: 'Cookie cleared.'})
-}
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  });
+  res.json({ message: 'Cookie cleared.' });
+};
