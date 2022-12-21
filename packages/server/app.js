@@ -8,6 +8,11 @@ import { AppError } from './middleware/appError';
 import cookieParser from 'cookie-parser';
 import { logger } from './middleware/logger';
 import corsOptions from './config/corsOpt';
+import credentials from './middleware/credentials';
+// const express = require('express')
+// const cors = require('cors')
+
+
 
 const DB_URI = process.env.DB_URI;
 const PORT = process.env.PORT || 3001;
@@ -31,6 +36,7 @@ const app = express();
 
 
 app.use(logger);
+app.use(credentials);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
