@@ -1,13 +1,14 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
-
+import axios from 'axios';
 import axios from '../hooks/axios';
+
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const regURL = '/signup'
 
 export default function RegistrationPage (props) {
     const userRef = useRef()
@@ -33,7 +34,6 @@ export default function RegistrationPage (props) {
     const [success, setSuccess] = useState(false)
 
 
-
     useEffect( () => {
         userRef.current.focus()
     }, [])
@@ -45,16 +45,9 @@ export default function RegistrationPage (props) {
 
 
     useEffect( () => {
-        setValidPassword(PASSWORD_REGEX.test(password))
-
-        console.log(`${confirmPassword}: before compare`)
-        console.log(password)
-        console.log(password === confirmPassword ? true : false)
-        
-
+        setValidPassword(PASSWORD_REGEX.test(password))  
 
         password === confirmPassword ? setValidMatch(true) : setValidMatch(false)
-        console.log(`${confirmPassword}: after compare`)
 
     }, [password, confirmPassword])
 
@@ -72,7 +65,7 @@ export default function RegistrationPage (props) {
             return
         }
         try {
-            const response = await axios.post('/signup',
+            const response = await axios.post(regURL,
                 JSON.stringify({ firstName, lastName, email, password, userName }),
                 {
                     headers: { 'Content-Type': 'application/json' },
