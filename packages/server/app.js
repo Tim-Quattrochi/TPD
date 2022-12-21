@@ -27,8 +27,9 @@ mongoose
 const app = express();
 
 //middleware here
-app.use(logger);
 app.use(cors());
+
+app.use(logger);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
