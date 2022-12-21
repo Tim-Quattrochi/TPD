@@ -7,6 +7,7 @@ import colors from 'colors';
 import { AppError } from './middleware/appError';
 import cookieParser from 'cookie-parser';
 import { logger } from './middleware/logger';
+import corsOptions from './config/corsOpt';
 
 const DB_URI = process.env.DB_URI;
 const PORT = process.env.PORT || 3001;
@@ -27,9 +28,10 @@ mongoose
 const app = express();
 
 //middleware here
-app.use(cors());
+
 
 app.use(logger);
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
