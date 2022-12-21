@@ -12,6 +12,8 @@ import RegistrationPage from './pages/RegistrationPage';
 import TemplatesPage from './pages/TemplatesPage';
 import LoginPage from './pages/LoginPage';
 
+
+
 function App() {
 
   
