@@ -13,7 +13,6 @@ import axios from 'axios';
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const regURL = 'users/signup';
 
 export default function RegistrationPage(props) {
   const userRef = useRef();
@@ -31,8 +30,8 @@ export default function RegistrationPage(props) {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [confirmPassword, setconfirmPassword] = useState('');
-  const [validMatch, setValidMatch] = useState(false);
+  const [matchPassword, setMatchPassword] = useState('');
+  const [validMatch, setValidMatvalidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState('');
@@ -43,8 +42,13 @@ export default function RegistrationPage(props) {
   }, []);
 
   useEffect(() => {
-    const result = USER_REGEX.test(userName);
+    userRef.current.focus();
+  }, []);
 
+  useEffect(() => {
+    const result = USER_REGEX.test(userName);
+    console.log(result);
+    console.log(userName);
     setValidName(result);
   }, [userName]); //do we want the result on  cnsole?
 
@@ -54,20 +58,13 @@ export default function RegistrationPage(props) {
     console.log(password);
     setValidName(result);
 
-    const match = password === confirmPassword;
-    setconfirmPassword(match);
-  }, [password, confirmPassword]);
+    const match = password === matchPassword;
+    setMatchPassword(match);
+  }, [password, matchPassword]);
 
   useEffect(() => {
     setErrMsg('');
-  }, [
-    userName,
-    password,
-    confirmPassword,
-    email,
-    firstName,
-    lastName,
-  ]);
+  }, [userName, password, matchPassword, email, firstName, lastName]);
 
   const handleRegistration = async (e) => {
     e.preventDefault();
@@ -80,21 +77,20 @@ export default function RegistrationPage(props) {
     }
     try {
       const response = await axios.post(
-        regURL,
+        '/users/signup',
         JSON.stringify({
+          userName,
+          password,
+          email,
           firstName,
           lastName,
-          email,
-          password,
-          confirmPassword,
-          userName,
         }),
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true,
         }
       );
-      console.log(response);
+
       console.log(response?.data);
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
@@ -103,7 +99,7 @@ export default function RegistrationPage(props) {
       //need value attrib on inputs for this
       setUserName('');
       setPassword('');
-      setconfirmPassword('');
+      setMatchPassword('');
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');
@@ -272,24 +268,24 @@ export default function RegistrationPage(props) {
               <FontAwesomeIcon
                 icon={faCheck}
                 className={
-                  validMatch && confirmPassword ? 'valid' : 'hide'
+                  validMatch && matchPassword ? 'valid' : 'hide'
                 }
               />
               <FontAwesomeIcon
                 icon={faTimes}
                 className={
-                  validMatch || !confirmPassword ? 'hide' : 'invalid'
+                  validMatch || !matchPassword ? 'hide' : 'invalid'
                 }
               />
             </label>
 
             <input
-              onChange={(e) => setconfirmPassword(e.target.value)}
+              onChange={(e) => setMatchPassword(e.target.value)}
               type="password"
               name="confirmPassword"
               id="confirm_password"
               placeholder="Confirm Password..."
-              // value={confirmPassword}
+              // value={matchPassword}
               required
               aria-invalid={validMatch ? 'false' : 'true'}
               aria-describedby="confirmnote"
@@ -307,8 +303,14 @@ export default function RegistrationPage(props) {
             </p>
           </div>
 
-          <button className=" bg-red-800 w-2/12 text-gray-200 self-center p-2">
-            {/* // disabled={!validName || !validPassword || !validMatch ? true : false} >  */}
+          <button
+            className=" bg-red-800 w-2/12 text-gray-200 self-center p-2"
+            disabled={
+              !validName || !validPassword || !validMatch
+                ? true
+                : false
+            }
+          >
             Register
           </button>
 
