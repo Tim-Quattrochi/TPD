@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect, useContext, useRef } from 'react'
+import { useState, useEffect, useContext, useRef, Link } from 'react'
 
 import AuthContext from '../hooks/useAuth'
 import axios from '../hooks/axios'
@@ -29,7 +29,7 @@ export default function LoginPage (props) {
         e.preventDefault() 
 
         try {
-            const response = await axios.post('/users/login', 
+            const response = await axios.post('/auth/login', 
                     JSON.stringify(userName, password), 
                 {
                     headers: { 'Content-Type' : 'application /json'},
@@ -70,50 +70,65 @@ export default function LoginPage (props) {
 
 return (
 
-    <div className='flex flex-col items-center text-center p-20 bg-cyan-900'>   
-        <div  className='bg-white w-fit pl-8 pr-8 pb-5 pt-5'>
-     
-            <h2 className=' text-red-900 font-bold mb-3' > 
-                Sign in Here 
-            </h2>
+    <>
+          { success ? (
+                  <div className='flex flex-col items-center text-center p-20 bg-cyan-900' >   
+                  <div  className='bg-white w-fit pl-8 pr-8 pb-5 pt-5'>
+                     <h1 className=' text-red-900 font-bold text-5xl shadow-sm mb-3 border-solid border-2 border-b-red-900 border-t-0 border-l-0 border-r-0'>
+                        You are Logged in!
+                     </h1>
+                  
+                        <Link to={'/dashboard'} > Go to My Dashboard </Link>
+              
+                  </div>
+                  </div>
+                ) : (
+
+            <div className='flex flex-col items-center text-center p-20 bg-cyan-900'>   
+                <div  className='bg-white w-fit pl-8 pr-8 pb-5 pt-5'>
             
-            <form onSubmit={handleSignIn} className >
-                <label htmlFor='username' className='flex flex-col items-center' > </label>
-                <input  type="text" 
-                        name="userame"
-                        id='username'
-                        placeholder='Username...'
-                        ref={userRef}
-                        value={userName}
-                        required
-                        autoComplete="off"
-                        onChange={(e) => setUserName(e.target.value)}
-                        className=' bg-slate-200 w-8/12 mb-4' /> 
+                    <h2 className=' text-red-900 font-bold mb-3' > 
+                        Sign in Here 
+                    </h2>
+                    
+                    <form onSubmit={handleSignIn} className >
+                        <label htmlFor='username' className='flex flex-col items-center' > </label>
+                        <input  type="text" 
+                                name="userame"
+                                id='username'
+                                placeholder='Username...'
+                                ref={userRef}
+                                value={userName}
+                                required
+                                autoComplete="off"
+                                onChange={(e) => setUserName(e.target.value)}
+                                className=' bg-slate-200 w-8/12 mb-4' /> 
 
 
-                <label htmlFor='password' className='flex flex-col items-center' > </label>
-                <input  type="password" 
-                        name="password" 
-                        id='password'
-                        value={password}
-                        required
-                        placeholder='Password...'
-                        onChange={(e) => setPassword(e.target.value)}
-                        className=' bg-slate-200 w-8/12 mb-4' /> <br/>
+                        <label htmlFor='password' className='flex flex-col items-center' > </label>
+                        <input  type="password" 
+                                name="password" 
+                                id='password'
+                                value={password}
+                                required
+                                placeholder='Password...'
+                                onChange={(e) => setPassword(e.target.value)}
+                                className=' bg-slate-200 w-8/12 mb-4' /> <br/>
 
-                <button className=' bg-red-800 w-6/12 text-white self-center' > 
-                    Sign-in
-                </button>
-            </form>
+                        <button className=' bg-red-800 w-6/12 text-white self-center' > 
+                            Sign-in
+                        </button>
+                    </form>
 
-            <p  ref={errRef} 
-                className={`${errMessage ? "visible" : "invisible"} `} 
-                aria-live="assertive" >
-                    {errMessage}
-            </p>
-        </div>
-    </div>
-
+                    <p  ref={errRef} 
+                        className={`${errMessage ? "visible" : "invisible"} `} 
+                        aria-live="assertive" >
+                            {errMessage}
+                    </p>
+                </div>
+            </div>
+        )}
+    </>
 
 )}
 

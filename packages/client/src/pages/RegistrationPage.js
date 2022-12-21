@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import axios from '../hooks/axios';
+import { Link } from 'react-router-dom';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PASSWORD_REGEX =
@@ -104,6 +105,16 @@ export default function RegistrationPage(props) {
 
   return (
     <>
+      { success ? (
+                  <div className='flex flex-col items-center text-center p-20 bg-cyan-900' >   
+                  <div  className='bg-white w-fit pl-8 pr-8 pb-5 pt-5'>
+                     <h1 className=' text-red-900 font-bold text-5xl shadow-sm mb-3 border-solid border-2 border-b-red-900 border-t-0 border-l-0 border-r-0'>Success!</h1>
+                  
+                        <Link to={'/login'} > Sign In</Link>
+              
+                  </div>
+                  </div>
+                ) : ( 
         <div className='flex flex-col items-center text-center p-20 bg-cyan-900' >   
         <div  className='bg-white w-fit pl-8 pr-8 pb-5 pt-5'>
             <h2 className=' text-red-900 font-bold shadow-sm' > Begin your companies online expansion! </h2>
@@ -253,6 +264,7 @@ export default function RegistrationPage(props) {
             </form>
         </div>
         </div>
+        )}
     </>
 )
 }
