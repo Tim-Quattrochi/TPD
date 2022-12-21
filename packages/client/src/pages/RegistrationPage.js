@@ -67,11 +67,13 @@ export default function RegistrationPage(props) {
       const response = await axios.post(
         '/users/signup',
         JSON.stringify({
-          userName,
-          password,
-          email,
           firstName,
           lastName,
+          email,
+          password,
+          confirmPassword,
+          userName,
+          // role,
         }),
         {
           headers: { 'Content-Type': 'application/json' },

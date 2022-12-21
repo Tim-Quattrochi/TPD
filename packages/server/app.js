@@ -9,9 +9,6 @@ import cookieParser from 'cookie-parser';
 import { logger } from './middleware/logger';
 import corsOptions from './config/corsOpt';
 import credentials from './middleware/credentials';
-// const express = require('express')
-// const cors = require('cors')
-
 
 
 const DB_URI = process.env.DB_URI;
@@ -33,7 +30,6 @@ mongoose
 const app = express();
 
 //middleware here
-
 
 app.use(logger);
 app.use(credentials);
