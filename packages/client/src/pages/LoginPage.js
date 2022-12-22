@@ -39,10 +39,10 @@ export default function LoginPage(props) {
       );
       console.log(JSON.stringify(response?.data));
 
-      const accessToken = response?.data?.accessToken;
+      const token = response?.data?.token; // token is the same as accessToken.
       // const roles = response?.data?.roles
       //Authcontroller in  controllers  to define roles minute 28:00
-      setAuth({ userName, password, accessToken }); // wemay not have roles implemeneted yet and it ay  throw errors
+      setAuth({ userName, password, token }); // wemay not have roles implemeneted yet and it ay  throw errors
 
       setUserName('');
       setPassword('');
