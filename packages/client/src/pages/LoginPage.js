@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useEffect, useContext, useRef, Link } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import AuthContext from '../hooks/useAuth';
 import axios from '../hooks/axios';
@@ -22,7 +22,7 @@ export default function LoginPage(props) {
   useEffect(() => {
     setErrMessage('');
   }, [userName, password]);
-
+  console.log(userName, password);
   //handle submit from  Dave Gray  Tutorial
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -31,8 +31,9 @@ export default function LoginPage(props) {
       const response = await axios.post(
         '/auth/login',
         JSON.stringify(userName, password),
+
         {
-          headers: { 'Content-Type': 'application /json' },
+          headers: { 'Content-Type': 'application/json' },
           withCredentials: true,
         }
       );

@@ -6,9 +6,10 @@ const asyncHandler = require('express-async-handler');
 // @requestUrl: http://localhost:3001/api/v1/auth/login
 //@method: POST
 //@access: PUBLIC
-exports.login = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
+exports.login = async (req, res, next) => {
+  console.log(req);
   const { userName, password } = req.body;
+  console.log(req.body);
 
   if (!userName || !password) {
     return res
@@ -20,7 +21,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     userName,
   }).exec();
 
-  console.log(user);
+  // console.log(user);
 
   if (!user) {
     return res.status(401).json({ message: 'not authorized.' });
@@ -65,7 +66,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   //Send token containing userName and role
   res.json({ token });
-});
+};
 
 //Postman request url for test. GET. http://localhost:3001/api/v1/auth/refresh
 //refresh token when it has expired.
