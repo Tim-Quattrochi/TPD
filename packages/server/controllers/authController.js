@@ -7,7 +7,6 @@ const asyncHandler = require('express-async-handler');
 //@method: POST
 //@access: PUBLIC
 exports.login = async (req, res, next) => {
-  console.log(req);
   const { userName, password } = req.body;
   console.log(req.body);
 
