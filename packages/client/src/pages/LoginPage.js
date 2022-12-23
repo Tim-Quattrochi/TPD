@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import AuthContext from '../hooks/useAuth';
+import AuthContext from '../hooks/AuthProvider';
 import axios from '../hooks/axios';
 
 export default function LoginPage(props) {
