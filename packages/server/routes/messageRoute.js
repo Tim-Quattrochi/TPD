@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const messageController = require("../controllers/messageController");
-const authController = require("../controllers/authController");
-const userController = require("../controllers/userController");
+const verifyJWT = require("../middleware/verifyJWT");
 
-router.use(authController.protect);
+router.use(verifyJWT);
 
 router
     .route("/")

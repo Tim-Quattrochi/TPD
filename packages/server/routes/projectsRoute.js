@@ -8,7 +8,7 @@ const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
 
 
-
+//verifyJWT is used to protect routes from not authenticated users
 router.use(verifyJWT)
 //postman request url http://localhost:3001/api/v1/project
 router

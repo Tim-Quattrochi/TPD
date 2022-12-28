@@ -11,6 +11,8 @@ import StaffPage from './pages/StaffPage';
 import RegistrationPage from './pages/RegistrationPage';
 import TemplatesPage from './pages/TemplatesPage';
 import LoginPage from './pages/LoginPage';
+import Users from './components/Users';
+import AllTasks from './pages/AllTasks';
 
 
 
@@ -29,6 +31,11 @@ function App() {
         <Route path="/ideas" element={<TemplatesPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/tasks" element={<AllTasks />} />
+
+
+
       </Routes>
 
       <Footer />
