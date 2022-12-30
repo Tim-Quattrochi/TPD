@@ -2,26 +2,22 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-} from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import Dashboard from './pages/Dashboard';
-import Footer from './components/Footer';
-import NavBarComp from './components/NavBar';
-import StaffPage from './pages/StaffPage';
-import RegistrationPage from './pages/RegistrationPage';
-import TemplatesPage from './pages/TemplatesPage';
-import LoginPage from './pages/LoginPage';
-import Users from './components/Users';
-import AllTasks from './pages/AllTasks';
-
-
+} from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import Dashboard from "./pages/Dashboard";
+import Footer from "./components/Footer";
+import NavBarComp from "./components/NavBar";
+import StaffPage from "./pages/StaffPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import TemplatesPage from "./pages/TemplatesPage";
+import LoginPage from "./pages/LoginPage";
+import Users from "./components/Users";
+import AllTasks from "./pages/AllTasks";
+import Projects from "./pages/Projects";
 
 function App() {
-
-  
   return (
     <Router>
-
       <NavBarComp />
 
       <Routes>
@@ -32,18 +28,14 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/projects" element={<Projects />} />
+
         <Route path="/tasks" element={<AllTasks />} />
-
-
-
       </Routes>
 
       <Footer />
-
     </Router>
   );
 }
 
 export default App;
-
-

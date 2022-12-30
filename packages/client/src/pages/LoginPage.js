@@ -1,15 +1,10 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import {
-  Link,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
-import AuthContext from "../hooks/AuthProvider";
-import axios from "../hooks/axios";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import AuthContext from "../hooks/useAuthProvider";
+import axios from "../hooks/useAxios";
 
 export default function LoginPage(props) {
-  const { setAuth, auth } = useContext(AuthContext);
+  const { setAuth, auth, setIsLoggedIn } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
   const location = useLocation();
@@ -17,8 +12,8 @@ export default function LoginPage(props) {
 
   //if the users token expires, they will be redirected to
   //the log in page, after log in, they will be directed
-  //back to the page they were viewing.
-  const from = location.state?.from?.pathname || "/";
+  //back to the page they were viewing, if not then take to dashboard.
+  const from = location.state?.from?.pathname || "/dashboard";
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -54,8 +49,10 @@ export default function LoginPage(props) {
 
       const token = response?.data?.token;
       // token is the same as accessToken.
+      let userInfo = response.data.userInfo;
 
-      setAuth({ token }); //for AuthProvider, sends firstName, lastName, email, userName, access token
+      setAuth({ token, userInfo }); //for AuthProvider, sends  access token
+      setIsLoggedIn(true);
 
       setUserName("");
       setPassword("");

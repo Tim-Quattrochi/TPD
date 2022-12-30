@@ -21,23 +21,24 @@ exports.login = asyncHandler(async (req, res, next) => {
     userName: userName,
   }).exec();
 
-  
-  const {firstName, lastName,email} = user //information to send back to the client
+  const { firstName, lastName, email } = user; //information to send back to the client
   const userInfo = {
     firstName,
     lastName,
     userName,
-    email
-  }
+    email,
+  };
 
   if (!user) {
-    return res.status(401).json({ message: "not authorized." });
+    return res
+      .status(401)
+      .json({ message: "not authorized. Check credentials." });
   }
 
   const passMatch = await bcrypt.compare(password, user.passwordHash);
 
   if (passMatch) {
-    //this is the access token 
+    //this is the access token
     const token = jwt.sign(
       {
         UserInfo: {
@@ -76,7 +77,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     });
 
     //Send access token containing userName and role
-    return res.json({ token, userInfo});
+    return res.json({ token, userInfo });
   } else {
     res.sendStatus(401);
   }
@@ -86,7 +87,6 @@ exports.login = asyncHandler(async (req, res, next) => {
 //refresh token when it has expired.
 exports.refresh = asyncHandler(async (req, res) => {
   const cookies = req.cookies;
-
 
   if (!cookies?.jwt) {
     return res.status(401).json({ message: "Not authorized." });
@@ -112,9 +112,9 @@ exports.refresh = asyncHandler(async (req, res) => {
 
       const token = jwt.sign(
         {
-          "UserInfo": {
-           "userName": user.userName,
-            "role": user.role,
+          UserInfo: {
+            userName: user.userName,
+            role: user.role,
           },
         },
         process.env.JWT_SECRET,
@@ -125,7 +125,6 @@ exports.refresh = asyncHandler(async (req, res) => {
     })
   );
 });
-
 
 // https://expressjs.com/en/api.html#res.clearCookie
 //clear cookies if they exist.

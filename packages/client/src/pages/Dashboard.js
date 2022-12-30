@@ -1,36 +1,34 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React from "react";
+import { useAuth } from "../hooks/useAuth";
+import { useState, useEffect } from "react";
 
+import UserTickets from "../components/UserTickets";
+import UserMessages from "../components/MessagerComponents/UserMessages";
+import UserInfo from "../components/UserInfo";
+import UserProjects from "../components/UserProjects";
 
-import UserTickets from '../components/UserTickets'
-import UserMessages from '../components/MessagerComponents/UserMessages'
-import UserInfo from '../components/UserInfo'
-import UserProjects from '../components/UserProjects'
+export default function Dashboard(props) {
+  const { auth, isLoggedIn } = useAuth();
 
+  console.log(isLoggedIn);
 
-export default function Dashboard (props) {
-
-    
-return (
-
-    <div>   
-    <div id='userInfoDropDown'>
+  return (
+    <div>
+      <div id="userInfoDropDown">
         <UserInfo />
-    </div>
-    
-    <div id='userTickets'> 
+      </div>
+
+      <div id="userTickets">
         <UserTickets />
-    </div>
+      </div>
 
-    <div id='userProjects'> 
+      <div id="userProjects">
         <UserProjects />
-    </div>
+      </div>
 
-
-    <div id='msgBoard'>  
+      <div id="msgBoard">
         <UserMessages />
+      </div>
     </div>
-
-    </div>
-
-)}
+  );
+}
