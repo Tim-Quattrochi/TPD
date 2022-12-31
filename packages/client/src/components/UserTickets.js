@@ -28,18 +28,37 @@ const UserTickets = () => {
 	const handleFormSubmit = (event) => {
 		event.preventDefault();
 
-		setTickets([...tickets, newTicket]);
-		setNewTicket({
-			title: "",
-			description: "",
-			status: "open",
-		});
+		if (newTicket.id) {
+			const updatedTickets = [...tickets];
+			const index = updatedTickets.findIndex(
+				(ticket) => ticket.id === newTicket.id,
+			);
+			updatedTickets[index] = newTicket;
+			setTickets(updatedTickets);
+		} else {
+			setTickets([...tickets, newTicket]);
+		}
+
+		setNewTicket({ title: "", description: "", status: "open" });
+	};
+
+	const handleEditTicket = (index) => {
+		setNewTicket(tickets[index]);
+	};
+
+	const handleDeleteTicket = (index) => {
+		const updatedTickets = [...tickets];
+		updatedTickets.splice(index, 1);
+		setTickets(updatedTickets);
 	};
 
 	return (
-		<div>
+		<div className="bg-#0c2642 flex flex-col">
 			<h1>Ticket Tracker</h1>
-			<form onSubmit={handleFormSubmit}>
+			<form
+				className="bg-#003f5c text-#ffa600 mx-auto w-400"
+				onSubmit={handleFormSubmit}
+			>
 				<label htmlFor="title">Title:</label>
 				<input
 					type="text"
@@ -57,14 +76,22 @@ const UserTickets = () => {
 				<br />
 				<button type="submit">Submit</button>
 			</form>
-			<hr />
+			<hr className="bg-#931a51 mx-auto w-400" />
 			<h2>Tickets:</h2>
 			{tickets.map((ticket, index) => (
-				<div key={index}>
-					<h3>{ticket.title}</h3>
+				<div key={index} className="bg-#003f5c text-#ffa600 mx-auto w-400">
+					<p>
+						<h3>{ticket.title}</h3>
+					</p>
 					<p>{ticket.description}</p>
 					<p>Status: {ticket.status}</p>
 					<p>ID: {ticket.id}</p>
+					<button type="button" onClick={() => handleEditTicket(index)}>
+						Edit
+					</button>
+					<button type="button" onClick={() => handleDeleteTicket(index)}>
+						Delete
+					</button>
 				</div>
 			))}
 		</div>
