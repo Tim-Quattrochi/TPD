@@ -1,11 +1,11 @@
-const Project = require('../models/projectModel');
+const Project = require("../models/projectModel");
 
-const catchAsync = require('express-async-handler');
+const catchAsync = require("express-async-handler");
 
 exports.getAllProjects = catchAsync(async (req, res, next) => {
   const projects = await Project.find();
   res.status(200).json({
-    status: 'success',
+    status: "success",
     results: projects.length,
     data: {
       projects,
@@ -16,10 +16,10 @@ exports.getAllProjects = catchAsync(async (req, res, next) => {
 exports.getProjectById = catchAsync(async (req, res, next) => {
   const project = await Project.findById(req.params.id);
   if (!project) {
-    return next(new AppError('No project found with that ID', 404));
+    return next(new AppError("No project found with that ID", 404));
   }
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: {
       project,
     },
@@ -27,10 +27,27 @@ exports.getProjectById = catchAsync(async (req, res, next) => {
 });
 
 exports.createProject = catchAsync(async (req, res, next) => {
+  const {
+    companyName,
+    companyEmail,
+    projectDetails,
+    missionStatement,
+    deadlines,
+  } = req.body;
+
+  if (
+    !companyName ||
+    !companyEmail ||
+    !projectDetails ||
+    !missionStatement ||
+    !deadlines
+  ) {
+    res.status(400);
+    throw new Error("Please fill out all the required fields.");
+  }
   const newProject = await Project.create(req.body);
-  console.log(req.body);
   res.status(201).json({
-    status: 'success',
+    status: "success",
     data: {
       project: newProject,
     },
@@ -47,10 +64,10 @@ exports.updateProject = catchAsync(async (req, res, next) => {
     }
   );
   if (!project) {
-    return next(new AppError('No project found with that ID', 404));
+    return next(new AppError("No project found with that ID", 404));
   }
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: {
       project,
     },
@@ -60,10 +77,10 @@ exports.updateProject = catchAsync(async (req, res, next) => {
 exports.deleteProject = catchAsync(async (req, res, next) => {
   const project = await Project.findByIdAndDelete(req.params.id);
   if (!project) {
-    return next(new AppError('No project found with that ID', 404));
+    return next(new AppError("No project found with that ID", 404));
   }
   res.status(204).json({
-    status: 'success',
+    status: "success",
     data: null,
   });
 });
