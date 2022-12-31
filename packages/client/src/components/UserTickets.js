@@ -53,43 +53,102 @@ const UserTickets = () => {
 	};
 
 	return (
-		<div className="bg-#0c2642 flex flex-col">
-			<h1>Ticket Tracker</h1>
+		<div className="bg-blue-800 flex flex-col p-6">
+			<h1 className="text-white text-3xl font-bold mb-4">Ticket Tracker</h1>
 			<form
-				className="bg-#003f5c text-#ffa600 mx-auto w-400"
+				className="bg-blue-600 text-yellow-400 rounded-lg p-4"
 				onSubmit={handleFormSubmit}
 			>
-				<label htmlFor="title">Title:</label>
+				<label htmlFor="title" className="block text-white font-bold mb-2">
+					Title:
+				</label>
 				<input
 					type="text"
 					name="title"
 					value={newTicket.title}
 					onChange={handleInputChange}
+					className="block w-full p-2 rounded-lg text-white bg-blue-700"
 				/>
 				<br />
-				<label htmlFor="description">Description:</label>
+				<label
+					htmlFor="description"
+					className="block text-white font-bold mb-2"
+				>
+					Description:
+				</label>
 				<textarea
 					name="description"
 					value={newTicket.description}
 					onChange={handleInputChange}
+					className="block w-full p-2 rounded-lg text-white bg-blue-700"
 				/>
 				<br />
-				<button type="submit">Submit</button>
+				<label htmlFor="status" className="block text-white font-bold mb-2">
+					Status:
+				</label>
+				<select
+					name="status"
+					value={newTicket.status}
+					onChange={handleInputChange}
+					className="block w-full p-2 rounded-lg text-white bg-blue-700"
+				>
+					<option value="open">Open</option>
+					<option value="in-progress">In Progress</option>
+					<option value="closed">Closed</option>
+				</select>
+				<br />
+				<label htmlFor="priority" className="block text-white font-bold mb-2">
+					Priority:
+				</label>
+				<select
+					name="priority"
+					value={newTicket.priority}
+					onChange={handleInputChange}
+					className="block w-full p-2 rounded-lg text-white bg-blue-700"
+				>
+					<option value="emergency" className="text-red-600">
+						Emergency
+					</option>
+					<option value="top-priority" className="text-orange-600">
+						Top Priority
+					</option>
+					<option value="request" className="text-yellow-600">
+						Request
+					</option>
+				</select>
+				<br />
+				<button
+					type="submit"
+					className="bg-yellow-600 rounded-lg p-2 text-white font-bold"
+				>
+					Submit
+				</button>
 			</form>
-			<hr className="bg-#931a51 mx-auto w-400" />
-			<h2>Tickets:</h2>
+			<hr className="bg-purple-500 my-4 w-full" />
+			<h2 className="text-white font-bold text-2xl mb-4">Tickets:</h2>
 			{tickets.map((ticket, index) => (
-				<div key={index} className="bg-#003f5c text-#ffa600 mx-auto w-400">
+				<div
+					key={index}
+					className="bg-blue-600 text-yellow-400 rounded-lg p-4 mb-4"
+				>
 					<p>
-						<h3>{ticket.title}</h3>
+						<h3 className="text-white font-bold">{ticket.title}</h3>
 					</p>
-					<p>{ticket.description}</p>
-					<p>Status: {ticket.status}</p>
-					<p>ID: {ticket.id}</p>
-					<button type="button" onClick={() => handleEditTicket(index)}>
+					<p className="text-white">{ticket.description}</p>
+					<p className="text-white">Status: {ticket.status}</p>
+					<p className="text-white">ID: {ticket.id}</p>
+					<button
+						type="button"
+						onClick={() => handleEditTicket(index)}
+						className="bg-yellow-600 rounded-lg p-2 text-white font-bold mr-2"
+					>
 						Edit
 					</button>
-					<button type="button" onClick={() => handleDeleteTicket(index)}>
+					<button
+						type="button"
+						onClick={() => handleDeleteTicket(index)}
+						className="bg-red-600 rounded-lg p-2 text-white font-bold"
+					>
 						Delete
 					</button>
 				</div>

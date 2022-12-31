@@ -8,27 +8,27 @@ import UserInfo from "../components/UserInfo";
 import UserProjects from "../components/UserProjects";
 
 export default function Dashboard(props) {
-  const { auth, isLoggedIn } = useAuth();
+	const { auth, isLoggedIn } = useAuth();
 
-  console.log(isLoggedIn);
+	console.log(isLoggedIn);
 
-  return (
-    <div>
-      <div id="userInfoDropDown">
-        <UserInfo />
-      </div>
+	return (
+		<div>
+			<div id="userInfoDropDown">
+				<UserInfo />
+			</div>
 
-      <div id="userTickets">
-        <UserTickets />
-      </div>
+			<div id="userTickets">
+				<UserTickets />
+			</div>
 
-      <div id="userProjects">
-        <UserProjects />
-      </div>
+			<div id="userProjects">
+				<UserProjects />
+			</div>
 
-      <div id="msgBoard">
-        <UserMessages />
-      </div>
-    </div>
-  );
+			<div id="msgBoard">
+				<UserMessages />
+			</div>
+		</div>
+	);
 }
