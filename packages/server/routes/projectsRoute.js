@@ -1,20 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const verifyJWT = require('../middleware/verifyJWT')
+const verifyJWT = require("../middleware/verifyJWT");
 
-
-const projectController = require('../controllers/projectController')
+const projectController = require("../controllers/projectController");
 const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
 
-
 //verifyJWT is used to protect routes from not authenticated users
-router.use(verifyJWT)
+router.use(verifyJWT);
 //postman request url http://localhost:3001/api/v1/project
 router
-	.route("/")
-	.get(projectController.getAllProjects)
-	.post(projectController.createProject);
+  .route("/")
+  .get(projectController.getAllProjects)
+  .post(projectController.createProject);
+
+router.route("/:id").get(projectController.getProjectById);
+
+router
+  .route("/user/:userId")
+  .get(projectController.getProjectByAuthor);
 
 // router.post("/signup", authController.signup);
 // router.post("/login", authController.login);
@@ -36,8 +40,6 @@ router
 // router.delete("/deleteMe", userController.deleteMe);
 
 // router.use(authController.restrictTo("admin"));
-
-
 
 // router
 // 	.route("/:id")

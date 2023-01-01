@@ -7,6 +7,10 @@ const projectsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: ObjectId,
+      ref: "User",
+    },
 
     companyEmail: {
       type: String,
@@ -26,10 +30,6 @@ const projectsSchema = new mongoose.Schema(
     deadlines: {
       type: String,
       required: true,
-    },
-    author: {
-      type: ObjectId,
-      ref: "User",
     },
   },
   { timestamps: true }

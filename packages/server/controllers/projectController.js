@@ -1,4 +1,5 @@
 const Project = require("../models/projectModel");
+const AppError = require("../middleware/AppError");
 
 const catchAsync = require("express-async-handler");
 
@@ -14,14 +15,45 @@ exports.getAllProjects = catchAsync(async (req, res, next) => {
 });
 
 exports.getProjectById = catchAsync(async (req, res, next) => {
-  const project = await Project.findById(req.params.id);
+  const projectId = req.params.id;
+  const user = req.user;
+  const project = await Project.findById(projectId)
+    .populate("author")
+    .exec();
+  console.log(project);
   if (!project) {
-    return next(new AppError("No project found with that ID", 404));
+    return next(new Error("No project found with that ID", 404));
   }
   res.status(200).json({
     status: "success",
     data: {
       project,
+    },
+  });
+});
+
+exports.getProjectByAuthor = catchAsync(async (req, res, next) => {
+  const populateQuery = [
+    { path: "author", select: ["userName, firstName, lastName"] },
+  ];
+  const userId = req.params.userId;
+  console.log(userId);
+  const projects = await Project.find({
+    author: userId,
+  })
+    .populate("author")
+    .exec();
+
+  console.log(projects);
+  if (projects.length === 0) {
+    return res
+      .status(404)
+      .json({ error: "No projects found by that user." });
+  }
+  res.status(200).json({
+    status: "success",
+    data: {
+      projects,
     },
   });
 });
@@ -77,7 +109,7 @@ exports.updateProject = catchAsync(async (req, res, next) => {
 exports.deleteProject = catchAsync(async (req, res, next) => {
   const project = await Project.findByIdAndDelete(req.params.id);
   if (!project) {
-    return next(new AppError("No project found with that ID", 404));
+    return next(new Error("No project found with that ID", 404));
   }
   res.status(204).json({
     status: "success",

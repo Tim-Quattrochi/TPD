@@ -87,6 +87,7 @@ export default function RegistrationPage(props) {
           withCredentials: true,
         }
       );
+      console.log(response);
 
       console.log(response?.data);
       console.log(response?.accessToken);
@@ -100,8 +101,8 @@ export default function RegistrationPage(props) {
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
-      } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
+      } else if (err.response?.status === 422) {
+        setErrMsg("User already exists");
       } else {
         setErrMsg("Registration Failed");
       }
