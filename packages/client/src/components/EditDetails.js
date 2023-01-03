@@ -32,9 +32,8 @@ const EditDetails = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios
-        .patch("/users/update", user)
-        .then((res) => console.log(res));
+      await axios.patch("/users/update", user);
+
       setSuccess(true);
       setEditable(false);
     } catch (error) {

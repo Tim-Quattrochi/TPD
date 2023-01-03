@@ -36,12 +36,11 @@ exports.getProjectById = catchAsync(async (req, res, next) => {
 
   const project = await Project.findById(projectId);
 
-  console.log(project);
   if (!project) {
     res.status(404);
     throw new Error("Project not found.");
   }
-  console.log(project._id);
+
   if (project.id.toString() !== req.id) {
     res.status(401);
     throw new Error("Not authorized.");
@@ -69,7 +68,6 @@ exports.getProjectByAuthor = catchAsync(async (req, res, next) => {
 });
 
 exports.createProject = catchAsync(async (req, res, next) => {
-  console.log(req.id);
   const {
     companyName,
     companyEmail,

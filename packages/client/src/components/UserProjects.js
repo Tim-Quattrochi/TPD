@@ -20,7 +20,6 @@ const UserProjects = () => {
     getProjects();
   }, [auth, axios, userId]);
 
-  console.log(projects);
   return (
     <div className="bg-gray-200 p-4">
       {projects.map((project) => (

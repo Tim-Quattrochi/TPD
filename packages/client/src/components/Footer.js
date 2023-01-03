@@ -6,7 +6,6 @@ import logo from "../images/temp.jpg";
 const Footer = () => {
   const { isLoggedIn } = useAuth();
 
-  console.log(isLoggedIn);
   return (
     <footer className="bg-slate-800 text-red-600 flex flex-col text-center pb-4">
       {/* <h5 className='text-red-500 ' > Some Footer Details here </h5> */}
