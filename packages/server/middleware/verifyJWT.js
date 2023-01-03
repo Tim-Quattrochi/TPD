@@ -1,25 +1,26 @@
+const asyncHandler = require("express-async-handler");
+
 const jwt = require("jsonwebtoken");
 
-const verifyJWT = (req, res, next) => {
+const verifyJWT = asyncHandler((req, res, next) => {
   const authHeader =
     req.headers.authorization || req.headers.Authorization; //check for both capitalization
 
   if (!authHeader?.startsWith("Bearer")) {
     return res.status(401).json({ message: "Not Authorized" });
   }
-//access token
+  //access token
   const token = authHeader.split(" ")[1];
-  
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    
     if (err) {
       return res.status(403).json({ message: "Forbidden" }); //this is not a valid token
     }
     (req.user = decoded.UserInfo.userName),
-      (req.role = decoded.UserInfo.role);
-    next();
+      (req.role = decoded.UserInfo.role),
+      (req.id = decoded.UserInfo.id),
+      next();
   });
-};
+});
 
 module.exports = verifyJWT;

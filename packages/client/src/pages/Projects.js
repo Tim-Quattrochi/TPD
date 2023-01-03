@@ -5,6 +5,8 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Projects() {
+  const { auth } = useAuth();
+
   const initialValues = {
     companyName: "",
     companyEmail: "",
@@ -15,11 +17,11 @@ export default function Projects() {
 
   const [formData, setFormData] = useState(initialValues);
   const [isLoading, setIsLoading] = useState(false);
-  const { auth } = useAuth();
   const navigate = useNavigate();
   const axios = useAxiosPrivate();
 
-  console.log(auth);
+  console.log(auth.id);
+  const userId = auth.id;
 
   const handleSubmitProject = async (e) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ export default function Projects() {
 
     try {
       await axios.post("/project", formData);
-      navigate("/dashboard");
+      navigate(`/projects/${userId}`);
     } catch (error) {
       console.log(error);
     } finally {
@@ -56,7 +58,7 @@ export default function Projects() {
         <div className="mb-4">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            for="username"
+            htmlFor="username"
           >
             Company Name
           </label>
@@ -72,7 +74,7 @@ export default function Projects() {
         <div className="mb-6">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            for="password"
+            htmlFor="password"
           >
             Company Email
           </label>
@@ -103,7 +105,7 @@ export default function Projects() {
         <div className="mb-6">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            for="password"
+            htmlFor="password"
           >
             What is the deadline?
           </label>
@@ -119,7 +121,7 @@ export default function Projects() {
         <div className="mb-6">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            for="password"
+            htmlFor="password"
           >
             Outline the Project details
           </label>

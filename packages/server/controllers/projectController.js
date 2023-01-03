@@ -1,10 +1,19 @@
 const Project = require("../models/projectModel");
+const User = require("../models/userModel");
+
 const AppError = require("../middleware/AppError");
 
 const catchAsync = require("express-async-handler");
 
 exports.getAllProjects = catchAsync(async (req, res, next) => {
-  const projects = await Project.find();
+  const populateQuery = [
+    { path: "author", select: "projects" },
+    {
+      path: "author",
+      select: ["Name"],
+    },
+  ];
+  const projects = await Project.find().populate(populateQuery);
   res.status(200).json({
     status: "success",
     results: projects.length,
@@ -16,14 +25,28 @@ exports.getAllProjects = catchAsync(async (req, res, next) => {
 
 exports.getProjectById = catchAsync(async (req, res, next) => {
   const projectId = req.params.id;
-  const user = req.user;
-  const project = await Project.findById(projectId)
-    .populate("author")
-    .exec();
+
+  //get user using the id from the JWT
+  const user = await User.findById(req.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found.");
+  }
+
+  const project = await Project.findById(projectId);
+
   console.log(project);
   if (!project) {
-    return next(new Error("No project found with that ID", 404));
+    res.status(404);
+    throw new Error("Project not found.");
   }
+  console.log(project._id);
+  if (project.id.toString() !== req.id) {
+    res.status(401);
+    throw new Error("Not authorized.");
+  }
+
   res.status(200).json({
     status: "success",
     data: {
@@ -33,23 +56,20 @@ exports.getProjectById = catchAsync(async (req, res, next) => {
 });
 
 exports.getProjectByAuthor = catchAsync(async (req, res, next) => {
-  const populateQuery = [
-    { path: "author", select: ["userName, firstName, lastName"] },
-  ];
-  const userId = req.params.userId;
+  console.log(req.id);
+  const userId = req.id;
   console.log(userId);
-  const projects = await Project.find({
-    author: userId,
-  })
-    .populate("author")
-    .exec();
+
+  console.log("fired");
+
+  const projects = await Project.find({ author: userId });
 
   console.log(projects);
-  if (projects.length === 0) {
-    return res
-      .status(404)
-      .json({ error: "No projects found by that user." });
-  }
+  // if (projects.length === 0) {
+  //   return res
+  //     .status(404)
+  //     .json({ error: "No projects found by that user." });
+  // }
   res.status(200).json({
     status: "success",
     data: {
@@ -59,6 +79,7 @@ exports.getProjectByAuthor = catchAsync(async (req, res, next) => {
 });
 
 exports.createProject = catchAsync(async (req, res, next) => {
+  console.log(req.id);
   const {
     companyName,
     companyEmail,
@@ -77,7 +98,14 @@ exports.createProject = catchAsync(async (req, res, next) => {
     res.status(400);
     throw new Error("Please fill out all the required fields.");
   }
-  const newProject = await Project.create(req.body);
+  const newProject = await Project.create({
+    companyName,
+    companyEmail,
+    projectDetails,
+    missionStatement,
+    deadlines,
+    author: req.id,
+  });
   res.status(201).json({
     status: "success",
     data: {

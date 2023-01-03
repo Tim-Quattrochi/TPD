@@ -28,6 +28,9 @@ export default function LoginPage(props) {
     setErrMessage("");
   }, [userName, password]);
 
+  //if there is any value for auth.userInfo or firstName, they must be
+  //logged in, so redirect to dash board.
+
   //handle submit from  Dave Gray  Tutorial
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -46,13 +49,13 @@ export default function LoginPage(props) {
         "user",
         JSON.stringify(response.data.userInfo)
       );
+      setIsLoggedIn(true);
 
       const token = response?.data?.token;
       // token is the same as accessToken.
       let userInfo = response.data.userInfo;
 
       setAuth({ token, userInfo }); //for AuthProvider, sends  access token
-      setIsLoggedIn(true);
 
       setUserName("");
       setPassword("");

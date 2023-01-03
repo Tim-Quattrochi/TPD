@@ -21,12 +21,13 @@ exports.login = asyncHandler(async (req, res, next) => {
     userName: userName,
   }).exec();
 
-  const { firstName, lastName, email } = user; //information to send back to the client
+  const { firstName, lastName, email, id } = user; //information to send back to the client
   const userInfo = {
     firstName,
     lastName,
     userName,
     email,
+    id,
   };
 
   if (!user) {
@@ -34,14 +35,16 @@ exports.login = asyncHandler(async (req, res, next) => {
       .status(401)
       .json({ message: "not authorized. Check credentials." });
   }
-
+  console.log(user);
   const passMatch = await bcrypt.compare(password, user.passwordHash);
 
   if (passMatch) {
+    console.log({ test: user._id });
     //this is the access token
     const token = jwt.sign(
       {
         UserInfo: {
+          id: user._id,
           userName: user.userName,
           role: user.role,
         },
@@ -56,6 +59,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     const refreshToken = jwt.sign(
       {
         userName: user.userName,
+        id: user._id,
       },
 
       process.env.REFRESH_TOKEN_SECRET,
@@ -94,9 +98,9 @@ exports.refresh = asyncHandler(async (req, res) => {
 
   const refreshToken = cookies.jwt;
 
-  const user = await User.findOne({
-    refreshToken,
-  }).exec();
+  const user = await User.findOne({ refreshToken })
+    // .select("id refreshToken")
+    .exec();
 
   if (!user) {
     return res.status(401).json({ message: "Not authorized." });
@@ -106,6 +110,7 @@ exports.refresh = asyncHandler(async (req, res) => {
     refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
     asyncHandler(async (err, decoded) => {
+      console.log(user);
       if (err || user.userName !== decoded.userName) {
         return res.status(403).json({ message: "Forbidden." });
       }
@@ -115,6 +120,7 @@ exports.refresh = asyncHandler(async (req, res) => {
           UserInfo: {
             userName: user.userName,
             role: user.role,
+            id: user._id,
           },
         },
         process.env.JWT_SECRET,

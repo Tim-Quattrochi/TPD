@@ -44,10 +44,7 @@ app.use("/api/v1/users", require("./routes/userRoute"));
 app.use("/api/v1/tasks", require("./routes/taskRoute"));
 app.use("/api/v1/project", require("./routes/projectsRoute"));
 app.use("/api/v1/project/:id", require("./routes/projectsRoute"));
-app.use(
-  "/api/v1/project/user/:userId",
-  require("./routes/projectsRoute")
-);
+app.use("/api/v1/project/user/", require("./routes/projectsRoute"));
 
 app.use(AppError); //use error handler middleware
 

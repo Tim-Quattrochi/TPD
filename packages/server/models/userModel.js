@@ -1,8 +1,4 @@
-/* I think the unique attribute was causing error E11000.. That is the Unique Index 311 on the person’s “name” field. This will not allow an operation to insert a new document with an existing name or update a document with an updated existing name. If such an operation is tried it fails with an "E11000 duplicate key error collection: database.collection index_name … ". */
-
-import mongoose from 'mongoose';
-
-import { MdAccountCircle } from 'react-icons/md';
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   userName: {
@@ -34,13 +30,14 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true,
-    enum: ['user', 'admin'],
-    default: 'user',
+    enum: ["user", "admin"],
+    default: "user",
   },
-  refreshToken: String
+
+  refreshToken: String,
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
 
 /* Stretch goal for sub users */
 //     authorizedUsers: {

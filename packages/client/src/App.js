@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage";
 import Users from "./components/Users";
 import AllTasks from "./pages/AllTasks";
 import Projects from "./pages/Projects";
+import UserProjects from "./components/UserProjects";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/users" element={<Users />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/:id" element={<UserProjects />} />
 
         <Route path="/tasks" element={<AllTasks />} />
       </Routes>

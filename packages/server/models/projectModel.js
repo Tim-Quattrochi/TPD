@@ -9,6 +9,7 @@ const projectsSchema = new mongoose.Schema(
     },
     author: {
       type: ObjectId,
+      required: true,
       ref: "User",
     },
 
