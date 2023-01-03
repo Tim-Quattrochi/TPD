@@ -10,6 +10,8 @@ router.use(verifyJWT);
 //authenticate after this
 
 router.route("/").get(userController.getAllUsers);
+router.route("/me").get(userController.getMe);
+
 
 router.route("/update").patch(userController.updateMe);
 

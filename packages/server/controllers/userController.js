@@ -144,6 +144,22 @@ exports.signup = asyncHandler(async (req, res, next) => {
   });
 });
 
+
+exports.getMe = asyncHandler(async (req, res) => {
+  const { email, firstName, lastName } = req.body;
+
+  //only getting email, firstname and last name for now.
+  const user = await User.findById(req.id).select('email firstName lastName');
+
+
+  if (user.id !== req.id) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
+  
+  res.status(200).json(user);
+});
+
 //update user details
 exports.updateMe = asyncHandler(async (req, res) => {
   const { email, firstName, lastName } = req.body;

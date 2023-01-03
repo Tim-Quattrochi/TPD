@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ProfileDropdown from './ProfileDropDown'
 
 import tempImg from '../images/temp.jpg'
 
@@ -30,19 +31,11 @@ const [userOpen, setUserOpen] = useState(false)
                     </ul>    
                 : ""}
             </button> 
+            <div className="ml-auto">
+    <ProfileDropdown />
+  </div>
 
-            <button onClick={() => setUserOpen(!userOpen)}>
-                <img src={tempImg} className='w-10 h-10 mr-3'></img>
-
-                {userOpen ? 
-                    <ul className='text-left'>
-                        <li> <Link to='/dashboard' > Dashboard  </Link> </li>
-                        {/* add functionality  to sign  out the user here and redirect to home page */}
-                        <li> <Link to='' > Logout  </Link> </li>
-                    </ul>    
-                : ""}
-
-            </button>
+        
         </nav>
         </>
        
