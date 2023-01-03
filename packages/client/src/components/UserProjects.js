@@ -33,9 +33,11 @@ const UserProjects = () => {
             Project Name: {project.companyName}
           </h3>
           <ul className="list-disc pl-4 font-light  text-sky-900 leading-loose">
-            {project.projectDetails.split("\n").map((detail) => (
-              <li>{detail}</li>
-            ))}
+            {project.projectDetails
+              .split("\n")
+              .map((detail, index) => (
+                <li key={index}>{detail}</li>
+              ))}
           </ul>
           <p className=" text-pink-800">
             Mission statement: {project.missionStatement}
