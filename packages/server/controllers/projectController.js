@@ -56,20 +56,10 @@ exports.getProjectById = catchAsync(async (req, res, next) => {
 });
 
 exports.getProjectByAuthor = catchAsync(async (req, res, next) => {
-  console.log(req.id);
   const userId = req.id;
-  console.log(userId);
-
-  console.log("fired");
 
   const projects = await Project.find({ author: userId });
 
-  console.log(projects);
-  // if (projects.length === 0) {
-  //   return res
-  //     .status(404)
-  //     .json({ error: "No projects found by that user." });
-  // }
   res.status(200).json({
     status: "success",
     data: {

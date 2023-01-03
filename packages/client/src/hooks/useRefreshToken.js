@@ -10,7 +10,7 @@ const useRefreshToken = () => {
       //send with cookies
       withCredentials: true,
     });
-    console.log(refresh);
+
     setAuth((user) => {
       return { user, token: response.data.token };
     });

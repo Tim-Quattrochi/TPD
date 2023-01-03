@@ -12,7 +12,6 @@ const UserProjects = () => {
 
   useEffect(() => {
     const getProjects = async () => {
-      console.log(auth);
       const res = await axios
         .get(`/project/user/${userId}`)
         .then((res) => setProjects(res.data.data.projects));

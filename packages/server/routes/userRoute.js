@@ -1,18 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/userController');
-const verifyJWT = require('../middleware/verifyJWT')
+const userController = require("../controllers/userController");
+const verifyJWT = require("../middleware/verifyJWT");
 
 //sign up, no verify JWT needed.
-router.post('/signup', userController.signup);
+router.post("/signup", userController.signup);
 
-
-
-router.use(verifyJWT)
+router.use(verifyJWT);
 //authenticate after this
 
-router.route('/')
-    .get(userController.getAllUsers)
+router.route("/").get(userController.getAllUsers);
+
+router.route("/update").patch(userController.updateMe);
 
 // router.post('/login', authController.login);
 // router.get('/logout', userController.logout);
@@ -34,12 +33,12 @@ router.route('/')
 
 // router.use(authController.restrictTo('admin'));
 
-router.route('/').get(userController.getAllUsers);
+router.route("/").get(userController.getAllUsers);
 // .post(userController.createUser);
 
 //localhost:3001/api/v1/users/639aa4f7e45cf994cb11cd23 request URL for POSTMAN. Works but we want
 //to protect this route
-http: router.route('/:id').get(userController.getUserById);
+http: router.route("/:id").get(userController.getUserById);
 
 //   .patch(userController.updateUser)
 //   .delete(userController.deleteUser);

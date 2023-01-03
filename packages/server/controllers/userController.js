@@ -144,16 +144,22 @@ exports.signup = asyncHandler(async (req, res, next) => {
   });
 });
 
-//sends the client with the current users data as middleware.
-exports.getMe = asyncHandler(async (req, res) => {
-  const user = {
-    id: req.user.id,
-    email: req.user.email,
-    firstName: req.user.firstName,
-    lastName: req.user.lastName,
-    role: req.user.role,
-  };
-  res.status(200).json(user);
+//update user details
+exports.updateMe = asyncHandler(async (req, res) => {
+  const { email, firstName, lastName } = req.body;
+
+  const user = await User.findById(req.id);
+
+
+  if (user.id !== req.id) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(req.id, req.body, {
+    new: true,
+  });
+
+  res.status(200).json(updatedUser);
 });
 
 exports.restrictTo = (...roles) => {
