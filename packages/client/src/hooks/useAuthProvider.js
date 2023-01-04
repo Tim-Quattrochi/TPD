@@ -7,10 +7,15 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const authValue = JSON.parse(localStorage.getItem("user"));
+    try {
+      const authValue = JSON.parse(localStorage.getItem("user"));
 
-    if (authValue) {
-      setAuth(authValue);
+      if (authValue) {
+        setAuth(authValue);
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, []);
 
