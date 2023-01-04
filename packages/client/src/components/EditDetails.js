@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import AuthContext from "../hooks/useAuthProvider";
+import LoadingSpinner from "./LoadingSpinner";
 
 const EditDetails = (props) => {
   const initialValues = {
@@ -11,6 +13,8 @@ const EditDetails = (props) => {
   const [user, setUser] = useState(initialValues);
   const [success, setSuccess] = useState(false);
   const [editable, setEditable] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setAuth, auth } = useContext(AuthContext);
 
   useEffect(() => {
     const getUser = async () => {
@@ -30,16 +34,37 @@ const EditDetails = (props) => {
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       await axios.patch("/users/update", user);
 
+      const updatedAuth = {
+        ...auth,
+      };
+
+      //update only the email, firstname, lastname in the auth.
+      //the issue here is, when the user navigates to
+      //another protected route, the auth will
+      //update from the local storage, overriding this.
+      //
+      updatedAuth.user.email = user.email;
+      updatedAuth.user.firstName = user.firstName;
+      updatedAuth.user.lastName = user.lastName;
+
+      setAuth(updatedAuth);
+
       setSuccess(true);
       setEditable(false);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="mx-auto w-full max-w-xs p-4">

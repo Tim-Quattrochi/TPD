@@ -56,6 +56,7 @@ exports.getProjectById = catchAsync(async (req, res, next) => {
 
 exports.getProjectByAuthor = catchAsync(async (req, res, next) => {
   const userId = req.id;
+  console.log(userId);
 
   const projects = await Project.find({ author: userId });
 

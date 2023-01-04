@@ -10,6 +10,8 @@ const UserProjects = () => {
 
   const axios = useAxiosPrivate();
 
+  //gets the users project by their req.id so technically null can be passed and it
+  //will still get this particular user projects based on their user id
   useEffect(() => {
     const getProjects = async () => {
       const res = await axios
@@ -18,7 +20,7 @@ const UserProjects = () => {
     };
 
     getProjects();
-  }, [auth, axios, userId]);
+  }, [axios, userId]);
 
   return (
     <div className="bg-gray-200 p-4">
