@@ -11,9 +11,12 @@ const verifyJWT = asyncHandler((req, res, next) => {
   }
   //access token
   const token = authHeader.split(" ")[1];
+  console.log(token);
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    console.log(decoded);
     if (err) {
+      console.log(err);
       return res.status(403).json({ message: "Forbidden" }); //this is not a valid token
     }
     (req.user = decoded.userName),

@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 
 const UserProjects = () => {
   const auth = useAuth();
-  const [userId, setuserId] = useState(null);
+  const [userId] = useState(null);
 
   const [projects, setProjects] = useState([]);
 
@@ -21,8 +21,6 @@ const UserProjects = () => {
 
     getProjects();
   }, []);
-
-  console.log(projects);
 
   return (
     <div className="bg-gray-200 p-4">

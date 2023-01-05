@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     try {
-      console.log("fire");
       const authValue = JSON.parse(localStorage.getItem("user"));
 
       if (authValue) {

@@ -3,9 +3,10 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import AuthContext from "../hooks/useAuthProvider";
 import axios from "../hooks/useAxios";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function LoginPage(props) {
-  const { setAuth, auth, setIsLoggedIn } = useContext(AuthContext);
+  const { setAuth, setIsLoggedIn } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
   const location = useLocation();
@@ -16,6 +17,7 @@ export default function LoginPage(props) {
   //back to the page they were viewing, if not then take to dashboard.
   const from = location.state?.from?.pathname || "/dashboard";
 
+  const [value, setValue] = useLocalStorage("user", null);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
@@ -45,21 +47,19 @@ export default function LoginPage(props) {
         }
       );
       const auth = {
-        token: response.data.token,
         firstName: response.data.firstName,
         lastName: response.data.lastName,
         userName: response.data.userName,
         email: response.data.email,
       };
 
-      localStorage.setItem("user", JSON.stringify(auth));
+      setValue(auth);
       setIsLoggedIn(true);
-      console.log(response.data);
+
       const token = response?.data?.token;
       // token is the same as accessToken.
-      let userInfo = response.data.userInfo;
 
-      setAuth(auth); //for AuthProvider, sends  access token
+      setAuth({ token }); //for AuthProvider, sends  access token
 
       setUserName("");
       setPassword("");

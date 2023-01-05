@@ -1,5 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 import {
   faCheck,
@@ -22,6 +25,7 @@ export default function RegistrationPage(props) {
   const [userName, setUserName] = useState("");
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
+  const [value, setValue] = useLocalStorage("user", null);
 
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
@@ -37,6 +41,9 @@ export default function RegistrationPage(props) {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setValidName(USER_REGEX.test(userName));
@@ -70,6 +77,7 @@ export default function RegistrationPage(props) {
       setErrMsg("Invalid Entry");
       return;
     }
+    setIsLoading(true);
     try {
       const response = await axios.post(
         "/users/signup",
@@ -87,17 +95,23 @@ export default function RegistrationPage(props) {
           withCredentials: true,
         }
       );
-      console.log(response);
 
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response));
+      const auth = {
+        firstName: response.data.data.user.firstName,
+        lastName: response.data.data.user.lastName,
+        userName: response.data.data.user.userName,
+        email: response.data.data.user.email,
+      };
+
+      setValue(auth);
       setSuccess(true);
+      setIsLoading(false);
       //clear state and controlled inputs
       //need value attrib on inputs for this
       setUserName("");
       setPassword("");
       setconfirmPassword("");
+      navigate("/login");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -109,6 +123,9 @@ export default function RegistrationPage(props) {
       errRef.current.focus();
     }
   };
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>

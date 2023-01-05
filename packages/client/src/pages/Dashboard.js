@@ -6,19 +6,14 @@ import UserMessages from "../components/MessagerComponents/UserMessages";
 import UserProjects from "../components/UserProjects";
 
 export default function Dashboard(props) {
-  const { auth, isLoggedIn } = useAuth();
+  const { auth } = useAuth();
   const [firstName, setFirstName] = useState(null);
-
-  console.log(auth);
 
   useEffect(() => {
     if (auth.firstName) {
       setFirstName(auth.firstName || auth.user.firstName);
-      console.log(auth);
     }
   }, [auth]);
-
-  console.log(firstName);
 
   return (
     <div>

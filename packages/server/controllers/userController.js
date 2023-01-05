@@ -118,17 +118,19 @@ exports.signup = asyncHandler(async (req, res, next) => {
     role,
   });
 
-  const token = jwt.sign(
-    {
-      id: newUser._id,
-      role: newUser.role,
-    },
+  const payload = {
+    id: newUser._id,
+    userName: newUser.userName,
+    role: newUser.role,
+  };
 
-    process.env.JWT_SECRET,
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    }
-  );
+  const secret = process.env.JWT_SECRET;
+
+  const options = {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  };
+
+  const token = jwt.sign(payload, secret, options);
 
   res.cookie("jwt", token, {
     httpOnly: true,
