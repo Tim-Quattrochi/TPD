@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
 import AuthContext from "../hooks/useAuthProvider";
 import axios from "../hooks/useAxios";
 
@@ -19,6 +20,7 @@ export default function LoginPage(props) {
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -28,13 +30,10 @@ export default function LoginPage(props) {
     setErrMessage("");
   }, [userName, password]);
 
-  //if there is any value for auth.userInfo or firstName, they must be
-  //logged in, so redirect to dash board.
-
   //handle submit from  Dave Gray  Tutorial
   const handleSignIn = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await axios.post(
         "/auth/login",
@@ -45,21 +44,27 @@ export default function LoginPage(props) {
           withCredentials: true,
         }
       );
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.data.userInfo)
-      );
-      setIsLoggedIn(true);
+      const auth = {
+        token: response.data.token,
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        userName: response.data.userName,
+        email: response.data.email,
+      };
 
+      localStorage.setItem("user", JSON.stringify(auth));
+      setIsLoggedIn(true);
+      console.log(response.data);
       const token = response?.data?.token;
       // token is the same as accessToken.
       let userInfo = response.data.userInfo;
 
-      setAuth({ token, userInfo }); //for AuthProvider, sends  access token
+      setAuth(auth); //for AuthProvider, sends  access token
 
       setUserName("");
       setPassword("");
       setSuccess(true);
+      setIsLoading(false);
 
       navigate(from, { replace: true }); //navigate to their last page state if they were logged out and
       //had to log back in
@@ -77,6 +82,9 @@ export default function LoginPage(props) {
     }
   };
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <>
       {success ? (

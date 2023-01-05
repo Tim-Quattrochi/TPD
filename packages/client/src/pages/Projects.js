@@ -20,7 +20,6 @@ export default function Projects() {
   const navigate = useNavigate();
   const axios = useAxiosPrivate();
 
-  console.log(auth.id);
   const userId = auth.id;
 
   const handleSubmitProject = async (e) => {

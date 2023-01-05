@@ -120,11 +120,10 @@ exports.signup = asyncHandler(async (req, res, next) => {
 
   const token = jwt.sign(
     {
-      UserInfo: {
-        id: newUser._id,
-        role: newUser.role,
-      },
+      id: newUser._id,
+      role: newUser.role,
     },
+
     process.env.JWT_SECRET,
     {
       expiresIn: process.env.JWT_EXPIRES_IN,
@@ -171,8 +170,8 @@ exports.updateMe = asyncHandler(async (req, res) => {
 
   const updatedUser = await User.findByIdAndUpdate(req.id, req.body, {
     new: true,
-  });
-
+  }).select("-passwordHash");
+  console.log(updatedUser);
   res.status(200).json(updatedUser);
 });
 

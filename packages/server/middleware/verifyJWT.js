@@ -16,9 +16,9 @@ const verifyJWT = asyncHandler((req, res, next) => {
     if (err) {
       return res.status(403).json({ message: "Forbidden" }); //this is not a valid token
     }
-    (req.user = decoded.UserInfo.userName),
-      (req.role = decoded.UserInfo.role),
-      (req.id = decoded.UserInfo.id),
+    (req.user = decoded.userName),
+      (req.role = decoded.role),
+      (req.id = decoded.id),
       next();
   });
 });

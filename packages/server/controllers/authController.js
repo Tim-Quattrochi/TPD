@@ -22,13 +22,6 @@ exports.login = asyncHandler(async (req, res, next) => {
   }).exec();
 
   const { firstName, lastName, email, id } = user; //information to send back to the client
-  const userInfo = {
-    firstName,
-    lastName,
-    userName,
-    email,
-    id,
-  };
 
   if (!user) {
     return res
@@ -43,11 +36,9 @@ exports.login = asyncHandler(async (req, res, next) => {
     //this is the access token
     const token = jwt.sign(
       {
-        UserInfo: {
-          id: user._id,
-          userName: user.userName,
-          role: user.role,
-        },
+        id: user._id,
+        userName: user.userName,
+        role: user.role,
       },
 
       process.env.JWT_SECRET,
@@ -70,7 +61,6 @@ exports.login = asyncHandler(async (req, res, next) => {
 
     user.refreshToken = refreshToken;
     const result = await user.save();
-    console.log(result);
 
     //create http cookie containing refresh token.
     res.cookie("jwt", refreshToken, {
@@ -81,7 +71,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     });
 
     //Send access token containing userName and role
-    return res.json({ token, userInfo });
+    return res.json({ token, firstName, lastName, userName, email });
   } else {
     res.sendStatus(401);
   }
@@ -110,19 +100,17 @@ exports.refresh = asyncHandler(async (req, res) => {
     refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
     asyncHandler(async (err, decoded) => {
-      console.log(user);
       if (err || user.userName !== decoded.userName) {
         return res.status(403).json({ message: "Forbidden." });
       }
 
       const token = jwt.sign(
         {
-          UserInfo: {
-            userName: user.userName,
-            role: user.role,
-            id: user._id,
-          },
+          userName: user.userName,
+          role: user.role,
+          id: user._id,
         },
+
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_EXPIRES_IN }
       );

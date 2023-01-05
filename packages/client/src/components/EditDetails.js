@@ -37,7 +37,10 @@ const EditDetails = (props) => {
     setIsLoading(true);
     e.preventDefault();
     try {
-      await axios.patch("/users/update", user);
+      const updatedUser = await axios.patch("/users/update", user);
+
+      const { email, firstName, lastName, userName, _id } =
+        updatedUser.data;
 
       const updatedAuth = {
         ...auth,
@@ -48,11 +51,22 @@ const EditDetails = (props) => {
       //another protected route, the auth will
       //update from the local storage, overriding this.
       //
-      updatedAuth.user.email = user.email;
-      updatedAuth.user.firstName = user.firstName;
-      updatedAuth.user.lastName = user.lastName;
+      // updatedAuth.user.email = user.email;
+      // updatedAuth.user.firstName = user.firstName;
+      // updatedAuth.user.lastName = user.lastName;
+      console.log(email);
+      console.log(updatedUser);
+      setAuth({ email, firstName, lastName, userName, _id });
 
-      setAuth(updatedAuth);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          id: _id,
+        })
+      );
 
       setSuccess(true);
       setEditable(false);

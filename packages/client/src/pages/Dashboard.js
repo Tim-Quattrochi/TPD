@@ -9,13 +9,16 @@ export default function Dashboard(props) {
   const { auth, isLoggedIn } = useAuth();
   const [firstName, setFirstName] = useState(null);
 
-  console.log(firstName);
+  console.log(auth);
 
   useEffect(() => {
-    if (auth.user && auth.user.firstName) {
-      setFirstName(auth.user.firstName);
+    if (auth.firstName) {
+      setFirstName(auth.firstName || auth.user.firstName);
+      console.log(auth);
     }
   }, [auth]);
+
+  console.log(firstName);
 
   return (
     <div>
