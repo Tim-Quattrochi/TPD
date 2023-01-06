@@ -1,66 +1,96 @@
-import { useState, useEffect, useContext, useRef } from 'react';
-import { Link } from 'react-router-dom';
-
-import AuthContext from '../hooks/useAuth';
-import axios from '../hooks/axios';
+import { useState, useEffect, useContext, useRef } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
+import AuthContext from "../hooks/useAuthProvider";
+import axios from "../hooks/useAxios";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function LoginPage(props) {
-  const { setAuth } = useContext(AuthContext);
-
+  const { setAuth, setIsLoggedIn } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [errMessage, setErrMessage] = useState('');
+  //if the users token expires, they will be redirected to
+  //the log in page, after log in, they will be directed
+  //back to the page they were viewing, if not then take to dashboard.
+  const from = location.state?.from?.pathname || "/dashboard";
+
+  const [value, setValue] = useLocalStorage("user", null);
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   useEffect(() => {
-    setErrMessage('');
+    setErrMessage("");
   }, [userName, password]);
-  console.log(userName, password);
+
   //handle submit from  Dave Gray  Tutorial
   const handleSignIn = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await axios.post(
-        '/auth/login',
+        "/auth/login",
         JSON.stringify({ userName, password }),
 
         {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
+      const auth = {
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        userName: response.data.userName,
+        email: response.data.email,
+      };
 
-      const token = response?.data?.token; // token is the same as accessToken.
-      // const roles = response?.data?.roles
-      //Authcontroller in  controllers  to define roles minute 28:00
-      setAuth({ userName, password, token }); // wemay not have roles implemeneted yet and it ay  throw errors
+      setValue(auth); //this is setting local storage.
+      setIsLoggedIn(true);
 
-      setUserName('');
-      setPassword('');
+      const token = response?.data?.token;
+      // token is the same as accessToken.
+
+      setAuth({
+        token,
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        userName: response.data.userName,
+        email: response.data.email,
+      }); //for AuthProvider, sends  access token
+
+      setUserName("");
+      setPassword("");
       setSuccess(true);
+      setIsLoading(false);
+
+      navigate(from, { replace: true }); //navigate to their last page state if they were logged out and
+      //had to log back in
     } catch (err) {
       if (!err?.response) {
-        setErrMessage('No Server Response');
+        setErrMessage("No Server Response");
       } else if (err.response?.status === 400) {
-        setErrMessage('Missing Username or Password');
+        setErrMessage("Missing Username or Password");
       } else if (err.response?.status === 401) {
-        setErrMessage('Unauthorized');
+        setErrMessage("Unauthorized");
       } else {
-        setErrMessage('Login Failed');
+        setErrMessage("Login Failed");
       }
       errRef.current.focus(); // this is use with aria for onscreen  reading
     }
   };
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <>
       {success ? (
@@ -70,7 +100,7 @@ export default function LoginPage(props) {
               You are Logged in!
             </h1>
 
-            <Link to={'/dashboard'}> Go to My Dashboard </Link>
+            <Link to={"/dashboard"}> Go to My Dashboard </Link>
           </div>
         </div>
       ) : (
@@ -85,7 +115,7 @@ export default function LoginPage(props) {
                 htmlFor="username"
                 className="flex flex-col items-center"
               >
-                {' '}
+                {" "}
               </label>
               <input
                 type="text"
@@ -93,17 +123,17 @@ export default function LoginPage(props) {
                 id="username"
                 placeholder="Username..."
                 ref={userRef}
-                value={userName}
                 required
                 autoComplete="off"
                 onChange={(e) => setUserName(e.target.value)}
+                // onBlur={() => setUserName(name)}
                 className=" bg-slate-200 w-8/12 mb-4"
               />
               <label
                 htmlFor="password"
                 className="flex flex-col items-center"
               >
-                {' '}
+                {" "}
               </label>
               <input
                 type="password"
@@ -114,7 +144,7 @@ export default function LoginPage(props) {
                 placeholder="Password..."
                 onChange={(e) => setPassword(e.target.value)}
                 className=" bg-slate-200 w-8/12 mb-4"
-              />{' '}
+              />{" "}
               <br />
               <button className=" bg-red-800 w-6/12 text-white self-center">
                 Sign-in
@@ -123,7 +153,7 @@ export default function LoginPage(props) {
 
             <p
               ref={errRef}
-              className={`${errMessage ? 'visible' : 'invisible'} `}
+              className={`${errMessage ? "visible" : "invisible"} `}
               aria-live="assertive"
             >
               {errMessage}

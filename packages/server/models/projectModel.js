@@ -1,11 +1,19 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema.Types;
 
 const projectsSchema = new mongoose.Schema(
   {
-    companyName: {
+    projectName: {
       type: String,
       required: true,
+    },
+    companyName: {
+      type: String,
+    },
+    author: {
+      type: ObjectId,
+      required: true,
+      ref: "User",
     },
 
     companyEmail: {
@@ -13,7 +21,7 @@ const projectsSchema = new mongoose.Schema(
       required: true,
     },
 
-    requestBody: {
+    projectDetails: {
       type: String,
       required: true,
     },
@@ -27,12 +35,8 @@ const projectsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    author: {
-      type: ObjectId,
-      ref: 'User',
-    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Project', projectsSchema);
+module.exports = mongoose.model("Project", projectsSchema);
