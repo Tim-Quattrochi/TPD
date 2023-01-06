@@ -12,6 +12,12 @@ export default function EditProject() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const isValidId = /^[0-9a-fA-F]{24}$/.test(projectId); //check to guard against invalid ObjectId's
+    if (!isValidId) {
+      console.log("not valid project ID");
+      return;
+    }
+
     const getProjectData = async () => {
       const { data } = await axios.get(`/project/${projectId}`);
       const projectData = data.data.project;
