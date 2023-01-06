@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../hooks/useAuth";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Modal } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import UserTickets from "../components/UserTickets";
@@ -13,6 +13,9 @@ export default function Dashboard(props) {
   const [isLoading, setIsLoading] = useState(false);
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
+  
+
+
 
   useEffect(() => {
     if (auth.firstName) {
@@ -31,6 +34,10 @@ export default function Dashboard(props) {
     }
   };
 
+
+
+
+
   return (
     <div>
       {
@@ -46,9 +53,14 @@ export default function Dashboard(props) {
         <UserProjects />
       </div>
 
-      <div id="msgBoard">
-        <UserMessages />
+      <div id="msgBoard" >
+        <div> 
+          <UserMessages />  
+        </div>        
       </div>
+
     </div>
   );
 }
+
+
