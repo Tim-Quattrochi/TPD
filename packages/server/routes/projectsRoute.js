@@ -14,7 +14,10 @@ router
   .get(projectController.getAllProjects)
   .post(projectController.createProject);
 
-router.route("/:id").get(projectController.getProjectById);
+router
+  .route("/:id")
+  .get(projectController.getProjectById)
+  .patch(projectController.updateProject);
 
 router
   .route("/user/:userId")

@@ -28,6 +28,7 @@ exports.getProjectById = catchAsync(async (req, res, next) => {
 
   //get user using the id from the JWT
   const user = await User.findById(req.id);
+  console.log(user);
 
   if (!user) {
     res.status(401);
@@ -40,8 +41,9 @@ exports.getProjectById = catchAsync(async (req, res, next) => {
     res.status(404);
     throw new Error("Project not found.");
   }
-
-  if (project.id.toString() !== req.id) {
+  console.log(req.id);
+  console.log(project);
+  if (project.author.toString() !== req.id.toString()) {
     res.status(401);
     throw new Error("Not authorized.");
   }
@@ -71,6 +73,7 @@ exports.getProjectByAuthor = catchAsync(async (req, res, next) => {
 exports.createProject = catchAsync(async (req, res, next) => {
   const {
     companyName,
+    projectName,
     companyEmail,
     projectDetails,
     missionStatement,
@@ -78,7 +81,7 @@ exports.createProject = catchAsync(async (req, res, next) => {
   } = req.body;
 
   if (
-    !companyName ||
+    !projectName ||
     !companyEmail ||
     !projectDetails ||
     !missionStatement ||
@@ -89,6 +92,7 @@ exports.createProject = catchAsync(async (req, res, next) => {
   }
   const newProject = await Project.create({
     companyName,
+    projectName,
     companyEmail,
     projectDetails,
     missionStatement,
@@ -112,6 +116,7 @@ exports.updateProject = catchAsync(async (req, res, next) => {
       runValidators: true,
     }
   );
+  console.log(project);
   if (!project) {
     return next(new AppError("No project found with that ID", 404));
   }
