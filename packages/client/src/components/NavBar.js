@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileDropdown from "./ProfileDropDown";
+import { useAuth } from "../hooks/useAuth";
 
 import tempImg from "../images/temp.jpg";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   return (
     <>
@@ -32,12 +34,26 @@ const NavBar = () => {
               </li>
               {/* If not signed in  show below, otherwise, do not show the signiup and login */}
               <li>
-                {" "}
-                <Link to="/login"> Login </Link>{" "}
+                {isLoggedIn ? "" : <Link to="/login"> Login </Link>}
               </li>
               <li>
                 {" "}
-                <Link to="/register"> SIGN-UP </Link>{" "}
+                {isLoggedIn ? (
+                  ""
+                ) : (
+                  <Link to="/login"> Register </Link>
+                )}
+              </li>
+              <li>
+                {isLoggedIn ? (
+                  <Link to="/projects"> Create a Project </Link>
+                ) : (
+                  ""()
+                )}
+              </li>
+              <li>
+                {" "}
+                <Link to="/dashboard">Dashboard </Link>{" "}
               </li>
             </ul>
           ) : (

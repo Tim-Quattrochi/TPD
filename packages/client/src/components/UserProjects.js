@@ -24,10 +24,19 @@ const UserProjects = () => {
     };
 
     getProjects();
-  }, []);
+  }, [axios, userId]);
 
   const handleEdit = (id) => {
     navigate(`/projects/edit/${id}`);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const deleteProject = await axios.delete(`/project/${id}`);
+      console.log(deleteProject);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -63,6 +72,13 @@ const UserProjects = () => {
               onClick={() => handleEdit(project._id)}
             >
               Edit
+            </button>
+            <button
+              type="button"
+              className="bg-red-500 rounded-full px-4 py-2 mx-2 text-white"
+              onClick={() => handleDelete(project._id)}
+            >
+              Delete
             </button>
           </div>
         ))}

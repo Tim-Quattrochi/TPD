@@ -30,7 +30,10 @@ export default function Projects() {
 
     try {
       const response = await axios.post("/project", formData);
-      const projectId = response.data.id;
+      console.log(response);
+      const projectId = response.data.data.project._id;
+      console.log(projectId);
+      // navigate("/dashboard");
       navigate(`/projects/${projectId}`);
     } catch (error) {
       console.log(error);

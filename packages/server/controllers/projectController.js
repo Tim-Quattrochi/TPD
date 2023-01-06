@@ -120,6 +120,10 @@ exports.updateProject = catchAsync(async (req, res, next) => {
   if (!project) {
     return next(new AppError("No project found with that ID", 404));
   }
+  if (project.author.toString() !== req.id.toString()) {
+    res.status(401);
+    throw new Error("Not authorized.");
+  }
   res.status(200).json({
     status: "success",
     data: {
@@ -130,11 +134,16 @@ exports.updateProject = catchAsync(async (req, res, next) => {
 
 exports.deleteProject = catchAsync(async (req, res, next) => {
   const project = await Project.findByIdAndDelete(req.params.id);
+  console.log(project);
   if (!project) {
     return next(new Error("No project found with that ID", 404));
   }
-  res.status(204).json({
+  if (project.author.toString() !== req.id.toString()) {
+    res.status(401);
+    throw new Error("Not authorized.");
+  }
+  res.status(200).json({
     status: "success",
-    data: null,
+    data: `${project.projectName} successfully deleted.`,
   });
 });

@@ -17,6 +17,7 @@ import Projects from "./pages/Projects";
 import UserProjects from "./components/UserProjects";
 import EditDetails from "./components/EditDetails";
 import EditProject from "./components/EditProject";
+import ViewProject from "./components/ViewProject";
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/edit-details" element={<EditDetails />} />
 
+        <Route
+          path="/projects/:projectId"
+          element={<ViewProject />}
+        />
         <Route path="/projects" element={<Projects />}>
           <Route path=":id" element={<UserProjects />} />
         </Route>

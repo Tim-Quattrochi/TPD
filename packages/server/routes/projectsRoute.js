@@ -17,7 +17,8 @@ router
 router
   .route("/:id")
   .get(projectController.getProjectById)
-  .patch(projectController.updateProject);
+  .patch(projectController.updateProject)
+  .delete(projectController.deleteProject);
 
 router
   .route("/user/:userId")
