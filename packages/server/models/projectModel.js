@@ -3,9 +3,12 @@ const { ObjectId } = mongoose.Schema.Types;
 
 const projectsSchema = new mongoose.Schema(
   {
-    companyName: {
+    projectName: {
       type: String,
       required: true,
+    },
+    companyName: {
+      type: String,
     },
     author: {
       type: ObjectId,

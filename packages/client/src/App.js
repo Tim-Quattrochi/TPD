@@ -16,13 +16,12 @@ import AllTasks from "./pages/AllTasks";
 import Projects from "./pages/Projects";
 import UserProjects from "./components/UserProjects";
 import EditDetails from "./components/EditDetails";
-
+import EditProject from "./components/EditProject";
 
 function App() {
   return (
     <Router>
       <NavBarComp />
-      
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -34,8 +33,13 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/edit-details" element={<EditDetails />} />
 
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/projects/:id" element={<UserProjects />} />
+        <Route path="/projects" element={<Projects />}>
+          <Route path=":id" element={<UserProjects />} />
+        </Route>
+        <Route
+          path="/projects/edit/:projectId"
+          element={<EditProject />}
+        />
 
         <Route path="/tasks" element={<AllTasks />} />
       </Routes>

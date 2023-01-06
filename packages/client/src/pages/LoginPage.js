@@ -53,13 +53,19 @@ export default function LoginPage(props) {
         email: response.data.email,
       };
 
-      setValue(auth);
+      setValue(auth); //this is setting local storage.
       setIsLoggedIn(true);
 
       const token = response?.data?.token;
       // token is the same as accessToken.
 
-      setAuth({ token }); //for AuthProvider, sends  access token
+      setAuth({
+        token,
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        userName: response.data.userName,
+        email: response.data.email,
+      }); //for AuthProvider, sends  access token
 
       setUserName("");
       setPassword("");

@@ -2,12 +2,13 @@ import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuth } from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Projects() {
   const { auth } = useAuth();
 
   const initialValues = {
+    projectName: "",
     companyName: "",
     companyEmail: "",
     projectDetails: "",
@@ -28,8 +29,9 @@ export default function Projects() {
     setIsLoading(true);
 
     try {
-      await axios.post("/project", formData);
-      navigate(`/projects/${userId}`);
+      const response = await axios.post("/project", formData);
+      const projectId = response.data.id;
+      navigate(`/projects/${projectId}`);
     } catch (error) {
       console.log(error);
     } finally {
@@ -57,9 +59,25 @@ export default function Projects() {
         <div className="mb-4">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            htmlFor="username"
+            htmlFor="projectName"
           >
-            Company Name
+            Project Name
+          </label>
+          <input
+            className="w-full text-sky-900 border-gray-300 rounded-lg shadow-sm focus:border-pink-800 focus:ring-sky-900"
+            id="projectName"
+            type="text"
+            name="projectName"
+            value={formData.projectName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            className="block text-amber-500 text-sm font-middle mb-2"
+            htmlFor="companyName"
+          >
+            Company Name:
           </label>
           <input
             className="w-full text-sky-900 border-gray-300 rounded-lg shadow-sm focus:border-pink-800 focus:ring-sky-900"
@@ -68,12 +86,13 @@ export default function Projects() {
             name="companyName"
             value={formData.companyName}
             onChange={handleChange}
+            placeholder="optional"
           />
         </div>
         <div className="mb-6">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            htmlFor="password"
+            htmlFor="companyEmail"
           >
             Company Email
           </label>
@@ -88,7 +107,7 @@ export default function Projects() {
         </div>
         <div className="mb-6">
           <label
-            htmlFor="company-size"
+            htmlFor="missionStatement"
             className="font-middle mb-2 block text-sm  text-amber-500"
           >
             What is the mission statement?
@@ -104,7 +123,7 @@ export default function Projects() {
         <div className="mb-6">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            htmlFor="password"
+            htmlFor="deadlines"
           >
             What is the deadline?
           </label>
@@ -120,7 +139,7 @@ export default function Projects() {
         <div className="mb-6">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            htmlFor="password"
+            htmlFor="projectDetails"
           >
             Outline the Project details
           </label>

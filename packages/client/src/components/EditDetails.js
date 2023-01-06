@@ -17,13 +17,19 @@ const EditDetails = (props) => {
   const { setAuth, auth } = useContext(AuthContext);
 
   useEffect(() => {
+    let isMounted = false;
+
     const getUser = async () => {
       const res = await axios
         .get("/users/me")
-        .then((res) => setUser(res.data))
-        .catch((err) => console.log(err));
+        .then((res) => !isMounted && setUser(res.data))
+        .catch((err) => !isMounted && console.log(err));
     };
     getUser();
+
+    return () => {
+      isMounted = true;
+    };
   }, [axios]);
 
   const handleChange = (e) => {
@@ -42,20 +48,12 @@ const EditDetails = (props) => {
       const { email, firstName, lastName, userName, _id } =
         updatedUser.data;
 
-      const updatedAuth = {
-        ...auth,
-      };
-
       //update only the email, firstname, lastname in the auth.
       //the issue here is, when the user navigates to
       //another protected route, the auth will
       //update from the local storage, overriding this.
       //
-      // updatedAuth.user.email = user.email;
-      // updatedAuth.user.firstName = user.firstName;
-      // updatedAuth.user.lastName = user.lastName;
-      console.log(email);
-      console.log(updatedUser);
+
       setAuth({ email, firstName, lastName, userName, _id });
 
       localStorage.setItem(

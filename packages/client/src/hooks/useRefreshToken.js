@@ -1,4 +1,3 @@
-import { faCropSimple } from "@fortawesome/free-solid-svg-icons";
 import axios from "./useAxios";
 import { useAuth } from "./useAuth";
 
@@ -11,9 +10,9 @@ const useRefreshToken = () => {
       withCredentials: true,
     });
 
-    setAuth((user) => {
-      console.log(user);
-      return { user, token: response.data.token };
+    setAuth((prev) => {
+      console.log(prev);
+      return { ...prev, token: response.data.token };
     });
     return response.data.token;
   };

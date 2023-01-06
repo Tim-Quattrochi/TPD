@@ -22,6 +22,8 @@ export default function EditProject() {
       const { data } = await axios.get(`/project/${projectId}`);
       const projectData = data.data.project;
       setFormData(projectData);
+      console.log(projectData);
+
       setIsLoading(false);
     };
     getProjectData();
@@ -60,7 +62,7 @@ export default function EditProject() {
         <div className="mb-4">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            htmlFor="username"
+            htmlFor="projectName"
           >
             Edit Project Name
           </label>
@@ -76,7 +78,7 @@ export default function EditProject() {
         <div className="mb-4">
           <label
             className="block text-amber-500 text-sm font-middle mb-2"
-            htmlFor="username"
+            htmlFor="companyName"
           >
             Company Name:
           </label>
@@ -159,7 +161,14 @@ export default function EditProject() {
             className="bg-sky-900 hover:bg-slate-800 text-pink-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto"
             type="submit"
           >
-            Submit Proposal
+            Submit Edit
+          </button>
+          <button
+            type="button"
+            className="bg-pink-800 rounded-full px-4 py-2 mx-2 text-white"
+            onClick={() => navigate("/dashboard")}
+          >
+            Cancel
           </button>
         </div>
       </form>
