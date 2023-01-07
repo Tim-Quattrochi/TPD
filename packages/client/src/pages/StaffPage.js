@@ -1,6 +1,6 @@
 import React from 'react'
 import Pete from '../images/pete.jpg'
-import Tim from '../images/tim.jpg'
+import Tim from '../images/realtim.jpg'
 import Destiny from '../images/Destiny.jpg'
 import Rick from '../images/rickastley.jpg'
 
@@ -79,7 +79,7 @@ return (
                         "Hey there! I'm Rick Astley, the one and only "King of Memes." You may know me from my hit song "Never Gonna Give You Up," which has taken the internet by storm (thanks to the power of the "rickroll"). When I'm not busy being the subject of endless memes and parodies, you can find me singing my heart out and enjoying a nice, cold pint. Just a warning: I've been known to bust out into impromptu performances of "Never Gonna Give You Up" at any given moment, so beware the power of the Rickroll. But despite my iconic status as the ultimate internet prank, I'm just a down-to-earth guy with a love for music and a good laugh. So if you're ready to get Rickrolled (or just want to enjoy some good tunes), give me a shout!"
 
                         </p>
-                        <p className="text-gray-600 text-xs"> Full Stack Developer </p>
+                        <p className="text-gray-600 text-xs"> Professional Troll </p>
                         </div>
                     </div>
                 </div>
