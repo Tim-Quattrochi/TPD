@@ -10,6 +10,7 @@ import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
 
+
 const DB_URI = process.env.DB_URI;
 const PORT = process.env.PORT || 3001;
 
@@ -51,3 +52,7 @@ app.use(AppError); //use error handler middleware
 app.listen(PORT, () =>
   console.log(`Server is listening on port ${PORT}`.bgBlue)
 );
+
+
+// sockets changes 
+

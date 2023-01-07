@@ -22,7 +22,7 @@ import ViewProject from "./components/ViewProject";
 function App() {
   return (
     <Router>
-      <NavBarComp />
+      <NavBarComp className="sticky" />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -49,7 +49,7 @@ function App() {
         <Route path="/tasks" element={<AllTasks />} />
       </Routes>
 
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }
