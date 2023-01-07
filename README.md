@@ -52,3 +52,13 @@ Bugs/challenges to address:
 - We will need to add conditionals to render some minor parts of the page in  different ways bassed on  the signed in status and id. 
 - Will there be time for a templates page with  some of the other tasks needed? 
 
+
+
+
+
+
+Image Outsources ::  
+
+https://unsplash.com/photos/qC2n6RQU4Vw
+
+https://unsplash.com/photos/67l-QujB14w

@@ -1,54 +1,58 @@
-import React, { Component, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ActiveConversation from './ActiveConversation'
 import ConversationsList from './Conversations';
-
-
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useAuth } from '../../hooks/useAuth';
 
 const UserMessages = () => {
+     const [messages, setMessages] = useState([])
+     const {newMessage, setNewMessage} = useState("")
+     const [visibility, setVisibility ] = useState( 'invisible' )
+     const axios = useAxiosPrivate();
+     const { auth } = useAuth();
+
+     let userId = auth.id
+
+console.log(useAuth())
 let message = ""
-const {newMessage, setNewMessage} = useState("")
-const [ visibility, setVisibility ] = useState( 'invisible' )
+
+
+const retrieveMessages = async () => {
+    await axios.get(`/${userId}/messages`)
+     .then((res) => { 
+          setMessages(res.data)
+          console.log(res.data)
+     })
+     .catch((err) => console.log(err))
+}
+
+useEffect(() => {
+     retrieveMessages()
+},[])
+
 
 const handleMessageBox = (e) => {
-     e.preventDefault()
+    e.preventDefault()
      // console.log(e.target.value)
-    return message = e.target.value
+    message = e.target.value
+    
 }
 
 const sendMessage = (e) => {
      e.preventDefault()
      console.log(message)
-     setNewMessage(message)
+     axios.post(`/${userId}/messages`, {text: message})
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
+     
+     
 }
-
-
-
-
-
 
 
     return (
         
    <>  
-
-     {/* <p className="md:space-x-1 space-y-1 md:space-y-0 mb-4">
-
-  <button className="inline-block px-6 py-2.5 bg-blue-600 text-white uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" 
-          type="button"
-          onClick={() => visibility === 'visible' ? setVisibility('invisible') : setVisibility('visible')}
-  >
-    Messages
-  </button>
-
-  </p>
-
-<div className={`${visibility} ${visibility === 'invisible' ? 'w-0 h-0' :""}`} >
-
-  
-
-</div> */}
-
-        <div className={`${visibility === 'invisible' ? 'bg-slate-900 w-4/12 h-0 border-double border-4 border-slate-700 flex flex-col items-center' : 'bg-slate-900 w-4/12 h-96 border-double border-4 border-slate-700 flex flex-col items-center'}`}>
+        <div className={`${visibility === 'invisible' ? 'bg-slate-900 w-4/12 h-9 border-double border-4 border-slate-700 flex flex-col items-center absolute' : 'bg-slate-900 w-4/12 h-96 border-double border-4 border-slate-700 flex flex-col items-center absolute'}`}>
          
           <h4 className='w-full text-gray-100 bg-red-800 text-center font-semibold border-b-slate-700 border-solid border-b-2 mb-3'
                type="button"
@@ -68,7 +72,7 @@ const sendMessage = (e) => {
 
                <div className='w-11/12 h-auto'>
                     <ul className='w-11/12 h-64 bg-slate-100 bg-opacity-5'  > 
-                         <ActiveConversation />
+                         <ActiveConversation messages={messages}/>
                          
                     </ul>
      
@@ -80,9 +84,7 @@ const sendMessage = (e) => {
                </div>
 
           </div>
-          
-          
-        
+
         </div>
    </>
 
