@@ -11,7 +11,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className="absolute p-3 w-40 h-screen flex flex-col flex-wrap pl-3 py-3 bg-slate-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light">
+      <nav className="absolute p-3 w-40 h-screen flex flex-col flex-wrap pl-3 py-3 bg-slate-800 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light">
 
         <h1 className=" font-semibold text-6xl shadow-md pt-3 pb-3 mb-0"> 
         TPD </h1>

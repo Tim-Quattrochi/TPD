@@ -1,28 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../images/handsWorking.jpg";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import logo from "../images/handsWorking.jpg"
 
-export default function HomePage(props) {
-	return (
-		<>
-			<div className="pl-44  h-screen max-h-screen flex flex-col ">
-				<h1 className="text-sky-500 font-semibold p-10 pb-16 text-3xl text-center">
-					We design with your future in mind!
-				</h1>
 
-				<div className="flex justify-between pb-20">
-					<img
-						src={logo}
-						className="w-6/12 rounded-2xl ml-5 align place-content-center"
-					/>
+export default function HomePage (props) {
 
-					<button className=" mr-56">
-						<Link to="/register"> SIGN-UP </Link>{" "}
-					</button>
-				</div>
 
-				<div class="p-4 rounded-lg text-slate-800">
-					<h3>Why Choose Total Product Design?</h3>
+
+    
+return (
+    <>
+    <div className='pl-44  h-screen max-h-screen flex flex-col bg-sky-900'>  
+     
+        <h1 className='text-amber-500 font-extrabold p-10 pb-16 text-3xl text-center' > 
+            We design with your future in mind!
+       </h1> 
+         
+        
+        <div className='flex  pb-20'>
+
+            <img src={logo} className=" w-6/12 rounded-full ml-5 align place-content-center shadow-amber-500 shadow-lg"/>
+
+            <div className='content-center rounded-2xl ml-20 mr-20 text-slate-800 p-16 shadow-lg bg-slate-300 backdrop-opacity-80 '> 
+               <h3>Why Choose Total Product Design?</h3>
 					<p>
 						Total Product Design (TPD) is a growing design agency that
 						specialized in creating powerful, effective brands and web presences
@@ -46,8 +46,13 @@ export default function HomePage(props) {
 						and gets results, TPD is the perfect choice. Contact us today to
 						learn more about what we can do for your business.
 					</p>
-				</div>
-			</div>
-		</>
-	);
-}
+               
+               <button className='mr-56 p-2 rounded-3xl bg-amber-500 text-pink-800 justify-items-end'><Link to='/register' > SIGN-UP  </Link> </button> 
+            
+            </div>
+
+        </div>
+
+    </div>
+    </>
+)}
