@@ -9,9 +9,11 @@ export default function StaffPage(props) {
     
 return (
 
-    <div className="pl-44 h-screen overflow-hidden">   
+    <div className="pl-44 h-screen overflow-scroll">   
     
-    <h2> Your Future Team </h2>
+    <h2 className='text-red-900 font-semibold pt-10  text-3xl text-center' > 
+    Your Future Team </h2>
+
     <div className='flex flex-col'> 
     
                 <div className="flex justify-center m-20">
@@ -31,7 +33,7 @@ return (
                     </div>
                 </div>  
                 
-                <div className="flex justify-center">
+                <div className="flex justify-center mb-20">
                     <div className="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
                         <img className=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg" 
                         src={Pete} 
@@ -48,7 +50,7 @@ return (
                     </div>
                 </div>
                 
-                <div className="flex justify-center">
+                <div className="flex justify-center mb-20">
                     <div className="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
                         <img className=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg" 
                         src={Destiny} 
@@ -65,7 +67,7 @@ return (
                     </div>
                 </div>
 
-                <div className="flex justify-center">
+                <div className="flex justify-center mb-20">
                     <div className="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
                         <img className=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg" 
                         src={Rick} 
