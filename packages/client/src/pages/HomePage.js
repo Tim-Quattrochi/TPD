@@ -22,8 +22,33 @@ return (
             <img src={logo} className=" w-6/12 rounded-full ml-5 align place-content-center shadow-amber-500 shadow-lg"/>
 
             <div className='content-center rounded-2xl ml-20 mr-20 text-slate-800 p-16 shadow-lg bg-slate-300 backdrop-opacity-80 '> 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi etiam dignissim diam quis enim lobortis. Id ornare arcu odio ut sem. Leo vel orci porta non pulvinar neque laoreet. Nisi scelerisque eu ultrices vitae. Massa vitae tortor condimentum lacinia. Nunc congue nisi vitae suscipit tellus mauris a diam. Vel quam elementum pulvinar etiam non. Urna duis convallis convallis tellus id interdum. Dapibus ultrices in iaculis nunc sed augue.
-                <button className='mr-56 p-2 rounded-3xl bg-amber-500 text-pink-800 justify-items-end'><Link to='/register' > SIGN-UP  </Link> </button> 
+               <h3>Why Choose Total Product Design?</h3>
+					<p>
+						Total Product Design (TPD) is a growing design agency that
+						specialized in creating powerful, effective brands and web presences
+						for businesses of all sizes.
+					</p>
+					<p>
+						Our team of experienced designers takes the time to understand your
+						business, your goals, and your target audience, and we use this
+						information to create a unique, tailored design that speaks directly
+						to your audience.
+					</p>
+					<p>
+						In addition to our attention to detail and personalized approach,
+						TPD is also known for our innovative and cutting-edge designs. We
+						are always on the lookout for new trends and techniques, and we are
+						not afraid to push the boundaries in order to create something truly
+						special and memorable.
+					</p>
+					<p>
+						Overall, if you want a brand and web presence that truly stands out
+						and gets results, TPD is the perfect choice. Contact us today to
+						learn more about what we can do for your business.
+					</p>
+               
+               <button className='mr-56 p-2 rounded-3xl bg-amber-500 text-pink-800 justify-items-end'><Link to='/register' > SIGN-UP  </Link> </button> 
+            
             </div>
 
         </div>

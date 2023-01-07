@@ -53,10 +53,10 @@ const UserTickets = () => {
 	};
 
 	return (
-		<div className="bg-blue-800 flex flex-col p-6">
+		<div className="bg-slate-800 flex flex-col p-6">
 			<h1 className="text-white text-3xl font-bold mb-4">Ticket Tracker</h1>
 			<form
-				className="bg-blue-600 text-yellow-400 rounded-lg p-4"
+				className="bg-sky-900 amber-500 rounded-lg p-4"
 				onSubmit={handleFormSubmit}
 			>
 				<label htmlFor="title" className="block text-white font-bold mb-2">
@@ -109,28 +109,25 @@ const UserTickets = () => {
 					<option value="emergency" className="text-red-600">
 						Emergency
 					</option>
-					<option value="top-priority" className="text-orange-600">
+					<option value="top-priority" className="text-amber-500">
 						Top Priority
 					</option>
-					<option value="request" className="text-yellow-600">
+					<option value="request" className="amber-500">
 						Request
 					</option>
 				</select>
 				<br />
 				<button
 					type="submit"
-					className="bg-yellow-600 rounded-lg p-2 text-white font-bold"
+					className="bg-amber-500 rounded-lg p-2 text-white font-bold"
 				>
 					Submit
 				</button>
 			</form>
-			<hr className="bg-purple-500 my-4 w-full" />
+			<hr className="bg-pink-800 my-4 w-full" />
 			<h2 className="text-white font-bold text-2xl mb-4">Tickets:</h2>
 			{tickets.map((ticket, index) => (
-				<div
-					key={index}
-					className="bg-blue-600 text-yellow-400 rounded-lg p-4 mb-4"
-				>
+				<div key={index} className="bg-blue-600 amber-500 rounded-lg p-4 mb-4">
 					<p>
 						<h3 className="text-white font-bold">{ticket.title}</h3>
 					</p>
@@ -140,7 +137,7 @@ const UserTickets = () => {
 					<button
 						type="button"
 						onClick={() => handleEditTicket(index)}
-						className="bg-yellow-600 rounded-lg p-2 text-white font-bold mr-2"
+						className="bg-amber-500 rounded-lg p-2 text-white font-bold mr-2"
 					>
 						Edit
 					</button>
