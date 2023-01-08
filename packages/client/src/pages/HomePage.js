@@ -14,12 +14,12 @@ return (
      
         <h1 className='text-amber-500 font-extrabold p-10 pb-16 text-3xl text-center' > 
             We design with your future in mind!
-       </h1> 
+        </h1> 
          
         
         <div className='flex  pb-20'>
 
-            <img src={logo} className="w-6/12 rounded-full ml-5 align place-content-center shadow-amber-500 shadow-lg"/>
+            <img src={logo} className="w-6/12 rounded-full ml-5 place-content-center shadow-amber-500 shadow-lg"/>
 
             <div className='content-center rounded-2xl ml-20 mr-20 text-slate-800 p-8 shadow-lg bg-slate-300 backdrop-opacity-80 border-double border-4 border-amber-500 '> 
                <h3 className='text-center underline text-pink-800 font-semibold'>Why Choose Total Product Design?</h3>

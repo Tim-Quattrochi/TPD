@@ -23,6 +23,16 @@ Quality Assurance and Tester - Tim Quattrochi
 
 # PDT-Development
 
+## Resources
+
+::Image Outsources :: 
+
+https://express.adobe.com/express-apps/logo-maker/preview
+https://unsplash.com/photos/qC2n6RQU4Vw
+https://unsplash.com/photos/o0R4iqk1eRQ
+https://unsplash.com/photos/67l-QujB14w
+https://unsplash.com/photos/Bd7gNnWJBkU
+
 
 # Retrospectives #
 --------------------------------------------
@@ -54,12 +64,20 @@ Bugs/challenges to address:
 
 
 
+--------------------------------------------
+01-07-2023
+Sprint3: FrontEnd and Backend Connections  
+---------------------------------------------
+This sprint we successfully built the front end applications and attached them  to the backend. This includes, registration, signup, sign in, ticket submissions, and project submissions. At this point in the project we are tidying up the design  aspects of the site, implementing the signout button, and cleaning up the UI implementation to be prepared for the final presentation. 
+
+Like before we met to ensure things were being done and we were getting where we need to be. The team  has pulled together their strengths to work towards a solid final project. At this point we discussed canceling development on  the messaging app due to the other forms of communication and to refocus on  building a few templates to be shown  on  the website. 
+
+Tim - Deployment research
+Pete - completing the signout button. 
+Destiny - Creating 3-5 templates to be displayed on the final  project.  
 
 
+Bugs/challenges to address: 
 
-Image Outsources ::  
-https://express.adobe.com/express-apps/logo-maker/preview
-https://unsplash.com/photos/qC2n6RQU4Vw
-https://unsplash.com/photos/o0R4iqk1eRQ
-https://unsplash.com/photos/67l-QujB14w
-https://unsplash.com/photos/Bd7gNnWJBkU
+- Responsive Design  Complications 
+- Signout Functionality
