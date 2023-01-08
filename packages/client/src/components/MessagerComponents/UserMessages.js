@@ -11,20 +11,21 @@ const UserMessages = () => {
      const axios = useAxiosPrivate();
      const { auth } = useAuth();
 
-     let userId = auth.id
+     let userId = auth.firstName
 
 console.log(useAuth())
 let message = ""
 
 
-const retrieveMessages = async () => {
-    await axios.get(`/${userId}/messages`)
+const retrieveMessages = () => {
+    axios.get(`/messages`)
      .then((res) => { 
           setMessages(res.data)
           console.log(res.data)
      })
      .catch((err) => console.log(err))
 }
+
 
 useEffect(() => {
      retrieveMessages()
@@ -35,7 +36,6 @@ const handleMessageBox = (e) => {
     e.preventDefault()
      // console.log(e.target.value)
     message = e.target.value
-    
 }
 
 const sendMessage = (e) => {
@@ -43,10 +43,9 @@ const sendMessage = (e) => {
      console.log(message)
      axios.post(`/${userId}/messages`, {text: message})
           .then(res => console.log(res))
-          .catch(err => console.log(err))
-     
-     
+          .catch(err => console.log(err))    
 }
+
 
 
     return (
@@ -71,7 +70,7 @@ const sendMessage = (e) => {
                </ul> */}
 
                <div className='w-11/12 h-auto'>
-                    <ul className='w-11/12 h-64 bg-slate-100 bg-opacity-5'  > 
+                    <ul className='w-11/12 h-64 bg-slate-100 bg-opacity-5 overflow-y-scroll'  > 
                          <ActiveConversation messages={messages}/>
                          
                     </ul>

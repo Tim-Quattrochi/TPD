@@ -42,7 +42,7 @@ exports.updateMessage = catchAsync(async (req, res, next) => {
     const message
         = await
         Message
-            .findByIdAndUpdate(req.params .id, req.body
+            .findByIdAndUpdate(req.params.id, req.body
                 , {
                     new: true,
                     runValidators: true,
