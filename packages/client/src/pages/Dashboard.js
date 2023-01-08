@@ -7,6 +7,7 @@ import UserTickets from "../components/UserTickets";
 import UserMessages from "../components/MessagerComponents/UserMessages";
 import UserProjects from "../components/UserProjects";
 
+
 export default function Dashboard(props) {
   const { auth } = useAuth();
   const [firstName, setFirstName] = useState(null);
@@ -35,18 +36,16 @@ export default function Dashboard(props) {
   };
 
   return (
-  <>
-  
+  <> 
     <div className="pl-44 h-screen max-h-screen">
       {
         <h2 className="text-center text-2xl text-sky-900 font-bold tracking-wide p-5">
           Hello, {firstName}
         </h2>
       }
-      <div id="msgBoard" className="flex justify-end pr-5 pl-2" >     
+      {/* <div id="msgBoard" className="flex justify-end pr-5 pl-2" >     
          <UserMessages />          
-      </div>
-
+      </div> */}
 
       <div id="userTickets" className="mt-7 pr-5 pl-2">
         <UserTickets />
@@ -56,10 +55,7 @@ export default function Dashboard(props) {
         <UserProjects />
       </div>
 
-
-
     </div>
-
     </>
   );
 }

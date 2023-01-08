@@ -46,15 +46,19 @@ const ProfileDropdown = ({ isLoggedIn }) => {
 					)}
 				</>
 			) : (
-				<ul className="absolute right-0 w-48 px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-					<li className="right-0 w-48 px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-						<Link to="/register"> Register </Link>
-					</li>
+				<>
+					{isOpen && (
+					<ul className="absolute right-0 w-36 px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+						<li className="right-0 w-auto px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+							<Link to="/register"> Register </Link>
+						</li>
 
-					<li className="right-0 w-48 px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-						<Link to="/login"> SignIn </Link>
-					</li>
-				</ul>
+						<li className="right-0 w-auto px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+							<Link to="/login"> SignIn </Link>
+						</li>
+					</ul>
+				)}
+				</>
 			)}
 		</div>
 	);
