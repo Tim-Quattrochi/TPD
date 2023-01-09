@@ -140,6 +140,7 @@ export default function LoginPage(props) {
                 name="password"
                 id="password"
                 value={password}
+                autoComplete="on"
                 required
                 placeholder="Password..."
                 onChange={(e) => setPassword(e.target.value)}
