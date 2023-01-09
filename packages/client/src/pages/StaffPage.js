@@ -11,7 +11,7 @@ return (
 
     <div className="pl-44 h-screen overflow-y-scroll  bg-sky-900">   
     
-    <h2 className='text-amber-500 font-semibold pt-10 text-5xl text-center' > 
+    <h2 className='text-amber-500 bg-sky-900 font-extrabold p-10 text-3xl text-center'> 
         Your Future Team 
     </h2>
 

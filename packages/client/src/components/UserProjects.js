@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import ViewProject from "./ViewProject";
+import Projects from "../pages/Projects";
 
 const UserProjects = () => {
 	const axios = useAxiosPrivate();
@@ -11,6 +13,8 @@ const UserProjects = () => {
 	const [userId] = useState(null);
 
 	const [projects, setProjects] = useState([]);
+
+	const [isOpen, setIsOpen] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -39,11 +43,28 @@ const UserProjects = () => {
 		}
 	};
 
+	const handleToggleOpen = () => {
+
+		setIsOpen(!isOpen)
+	}
+
 	return (
-		<div className="bg-gray-200 p-4">
+		<div className="bg-slate-800 rounded-lg border-4 border-double border-amber-500 p-4">
+
+		<h1 className="text-white text-3xl font-bold mb-4"> Project Submissions </h1>
+			<div>
+				<button onClick={handleToggleOpen} className="bg-amber-500 font-semibold text-pink-800 text-center rounded-sm w-full border-2 border-solid border-amber-800"> Submit a Project </button>
+				{isOpen && (
+					<div><Projects /></div>
+				)}
+			</div>
+			<hr className="bg-pink-800 my-4 w-full" />
+			<h2 className="text-white font-bold text-2xl mb-4"> Active Projects:</h2>
+
 			{projects &&
 				projects.map((project) => (
-					<div key={project._id} className="bg-white rounded shadow p-4 mb-4">
+
+					<div key={project._id} className="bg-white rounded shadow-lg shadow-sky-800 p-4 mb-4 ">
 						<h3 className="text-xl font-semibold text-slate-800">
 							Project Name: {project.projectName}
 						</h3>
@@ -74,7 +95,8 @@ const UserProjects = () => {
 							Delete
 						</button>
 					</div>
-				))}
+				))
+			}
 		</div>
 	);
 };

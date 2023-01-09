@@ -56,7 +56,7 @@ export default function Projects() {
   return (
     <div className="w-full max-w-sm mx-auto align-middle">
       <form
-        className="bg-slate-800 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        className="bg-sky-900 bg-opacity-40 shadow-md rounded-b-lg px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmitProject}
       >
         <div className="mb-4">
@@ -158,7 +158,7 @@ export default function Projects() {
 
         <div className="flex items-center justify-between">
           <button
-            className="bg-sky-900 hover:bg-slate-800 text-pink-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto"
+            className="bg-amber-500 hover:bg-slate-800 text-pink-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto"
             type="submit"
           >
             Submit Proposal
