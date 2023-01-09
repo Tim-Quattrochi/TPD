@@ -104,16 +104,17 @@ export default function LoginPage(props) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center text-center p-20 bg-cyan-900 ">
-          <div className="bg-white w-fit pl-8 pr-8 pb-5 pt-5">
-            <h2 className=" text-red-900 font-bold mb-3">
+    		<div className='grid place-content-center pl-44 h-screen bg-sky-900 overflow-scroll'>  
+        <div className="bg-slate-800 bg-opacity-80 shadow-md shadow-black rounded px-8 pt-6 pb-8 mb-4 grid place-content-center">
+
+          <h2 className="text-center text-amber-500 underline text-lg font-bold shadow-sm shadow-pink-800  bg-transparent mb-3">
               Sign in Here
             </h2>
 
             <form onSubmit={handleSignIn} className>
               <label
                 htmlFor="username"
-                className="flex flex-col items-center"
+                className="flex flex-col"
               >
                 {" "}
               </label>
@@ -127,7 +128,7 @@ export default function LoginPage(props) {
                 autoComplete="off"
                 onChange={(e) => setUserName(e.target.value)}
                 // onBlur={() => setUserName(name)}
-                className=" bg-slate-200 w-8/12 mb-4"
+                className=" bg-white w-8/12 mb-4"
               />
               <label
                 htmlFor="password"
@@ -144,10 +145,10 @@ export default function LoginPage(props) {
                 required
                 placeholder="Password..."
                 onChange={(e) => setPassword(e.target.value)}
-                className=" bg-slate-200 w-8/12 mb-4"
+                className=" bg-white w-8/12 mb-4"
               />{" "}
               <br />
-              <button className=" bg-red-800 w-6/12 text-white self-center">
+              <button className="shadow-lg shadow-gray-900  bg-amber-500 w-4/12 text-pink-800 rounded-md font-bold self-center p-2">
                 Sign-in
               </button>
               <div className="text-amber-500 pt-1 font-bold hover:underline">
