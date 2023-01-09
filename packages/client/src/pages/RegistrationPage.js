@@ -126,19 +126,21 @@ export default function RegistrationPage(props) {
 							Success!
 						</h1>
 
-						<Link to={"/login"}> Sign In</Link>
+						<Link to={"/login"}> Sign In </Link>
 					</div>
 				</div>
 			) : (
 
     		<div className='grid place-content-center pl-44 h-screen bg-sky-900 overflow-scroll'>  
 				
-					<div className="bg-white w-fit pl-8 pr-8 pb-5 pt-5">
+					<div className="bg-slate-800 bg-opacity-80 shadow-md shadow-black rounded px-8 pt-6 pb-8 mb-4">
 
-						<h2 className=" text-amber-500 font-bold shadow-md bg-transparent">
+						<h2 className="text-center text-amber-500 underline text-lg font-bold shadow-sm shadow-pink-800  bg-transparent mb-3">
 							{" "}
 							Begin your companies online expansion!{" "}
+											
 						</h2>
+					
 
 						<p
 							ref={errRef}
@@ -159,7 +161,7 @@ export default function RegistrationPage(props) {
 									name="firstName"
 									placeholder="First Name..."
 									required
-									className=" bg-slate-200 w-9/12 ml-4 mb-3"
+									className=" bg-white w-9/12 ml-4 mb-3"
 								/>
 							</div>
 
@@ -170,16 +172,16 @@ export default function RegistrationPage(props) {
 									name="lastName"
 									placeholder="Last Name..."
 									required
-									className=" bg-slate-200 w-9/12 ml-4 mb-3"
+									className=" bg-white w-9/12 ml-4 mb-3"
 								/>
 							</div>
 
 							<div className="usernameInputField w-full p-2">
 								<label htmlFor="userName" className="p-2">
-									<span className={validName ? "visible" : "invisible"}>
+									<span className={validName ? " bg-amber-500 rounded-full visible" : "invisible"}>
 										<FontAwesomeIcon icon={faCheck} />
 									</span>
-									<span className={validName ? "invisible" : "visible"}>
+									<span className={validName ? "invisible" : " bg-pink-800 rounded-full visible"}>
 										<FontAwesomeIcon icon={faTimes} />
 									</span>
 								</label>
@@ -197,7 +199,7 @@ export default function RegistrationPage(props) {
 									onChange={(e) => setUserName(e.target.value)}
 									onFocus={() => setUserFocus(true)}
 									onBlur={() => setUserFocus(false)}
-									className=" bg-slate-200 w-8/12 mb-3"
+									className=" bg-white w-8/12 mb-3"
 								/>
 								<p
 									id="uidnote"
@@ -224,7 +226,7 @@ export default function RegistrationPage(props) {
 									type="email"
 									name="email"
 									placeholder="Email..."
-									className="bg-slate-200 w-9/12 ml-4 mb-3"
+									className="bg-white w-9/12 ml-4 mb-3"
 								/>
 							</div>
 
@@ -232,11 +234,11 @@ export default function RegistrationPage(props) {
 								<label htmlFor="password" className="p-2">
 									<FontAwesomeIcon
 										icon={faCheck}
-										className={validPassword ? "visible" : "invisible"}
+										className={validPassword ? " bg-amber-500 rounded-full visible" : "invisible"}
 									/>
 									<FontAwesomeIcon
 										icon={faTimes}
-										className={validPassword ? "invisible" : "visible"}
+										className={validPassword ? "invisible" : " bg-pink-800 rounded-full visible"}
 									/>
 								</label>
 								<input
@@ -251,14 +253,14 @@ export default function RegistrationPage(props) {
 									aria-describedby="pwdnote"
 									onFocus={() => setPasswordFocus(true)}
 									onBlur={() => setPasswordFocus(false)}
-									className=" bg-slate-200 w-8/12 mb-3"
+									className=" bg-white w-8/12 mb-3"
 								/>
 
 								<p
 									id="pwdnote"
 									className={`${
 										passwordFocus && !validPassword
-											? "visible text-left pl-30"
+											? "visible text-left text-white pl-30"
 											: "invisible p-0 m-0 h-0 w-0"
 									}`}
 								>
@@ -282,13 +284,13 @@ export default function RegistrationPage(props) {
 									<FontAwesomeIcon
 										icon={faCheck}
 										className={
-											validMatch && confirmPassword ? "visible" : "invisible"
+											validMatch && confirmPassword ? " bg-amber-500 rounded-full visible" : "invisible"
 										}
 									/>
 									<FontAwesomeIcon
 										icon={faTimes}
 										className={
-											!validMatch || !confirmPassword ? "visible" : "invisible"
+											!validMatch || !confirmPassword ? " bg-pink-800 rounded-full visible" : "invisible"
 										}
 									/>
 								</label>
@@ -305,14 +307,14 @@ export default function RegistrationPage(props) {
 									aria-describedby="confirmnote"
 									onFocus={() => setMatchFocus(true)}
 									onBlur={() => setMatchFocus(false)}
-									className=" bg-slate-200 w-8/12 mb-3"
+									className=" bg-white w-8/12 mb-3"
 								/>
 
 								<p
 									id="confirmnote"
 									className={
 										matchFocus && !validMatch
-											? "visible text-left pl-30"
+											? "visible text-left text-white pl-30"
 											: "invisible p-0 m-0 h-0 w-0"
 									}
 								>
@@ -322,7 +324,7 @@ export default function RegistrationPage(props) {
 							</div>
 
 							<button
-								className=" bg-red-800 w-4/12 text-gray-200 self-center p-2"
+								className=" shadow-lg shadow-gray-900  bg-amber-500 w-4/12 text-pink-800 rounded-md font-bold self-center p-2"
 								disabled={
 									!validName || !validPassword || !validMatch ? true : false
 								}
@@ -336,22 +338,3 @@ export default function RegistrationPage(props) {
 		</>
 	);
 }
-
-//             {success ? (
-//                 <section>
-//                     <h1>Success!</h1>
-//                     <p>
-//                         <a href="#">Sign In</a>
-//                     </p>
-//                 </section>
-//             ) : (
-
-//       <button >Sign Up</button>
-//
-//        <p>
-//           Already registered?<br />
-//               <span className="line">
-//               {/*put router link here*/}
-//               <a href="#">Sign In</a>
-//           </span>
-//         </p>
