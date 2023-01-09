@@ -79,18 +79,25 @@ const EditDetails = (props) => {
   }
 
   return (
-    <div className="mx-auto w-full max-w-xs p-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-4">
+    <div className='pl-44 h-screen max-h-screen bg-sky-900 overflow-scroll grid place-content-center'>  
+
+    <div className=" mx-auto w-full max-w-xs p-4">
+
+    <h1 className='text-amber-500 bg-sky-900 font-extrabold p-3 text-3xl text-center' > 
         Edit Details
       </h1>
+
+
+
       {success && (
-        <div className="bg-slate-800 text-pink-800 p-4 rounded mb-4">
+        <div className=" shadow-sm shadow-slate-800 bg-slate-800 bg-opacity-25 text-white text-center font-semibold p-4 rounded mb-4">
           Your details were updated successfully.
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      
+      <form onSubmit={handleSubmit} className="bg-slate-800 bg-opacity-80 shadow-md shadow-black rounded px-8 pt-6 pb-8 mb-4">
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-amber-500 text-md font-semibold mb-2"
           htmlFor="email"
         >
           Email
@@ -104,8 +111,9 @@ const EditDetails = (props) => {
           onChange={handleChange}
           readOnly={!editable}
         />
+        
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-amber-500 text-md font-semibold mb-2"
           htmlFor="firstName"
         >
           First Name
@@ -120,7 +128,7 @@ const EditDetails = (props) => {
           readOnly={!editable}
         />
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-amber-500 text-md font-semibold mb-2"
           htmlFor="lastName"
         >
           Last Name
@@ -135,7 +143,7 @@ const EditDetails = (props) => {
           readOnly={!editable}
         />
         <button
-          className="bg-slate-800 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-pink-800 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
           Update
@@ -148,6 +156,7 @@ const EditDetails = (props) => {
           Edit
         </button>
       </form>
+    </div>
     </div>
   );
 };

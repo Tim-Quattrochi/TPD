@@ -104,7 +104,7 @@ export default function LoginPage(props) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center text-center p-20 bg-cyan-900">
+        <div className="flex flex-col items-center text-center p-20 bg-cyan-900 ">
           <div className="bg-white w-fit pl-8 pr-8 pb-5 pt-5">
             <h2 className=" text-red-900 font-bold mb-3">
               Sign in Here

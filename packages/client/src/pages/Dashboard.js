@@ -37,24 +37,29 @@ export default function Dashboard(props) {
 
   return (
   <> 
-    <div className="pl-44 h-screen max-h-screen">
-      {
-        <h2 className="text-center text-2xl text-sky-900 font-bold tracking-wide p-5">
-          Hello, {firstName}
+    <div className='pl-44 h-screen max-h-screen flex flex-col bg-sky-900 overflow-scroll'>
+      
+        <h2 className="text-center text-2xl text-amber-500 font-bold tracking-wide p-5">
+          Welcome, {firstName}
         </h2>
-      }
+      
+
       {/* <div id="msgBoard" className="flex justify-end pr-5 pl-2" >     
          <UserMessages />          
       </div> */}
+      
 
-      <div id="userTickets" className="mt-7 pr-5 pl-2">
-        <UserTickets />
-      </div>
+    <div className="flex justify-evenly mt-16">
 
-      <div id="userProjects" className="pr-5 pl-2">
-        <UserProjects />
-      </div>
+          <div id="userTickets" className=" pr-4 w-96">
+            <UserTickets />
+          </div>
 
+          <div id="userProjects" className=" bg-transparent w-96">
+            <UserProjects />
+          </div>
+
+    </div>
     </div>
     </>
   );

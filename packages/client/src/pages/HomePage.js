@@ -10,18 +10,18 @@ export default function HomePage (props) {
     
 return (
     <>
-    <div className='pl-44  h-screen max-h-screen flex flex-col bg-sky-900'>  
+    <div className='pl-44 h-screen max-h-screen flex flex-col bg-sky-900 overflow-scroll'>  
      
-        <h1 className='text-amber-500 font-extrabold p-10 pb-16 text-3xl text-center' > 
+        <h1 className='text-amber-500 bg-sky-900 font-extrabold p-10 pb-16 text-3xl text-center' > 
             We design with your future in mind!
-       </h1> 
+        </h1> 
          
         
-        <div className='flex  pb-20'>
+        <div className='flex max-h-screen  max-lg:flex-col'>
 
-            <img src={logo} className="w-6/12 rounded-full ml-5 align place-content-center shadow-amber-500 shadow-lg"/>
+            <img src={logo} className="w-auto h-1/2 max-lg:h-1/4 rounded-full ml-5 place-content-center  shadow-amber-500 shadow-lg"/>
 
-            <div className='content-center rounded-2xl ml-20 mr-20 text-slate-800 p-8 shadow-lg bg-slate-300 backdrop-opacity-80 border-double border-4 border-amber-500 '> 
+            <div className='content-center rounded-2xl mt-0 m-10 h-96 w-auto overflow-y-scroll  text-slate-800 p-8 shadow-lg bg-slate-300 backdrop-opacity-80 border-double border-4 border-amber-500 '> 
                <h3 className='text-center underline text-pink-800 font-semibold'>Why Choose Total Product Design?</h3>
 					<p className='p-2'>
 						Total Product Design (TPD) is a growing design agency that
