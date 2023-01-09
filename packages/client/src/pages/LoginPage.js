@@ -150,6 +150,9 @@ export default function LoginPage(props) {
               <button className=" bg-red-800 w-6/12 text-white self-center">
                 Sign-in
               </button>
+              <div className="text-amber-500 pt-1 font-bold hover:underline">
+                <Link to="/register">Not registered?</Link>
+              </div>
             </form>
 
             <p
