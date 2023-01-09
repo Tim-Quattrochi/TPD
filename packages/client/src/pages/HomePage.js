@@ -10,9 +10,9 @@ export default function HomePage (props) {
     
 return (
     <>
-    <div className='pl-44 h-screen max-h-screen flex flex-col bg-sky-900'>  
+    <div className='pl-44 h-screen max-h-screen flex flex-col bg-sky-900 overflow-scroll'>  
      
-        <h1 className='text-amber-500 font-extrabold p-10 pb-16 text-3xl text-center' > 
+        <h1 className='text-amber-500 bg-sky-900 font-extrabold p-10 pb-16 text-3xl text-center' > 
             We design with your future in mind!
         </h1> 
          
