@@ -8,10 +8,11 @@ const PrivateRoute = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(isLoggedIn);
     if (!isLoggedIn) {
       navigate("/login");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn]);
 
   return isLoggedIn ? <Outlet /> : null;
 };
