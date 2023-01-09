@@ -13,7 +13,7 @@ const ProfileDropdown = ({ isLoggedIn }) => {
 	return (
 		<div
 			className={`${
-				isOpen ? "relative h-8 w-8 pb-56 pr-3" : "relative h-8 w-8 pr-3"
+				isOpen ? "relative h-8 w-8 pb-40 pr-3" : "relative h-8 w-8 pr-3"
 			}`}
 		>
 			<CgProfile
@@ -27,10 +27,6 @@ const ProfileDropdown = ({ isLoggedIn }) => {
 						<ul className="absolute right-0 w-36 px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
 							<li className="right-0 w-auto px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
 								<Link to="/dashboard">Dashboard</Link>
-							</li>
-
-							<li className="right-0 w-auto px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-								<Link to="/projects"> Create a Project </Link>
 							</li>
 
 							<li className="right-0 w-auto px-4 py-2 text-sm font-medium leading-5 text-gray-700 bg-white rounded-md shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">

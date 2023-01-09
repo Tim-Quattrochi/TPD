@@ -117,11 +117,12 @@ export default function RegistrationPage(props) {
 	}
 
 	return (
+		
 		<>
 			{success ? (
 				<div className="flex flex-col items-center text-center p-20 bg-cyan-900">
 					<div className="bg-white w-fit pl-8 pr-8 pb-5 pt-5">
-						<h1 className=" text-red-900 font-bold text-5xl shadow-sm mb-3 border-solid border-2 border-b-red-900 border-t-0 border-l-0 border-r-0">
+						<h1 className=" text-pink-800 font-bold text-5xl shadow-sm mb-3 border-solid border-2 border-b-red-900 border-t-0 border-l-0 border-r-0">
 							Success!
 						</h1>
 
@@ -129,9 +130,12 @@ export default function RegistrationPage(props) {
 					</div>
 				</div>
 			) : (
-				<div className="flex flex-col items-center text-center p-20 bg-cyan-900">
+
+    		<div className='grid place-content-center pl-44 h-screen bg-sky-900 overflow-scroll'>  
+				
 					<div className="bg-white w-fit pl-8 pr-8 pb-5 pt-5">
-						<h2 className=" text-red-900 font-bold shadow-sm">
+
+						<h2 className=" text-amber-500 font-bold shadow-md bg-transparent">
 							{" "}
 							Begin your companies online expansion!{" "}
 						</h2>
