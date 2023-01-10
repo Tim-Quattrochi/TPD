@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
@@ -27,7 +27,7 @@ export default function EditProject() {
       setIsLoading(false);
     };
     getProjectData();
-  }, [projectId]);
+  }, [projectId, axios]);
 
   const handleSubmitProject = async (e) => {
     e.preventDefault();
@@ -166,9 +166,10 @@ export default function EditProject() {
           <button
             type="button"
             className="bg-pink-800 rounded-full px-4 py-2 mx-2 text-white"
-            onClick={() => navigate("/dashboard")}
           >
-            Cancel
+            <Link to="/dashboard" replace>
+              Cancel
+            </Link>
           </button>
         </div>
       </form>

@@ -7,7 +7,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function LoginPage(props) {
   const { setAuth, setIsLoggedIn } = useContext(AuthContext);
-  const userRef = useRef();
+  const userRef = useRef({});
   const errRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
@@ -104,18 +104,17 @@ export default function LoginPage(props) {
           </div>
         </div>
       ) : (
-    		<div className='grid place-content-center pl-44 h-screen bg-sky-900 overflow-scroll'>  
-        <div className="bg-slate-800 bg-opacity-80 shadow-md shadow-black rounded px-8 pt-6 pb-8 mb-4 grid place-content-center">
-
-          <h2 className="text-center text-amber-500 underline text-lg font-bold shadow-sm shadow-pink-800  bg-transparent mb-3">
+        <div className="grid place-content-center pl-44 h-screen bg-sky-900 overflow-scroll">
+          <div className="bg-slate-800 bg-opacity-80 shadow-md shadow-black rounded px-8 pt-6 pb-8 mb-4 grid place-content-center">
+            <h2 className="text-center text-amber-500 underline text-lg font-bold shadow-sm shadow-pink-800  bg-transparent mb-3">
               Sign in Here
             </h2>
 
-            <form onSubmit={handleSignIn} className>
-              <label
-                htmlFor="username"
-                className="flex flex-col"
-              >
+            <form
+              onSubmit={handleSignIn}
+              className="flex flex-col justify-center items-center"
+            >
+              <label htmlFor="username" className="flex flex-col">
                 {" "}
               </label>
               <input
@@ -147,8 +146,7 @@ export default function LoginPage(props) {
                 onChange={(e) => setPassword(e.target.value)}
                 className=" bg-white w-8/12 mb-4"
               />{" "}
-              <br />
-              <button className="shadow-lg shadow-gray-900  bg-amber-500 w-4/12 text-pink-800 rounded-md font-bold self-center p-2">
+              <button className="shadow-lg shadow-gray-900  bg-amber-500 w-1/2 text-pink-800 rounded-md  font-bold self-center p-2 ">
                 Sign-in
               </button>
               <div className="text-amber-500 pt-1 font-bold hover:underline">

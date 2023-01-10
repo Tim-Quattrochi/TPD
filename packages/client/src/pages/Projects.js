@@ -4,9 +4,8 @@ import { useAuth } from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 
-export default function Projects({ setProjects, projects }) {
+export default function Projects() {
   const { auth } = useAuth();
-  console.log(projects);
 
   const initialValues = {
     projectName: "",
@@ -19,6 +18,7 @@ export default function Projects({ setProjects, projects }) {
 
   const [formData, setFormData] = useState(initialValues);
   const [isLoading, setIsLoading] = useState(false);
+  const [projects, setProjects] = useState();
   const navigate = useNavigate();
   const axios = useAxiosPrivate();
 
@@ -32,9 +32,8 @@ export default function Projects({ setProjects, projects }) {
     try {
       const response = await axios.post("/project", formData);
       console.log(response);
-      const projectId = response.data.data.project._id;
-      console.log(projectId);
-      setProjects([...projects, response.data.data.project]);
+      setProjects(response.data.data.project);
+
       // navigate("/dashboard");
       // navigate(`/projects/${projectId}`);
     } catch (error) {
@@ -54,7 +53,7 @@ export default function Projects({ setProjects, projects }) {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-
+  console.log(projects);
   return (
     <div className="w-full max-w-sm mx-auto align-middle">
       <form

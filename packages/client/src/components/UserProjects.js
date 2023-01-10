@@ -13,7 +13,7 @@ const UserProjects = () => {
 
   const [userId] = useState(null);
 
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +25,7 @@ const UserProjects = () => {
     const getProjects = async () => {
       const res = await axios
         .get(`/project/user/${userId}`)
-        .then((res) => setProjects([res.data.data.projects]))
+        .then((res) => setProjects(res.data.data.projects))
         .catch((err) => {
           console.log(err);
           if (err.response.data.message === "Not authorized.") {
@@ -35,7 +35,7 @@ const UserProjects = () => {
     };
 
     getProjects();
-  }, [axios, userId]);
+  }, [axios, userId, navigate]);
 
   const handleEdit = (id) => {
     navigate(`/projects/edit/${id}`);
@@ -45,9 +45,9 @@ const UserProjects = () => {
     try {
       const deleteProject = await axios.delete(`/project/${id}`);
 
-      const updatedProjects = await axios.get(`project/user/${id}`);
-
-      setProjects(updatedProjects.data.data.projects);
+      setProjects((projects) =>
+        projects.filter((project) => project._id !== id)
+      );
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +56,7 @@ const UserProjects = () => {
   const handleToggleOpen = () => {
     setIsOpen(!isOpen);
   };
-
+  console.log(projects);
   return (
     <div className="bg-slate-800 rounded-lg border-4 border-double border-amber-500 p-4">
       <h1 className="text-white text-3xl font-bold mb-4">
@@ -73,7 +73,7 @@ const UserProjects = () => {
         </button>
         {isOpen && (
           <div>
-            <Projects setProjects={setProjects} projects={projects} />
+            <Projects />
           </div>
         )}
       </div>
@@ -98,7 +98,7 @@ const UserProjects = () => {
                 project.projectDetails
                   .split("\n")
                   .map((detail, index) => (
-                    <li key={index}>{detail}</li>
+                    <li key={project._id}>{detail}</li>
                   ))}
             </ul>
             <p className=" text-pink-800">

@@ -1,27 +1,40 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../hooks/useAuthProvider";
+import LoadingSpinner from "./LoadingSpinner";
 
 function Logout() {
-	const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { setAuth, setIsLoggedIn } = useContext(AuthContext);
 
-	const handleLogout = async () => {
-		setIsLoggingOut(true);
-		try {
-			await axios.delete("/users/logout", {
-				withCredentials: true,
-			});
-		} catch (err) {
-			console.error(err);
-		} finally {
-			setIsLoggingOut(false);
-		}
-	};
+  const navigate = useNavigate();
 
-	return (
-		<button onClick={handleLogout}>
-			{isLoggingOut ? "Logging out..." : "Logout"}
-		</button>
-	);
+  const axios = useAxiosPrivate();
+
+  const handleLogout = async () => {
+    localStorage.clear();
+    setIsLoggingOut(true);
+    try {
+      await axios.post("/auth/logout", {
+        withCredentials: true,
+      });
+      setIsLoggedIn(false);
+      setAuth({});
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoggingOut(false);
+
+      navigate("/");
+    }
+  };
+
+  if (isLoggingOut) {
+    return <LoadingSpinner />;
+  }
+
+  return <button onClick={handleLogout}>Logout</button>;
 }
 
 export default Logout;
