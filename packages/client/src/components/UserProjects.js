@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import ViewProject from "./ViewProject";
+import { FormatDate } from "./FormatDate";
 import Projects from "../pages/Projects";
 
 const UserProjects = () => {
@@ -108,7 +108,7 @@ const UserProjects = () => {
               Company Name: {project.companyName}
             </p>
             <p className=" text-amber-800">
-              Deadline: {project.deadlines}
+              Deadline: {FormatDate(project.deadlines)}
             </p>
             <button
               className="bg-pink-800 rounded-full px-4 py-2 mx-2 text-white"
