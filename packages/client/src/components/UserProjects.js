@@ -73,7 +73,7 @@ const UserProjects = () => {
         </button>
         {isOpen && (
           <div>
-            <Projects />
+            <Projects setProjects={setProjects} projects={projects} />
           </div>
         )}
       </div>

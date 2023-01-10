@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 
-export default function Projects() {
+export default function Projects({ setProjects, projects }) {
   const { auth } = useAuth();
 
   const initialValues = {
@@ -18,7 +18,7 @@ export default function Projects() {
 
   const [formData, setFormData] = useState(initialValues);
   const [isLoading, setIsLoading] = useState(false);
-  const [projects, setProjects] = useState();
+
   const navigate = useNavigate();
   const axios = useAxiosPrivate();
 
@@ -32,10 +32,10 @@ export default function Projects() {
     try {
       const response = await axios.post("/project", formData);
       console.log(response);
-      setProjects(response.data.data.project);
 
-      // navigate("/dashboard");
-      // navigate(`/projects/${projectId}`);
+      setProjects([response.data, ...projects]);
+
+      setFormData(initialValues);
     } catch (error) {
       console.log(error);
     } finally {

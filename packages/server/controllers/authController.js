@@ -31,6 +31,11 @@ exports.login = asyncHandler(async (req, res, next) => {
   console.log(user);
   const passMatch = await bcrypt.compare(password, user.passwordHash);
 
+  if (!passMatch) {
+    return res
+      .status(401)
+      .json({ Error: "Please check credentials" });
+  }
   if (passMatch) {
     //this is the access token
     const payload = {
