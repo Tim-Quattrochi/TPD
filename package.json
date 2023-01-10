@@ -6,7 +6,8 @@
   "scripts": {
     "server": "npm start --workspace=server",
     "client": "npm start --workspace=client",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "build": "babel-node app.js"
   },
   "keywords": [],
   "author": "",

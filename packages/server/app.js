@@ -11,7 +11,7 @@ import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
 
 const DB_URI = process.env.DB_URI;
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 
 mongoose
   .connect(DB_URI, {
@@ -43,8 +43,15 @@ app.use("/api/v1/auth", require("./routes/authRoutes"));
 app.use("/api/v1/users", require("./routes/userRoute"));
 app.use("/api/v1/tasks", require("./routes/taskRoute"));
 app.use("/api/v1/project", require("./routes/projectsRoute"));
-// app.use("/api/v1/project/:id", require("./routes/projectsRoute"));
-// app.use("/api/v1/project/user/", require("./routes/projectsRoute"));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.all("*", (req, res, next) => {
+    res.sendFile(
+      path.resolve(__dirname, "../client/build/index.html")
+    );
+  });
+}
 
 app.use(AppError); //use error handler middleware
 

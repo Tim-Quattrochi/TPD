@@ -56,7 +56,7 @@ const UserProjects = () => {
   const handleToggleOpen = () => {
     setIsOpen(!isOpen);
   };
-  console.log(projects);
+
   return (
     <div className="bg-slate-800 rounded-lg border-4 border-double border-amber-500 p-4">
       <h1 className="text-white text-3xl font-bold mb-4">

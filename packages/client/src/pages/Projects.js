@@ -1,12 +1,8 @@
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { useAuth } from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
 
 export default function Projects({ setProjects, projects }) {
-  const { auth } = useAuth();
-
   const initialValues = {
     projectName: "",
     companyName: "",
@@ -19,10 +15,7 @@ export default function Projects({ setProjects, projects }) {
   const [formData, setFormData] = useState(initialValues);
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate();
   const axios = useAxiosPrivate();
-
-  const userId = auth.id;
 
   const handleSubmitProject = async (e) => {
     e.preventDefault();
@@ -30,7 +23,7 @@ export default function Projects({ setProjects, projects }) {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/project", formData);
+      const response = await axios.post(`/project`, formData);
       console.log(response);
 
       setProjects([response.data, ...projects]);
@@ -53,7 +46,7 @@ export default function Projects({ setProjects, projects }) {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-  console.log(projects);
+
   return (
     <div className="w-full max-w-sm mx-auto align-middle">
       <form
