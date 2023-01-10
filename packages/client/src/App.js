@@ -18,6 +18,11 @@ import UserProjects from "./components/UserProjects";
 import EditDetails from "./components/EditDetails";
 import EditProject from "./components/EditProject";
 import ViewProject from "./components/ViewProject";
+import Restaurant from "./components/DesignTemplates/HomePages/Restaurant";
+import Banking from "./components/DesignTemplates/HomePages/Banking";
+import Orders from "./components/DesignTemplates/Inputs/order";
+import Messenger from "./components/DesignTemplates/Inputs/messenger";
+import Store from "./components/DesignTemplates/menus/Store";
 
 function App() {
   return (
@@ -28,11 +33,17 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/staff" element={<StaffPage />} />
         <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/ideas" element={<TemplatesPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit-details" element={<EditDetails />} />
+
+        <Route path="/ideas" element={<TemplatesPage />} />
+        <Route path="/restaurant" element={ <Restaurant /> }/>
+        <Route path="/e-commerce" element={ <Store /> }/>
+        <Route path="/messenger" element={ <Messenger /> }/>
+        <Route path="/orderform" element={ <Orders /> }/>
+        <Route path="/bankhome" element={ <Banking /> }/>
 
         <Route
           path="/projects/:projectId"
