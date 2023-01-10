@@ -4,7 +4,7 @@ import { API_URL } from "../configs/constants";
 export default axios.create({
   baseURL: API_URL,
 });
-console.log(API_URL);
+
 export const axiosPrivate = axios.create({
   baseURL: API_URL,
   headers: { "Content-Type": "application/json" },

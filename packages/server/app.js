@@ -12,6 +12,7 @@ import credentials from "./middleware/credentials";
 
 const DB_URI = process.env.DB_URI;
 const PORT = process.env.PORT;
+const API_URL = process.env.API_URL;
 
 mongoose
   .connect(DB_URI, {
@@ -39,10 +40,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 //routes
-app.use("/api/v1/auth", require("./routes/authRoutes"));
-app.use("/api/v1/users", require("./routes/userRoute"));
-app.use("/api/v1/tasks", require("./routes/taskRoute"));
-app.use("/api/v1/project", require("./routes/projectsRoute"));
+app.use(`${API_URL}/auth`, require("./routes/authRoutes"));
+app.use(`${API_URL}/users`, require("./routes/userRoute"));
+app.use(`${API_URL}/tasks`, require("./routes/taskRoute"));
+app.use(`${API_URL}/project`, require("./routes/projectsRoute"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
