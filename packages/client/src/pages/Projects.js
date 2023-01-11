@@ -1,12 +1,8 @@
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { useAuth } from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
 
-export default function Projects() {
-  const { auth } = useAuth();
-
+export default function Projects({ setProjects, projects }) {
   const initialValues = {
     projectName: "",
     companyName: "",
@@ -18,10 +14,8 @@ export default function Projects() {
 
   const [formData, setFormData] = useState(initialValues);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const axios = useAxiosPrivate();
 
-  const userId = auth.id;
+  const axios = useAxiosPrivate();
 
   const handleSubmitProject = async (e) => {
     e.preventDefault();
@@ -29,12 +23,12 @@ export default function Projects() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/project", formData);
+      const response = await axios.post(`/project`, formData);
       console.log(response);
-      const projectId = response.data.data.project._id;
-      console.log(projectId);
-      // navigate("/dashboard");
-      navigate(`/projects/${projectId}`);
+
+      setProjects([response.data, ...projects]);
+
+      setFormData(initialValues);
     } catch (error) {
       console.log(error);
     } finally {

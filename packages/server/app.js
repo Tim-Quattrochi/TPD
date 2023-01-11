@@ -1,18 +1,18 @@
 import "dotenv/config";
+import { API_URL, NODE_ENV, PORT } from "./config/constants";
 import express, { Router } from "express";
 import mongoose from "mongoose";
+import { AppError } from "./middleware/AppError";
 import path from "path";
 import cors from "cors";
 import colors from "colors";
-import { AppError } from "./middleware/appError";
 import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
+const { DB_URI } = process.env;
 
-
-const DB_URI = process.env.DB_URI;
-const PORT = process.env.PORT || 3001;
+console.log(DB_URI);
 
 mongoose
   .connect(DB_URI, {
@@ -40,19 +40,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 //routes
-app.use("/api/v1/auth", require("./routes/authRoutes"));
-app.use("/api/v1/users", require("./routes/userRoute"));
-app.use("/api/v1/tasks", require("./routes/taskRoute"));
-app.use("/api/v1/project", require("./routes/projectsRoute"));
-app.use("/api/v1/project/:id", require("./routes/projectsRoute"));
-app.use("/api/v1/project/user/", require("./routes/projectsRoute"));
+app.use(`${API_URL}/auth`, require("./routes/authRoutes"));
+app.use(`${API_URL}/users`, require("./routes/userRoute"));
+app.use(`${API_URL}/tasks`, require("./routes/taskRoute"));
+app.use(`${API_URL}/project`, require("./routes/projectsRoute"));
+
+if (NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.all("*", (req, res, next) => {
+    res.sendFile(
+      path.resolve(__dirname, "../client/build/index.html")
+    );
+  });
+}
 
 app.use(AppError); //use error handler middleware
 
 app.listen(PORT, () =>
   console.log(`Server is listening on port ${PORT}`.bgBlue)
 );
-
-
-// sockets changes 
-

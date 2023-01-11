@@ -1,12 +1,10 @@
 import React from "react";
 import { useAuth } from "../hooks/useAuth";
-import { useState, useEffect, Modal } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import UserTickets from "../components/UserTickets";
-import UserMessages from "../components/MessagerComponents/UserMessages";
 import UserProjects from "../components/UserProjects";
-
 
 export default function Dashboard(props) {
   const { auth } = useAuth();
@@ -14,9 +12,6 @@ export default function Dashboard(props) {
   const [isLoading, setIsLoading] = useState(false);
   const axios = useAxiosPrivate();
   const navigate = useNavigate();
-  
-
-
 
   useEffect(() => {
     if (auth.firstName) {
@@ -36,33 +31,25 @@ export default function Dashboard(props) {
   };
 
   return (
-  <> 
-    <div className='pl-44 h-screen max-h-screen flex flex-col bg-sky-900 overflow-scroll'>
-      
+    <>
+      <div className="pl-44 h-screen max-h-screen flex flex-col bg-sky-900 overflow-scroll ml-2">
         <h2 className="text-center text-2xl text-amber-500 font-bold tracking-wide p-5">
           Welcome, {firstName}
         </h2>
-      
 
-      {/* <div id="msgBoard" className="flex justify-end pr-5 pl-2" >     
-         <UserMessages />          
-      </div> */}
-      
-
-    <div className="flex justify-evenly mt-16">
-
-          <div id="userTickets" className=" pr-4 w-96">
+        <div className="flex flex-col md:flex-row col-span-9">
+          <div id="userTickets" className=" pr-4 w-96 flex-1 p-4">
             <UserTickets />
           </div>
 
-          <div id="userProjects" className=" bg-transparent w-96">
+          <div
+            id="userProjects"
+            className=" bg-transparent w-96 flex-1 p-4"
+          >
             <UserProjects />
           </div>
-
-    </div>
-    </div>
+        </div>
+      </div>
     </>
   );
 }
-
-

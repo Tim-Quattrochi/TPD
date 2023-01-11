@@ -99,12 +99,7 @@ exports.createProject = catchAsync(async (req, res, next) => {
     deadlines,
     author: req.id,
   });
-  res.status(201).json({
-    status: "success",
-    data: {
-      project: newProject,
-    },
-  });
+  res.status(201).json(newProject);
 });
 
 exports.updateProject = catchAsync(async (req, res, next) => {

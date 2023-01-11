@@ -2,6 +2,12 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
+const {
+  JWT_EXPIRES_IN,
+  REFRESH_TOKEN_SECRET,
+  REFRESH_EXPIRES_IN,
+  JWT_SECRET,
+} = require("../config/constants");
 
 // asyncHandler: Simple middleware for handling exceptions inside of async express routes and passing them to your express error handlers.
 // @requestUrl: http://localhost:3001/api/v1/auth/login
@@ -31,6 +37,11 @@ exports.login = asyncHandler(async (req, res, next) => {
   console.log(user);
   const passMatch = await bcrypt.compare(password, user.passwordHash);
 
+  if (!passMatch) {
+    return res
+      .status(401)
+      .json({ Error: "Please check credentials" });
+  }
   if (passMatch) {
     //this is the access token
     const payload = {
@@ -39,10 +50,8 @@ exports.login = asyncHandler(async (req, res, next) => {
       role: user.role,
     };
 
-    const secret = process.env.JWT_SECRET;
-
     const options = {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+      expiresIn: JWT_EXPIRES_IN,
     };
 
     const token = jwt.sign(payload, secret, options);
@@ -53,9 +62,9 @@ exports.login = asyncHandler(async (req, res, next) => {
         id: user._id,
       },
 
-      process.env.REFRESH_TOKEN_SECRET,
+      REFRESH_TOKEN_SECRET,
       {
-        expiresIn: process.env.REFRESH_EXPIRES_IN,
+        expiresIn: REFRESH_EXPIRES_IN,
       }
     );
 
@@ -98,7 +107,7 @@ exports.refresh = asyncHandler(async (req, res) => {
 
   jwt.verify(
     refreshToken,
-    process.env.REFRESH_TOKEN_SECRET,
+    REFRESH_TOKEN_SECRET,
     asyncHandler(async (err, decoded) => {
       if (err || user.userName !== decoded.userName) {
         return res.status(403).json({ message: "Forbidden." });
@@ -111,8 +120,8 @@ exports.refresh = asyncHandler(async (req, res) => {
           id: user._id,
         },
 
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_EXPIRES_IN }
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRES_IN }
       );
       //send back access token
       res.json({ token });
