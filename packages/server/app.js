@@ -14,7 +14,7 @@ import credentials from "./middleware/credentials";
 console.log(DB_URI);
 
 mongoose
-  .connect(DB_URI, {
+  .connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
