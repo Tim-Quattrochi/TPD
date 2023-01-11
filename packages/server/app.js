@@ -1,10 +1,10 @@
 import "dotenv/config";
 import express, { Router } from "express";
 import mongoose from "mongoose";
+import { AppError } from "./middleware/AppError";
 import path from "path";
 import cors from "cors";
 import colors from "colors";
-import { AppError } from "./middleware/appError";
 import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
