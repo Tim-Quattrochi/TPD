@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { API_URL, DB_URI, NODE_ENV, PORT } from "./config/constants";
+import { API_URL, NODE_ENV, PORT } from "./config/constants";
 import express, { Router } from "express";
 import mongoose from "mongoose";
 import { AppError } from "./middleware/AppError";
@@ -10,11 +10,12 @@ import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
+const { DB_URI } = process.env;
 
 console.log(DB_URI);
 
 mongoose
-  .connect(process.env.DB_URI, {
+  .connect(DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
