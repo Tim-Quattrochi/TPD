@@ -45,6 +45,8 @@ app.use(`${API_URL}/users`, require("./routes/userRoute"));
 app.use(`${API_URL}/tasks`, require("./routes/taskRoute"));
 app.use(`${API_URL}/project`, require("./routes/projectsRoute"));
 
+app.use(AppError); //use error handler middleware
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
   app.all("*", (req, res, next) => {
@@ -53,8 +55,6 @@ if (process.env.NODE_ENV === "production") {
     );
   });
 }
-
-app.use(AppError); //use error handler middleware
 
 app.listen(PORT, () =>
   console.log(`Server is listening on port ${PORT}`.bgBlue)
