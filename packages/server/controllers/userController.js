@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
+const { JWT_EXPIRES_IN } = require("../config/constants");
 
 //http://localhost:3001/api/v1/users /* Postman request URL for testing */ //protected with bearer
 exports.getAllUsers = async (req, res, next) => {
@@ -124,10 +125,8 @@ exports.signup = asyncHandler(async (req, res, next) => {
     role: newUser.role,
   };
 
-  const secret = process.env.JWT_SECRET;
-
   const options = {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: JWT_EXPIRES_IN,
   };
 
   const token = jwt.sign(payload, secret, options);

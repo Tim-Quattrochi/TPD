@@ -9,10 +9,7 @@ import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
-
-const DB_URI = process.env.DB_URI;
-const PORT = process.env.PORT;
-const API_URL = process.env.API_URL;
+import { API_URL, DB_URI, PORT } from "./config/constants";
 
 mongoose
   .connect(DB_URI, {
@@ -59,5 +56,3 @@ if (process.env.NODE_ENV === "production") {
 app.listen(PORT, () =>
   console.log(`Server is listening on port ${PORT}`.bgBlue)
 );
-
-// sockets changes
