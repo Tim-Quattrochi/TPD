@@ -12,12 +12,11 @@ import bankVault from "../templateAssets/PointeBank/bankVault.jpg"
 export default function Banking () {
   const [showMenu, setShowMenu] = useState(false)
 
+  console.log("Links to page")
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen visible">
       
-      
-
       <div className="fixed flex justify-between z-40 pt-3 w-screen h-44 bg-gradient-to-r from-teal-900 to-teal-600"> 
 
           <h1 className="text-slate-100 text-5xl grid place-items-center font-extrabold ml-44 w-40 h-36 bg-gradient-to-br from-neutral-900 to-neutral-300 border-solid border-2 border-teal-900 shadow-md shadow-neutral-900"> 
@@ -167,19 +166,6 @@ export default function Banking () {
 
 
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-      
 
     </div>
   );
