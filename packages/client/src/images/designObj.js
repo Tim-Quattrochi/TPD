@@ -10,7 +10,7 @@ import l3 from '../images/designimages/logos/logo3.jpg'
 import l4 from '../images/designimages/logos/logo4.jpg'
 import l5 from '../images/designimages/logos/logo5.jpg'
 
-import temp from '../images/designimages/templates/tempTempate.jpg'
+import temp from '../components/DesignTemplates/templateAssets/tempTempate.jpg'
 
 const designSchemes = {
     colorTemplates: [
