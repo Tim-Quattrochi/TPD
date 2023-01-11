@@ -5,6 +5,7 @@ import Store from "./menus/Store"
 import Orders from "./Inputs/order"
 import Messenger from "./Inputs/messenger"
 import Banking from "./HomePages/Banking"
+import pointeBank from "./templateAssets/PointeBank/POINTEBANKHOMEPAGE.jpg"
 
 import temp from "../../components/DesignTemplates/templateAssets/tempTempate.jpg"
 
@@ -27,7 +28,7 @@ const Templates = [
         type: "HomePage",
         fileLocation: Banking,
         routeLink:'/bankhome',  
-        image: temp, 
+        image: pointeBank, 
     },
     {
         id: 113,
