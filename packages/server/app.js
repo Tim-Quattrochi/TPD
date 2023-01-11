@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { API_URL, DB_URI, NODE_ENV, PORT } from "./config/constants";
 import express, { Router } from "express";
 import mongoose from "mongoose";
 import { AppError } from "./middleware/AppError";
@@ -9,7 +10,6 @@ import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
-import { API_URL, DB_URI, NODE_ENV, PORT } from "./config/constants";
 
 console.log(DB_URI);
 
@@ -44,8 +44,6 @@ app.use(`${API_URL}/users`, require("./routes/userRoute"));
 app.use(`${API_URL}/tasks`, require("./routes/taskRoute"));
 app.use(`${API_URL}/project`, require("./routes/projectsRoute"));
 
-app.use(AppError); //use error handler middleware
-
 if (NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
   app.all("*", (req, res, next) => {
@@ -54,6 +52,8 @@ if (NODE_ENV === "production") {
     );
   });
 }
+
+app.use(AppError); //use error handler middleware
 
 app.listen(PORT, () =>
   console.log(`Server is listening on port ${PORT}`.bgBlue)
