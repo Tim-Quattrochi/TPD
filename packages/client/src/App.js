@@ -3,6 +3,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+
 import {
   HomePage,
   Dashboard,
@@ -12,6 +13,7 @@ import {
   LoginPage,
   Projects,
 } from "./pages";
+
 import {
   NavBarComp,
   UserProjects,
