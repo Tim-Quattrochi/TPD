@@ -2,7 +2,7 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
-const { JWT_EXPIRES_IN } = require("../config/constants");
+const { JWT_EXPIRES_IN, JWT_SECRET } = require("../config/constants");
 
 //http://localhost:3001/api/v1/users /* Postman request URL for testing */ //protected with bearer
 exports.getAllUsers = async (req, res, next) => {
@@ -129,7 +129,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
     expiresIn: JWT_EXPIRES_IN,
   };
 
-  const token = jwt.sign(payload, secret, options);
+  const token = jwt.sign(payload, JWT_SECRET, options);
 
   res.cookie("jwt", token, {
     httpOnly: true,
