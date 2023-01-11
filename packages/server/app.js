@@ -9,7 +9,9 @@ import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
-import { API_URL, DB_URI, PORT } from "./config/constants";
+import { API_URL, DB_URI, NODE_ENV, PORT } from "./config/constants";
+
+console.log(DB_URI);
 
 mongoose
   .connect(DB_URI, {
@@ -44,7 +46,7 @@ app.use(`${API_URL}/project`, require("./routes/projectsRoute"));
 
 app.use(AppError); //use error handler middleware
 
-if (process.env.NODE_ENV === "production") {
+if (NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
   app.all("*", (req, res, next) => {
     res.sendFile(
