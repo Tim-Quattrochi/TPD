@@ -28,9 +28,6 @@ const UserProjects = () => {
         .then((res) => setProjects(res.data.data.projects))
         .catch((err) => {
           console.log(err);
-          if (err.response.data.message === "Not authorized.") {
-            navigate("/login");
-          }
         });
     };
 
