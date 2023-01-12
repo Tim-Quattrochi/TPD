@@ -14,6 +14,7 @@ export default function Dashboard(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     if (auth.firstName) {
       setFirstName(auth.firstName || auth.user.firstName);
     }

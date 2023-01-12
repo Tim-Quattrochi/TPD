@@ -52,10 +52,12 @@ export default function LoginPage(props) {
         userName: response.data.userName,
         email: response.data.email,
       };
-
+      
       setValue(auth); //this is setting local storage.
       setIsLoggedIn(true);
 
+      console.log(auth)
+      console.log(response)
       const token = response?.data?.token;
       // token is the same as accessToken.
 
@@ -91,6 +93,7 @@ export default function LoginPage(props) {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+  
   return (
     <>
       {success ? (

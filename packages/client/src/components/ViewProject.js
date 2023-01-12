@@ -15,6 +15,8 @@ function ViewProject() {
     getProject();
   }, [projectId]);
 
+    console.log(project)
+
   return (
     <div className="w-full max-w-sm mx-auto align-middle">
       <h1 className="text-2xl font-bold text-amber-500">

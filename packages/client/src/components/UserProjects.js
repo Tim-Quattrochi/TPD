@@ -13,7 +13,7 @@ const UserProjects = () => {
 
   const [userId] = useState(null);
 
-  const [projects, setProjects] = useState();
+  const [projects, setProjects] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -56,6 +56,7 @@ const UserProjects = () => {
   const handleToggleOpen = () => {
     setIsOpen(!isOpen);
   };
+
 
   return (
     <div className="bg-slate-800 rounded-lg border-4 border-double border-amber-500 p-4">
