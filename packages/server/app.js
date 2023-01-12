@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { API_URL, NODE_ENV, PORT } from "./config/constants";
+import { API_URL, NODE_ENV, PORT, DB_URI } from "./config/constants";
 import express, { Router } from "express";
 import mongoose from "mongoose";
 import { AppError } from "./middleware/AppError";
@@ -10,9 +10,6 @@ import cookieParser from "cookie-parser";
 import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
-const { DB_URI } = process.env;
-
-console.log(DB_URI);
 
 mongoose
   .connect(DB_URI, {
@@ -31,8 +28,8 @@ const app = express();
 
 //middleware here
 
-app.use(logger);
 app.use(credentials);
+app.use(logger);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
