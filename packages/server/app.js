@@ -11,8 +11,6 @@ import { logger } from "./middleware/logger";
 import corsOptions from "./config/corsOpt";
 import credentials from "./middleware/credentials";
 
-console.log(DB_URI);
-
 mongoose
   .connect(DB_URI, {
     useNewUrlParser: true,
@@ -30,8 +28,8 @@ const app = express();
 
 //middleware here
 
-app.use(logger);
 app.use(credentials);
+app.use(logger);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());

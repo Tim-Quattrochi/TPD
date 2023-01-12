@@ -54,7 +54,7 @@ exports.login = asyncHandler(async (req, res, next) => {
       expiresIn: JWT_EXPIRES_IN,
     };
 
-    const token = jwt.sign(payload, secret, options);
+    const token = jwt.sign(payload, JWT_SECRET, options);
 
     const refreshToken = jwt.sign(
       {
