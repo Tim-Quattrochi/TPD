@@ -32,6 +32,20 @@ https://unsplash.com/photos/qC2n6RQU4Vw
 https://unsplash.com/photos/o0R4iqk1eRQ
 https://unsplash.com/photos/67l-QujB14w
 https://unsplash.com/photos/Bd7gNnWJBkU
+https://unsplash.com/photos/AcA8moIiD3g
+https://unsplash.com/photos/JspLKUauwSI
+https://unsplash.com/photos/22Vt7JIf7ZI
+https://unsplash.com/photos/2_K82gx9Uk8
+https://unsplash.com/photos/SoT4-mZhyhE
+https://unsplash.com/photos/3wPJxh-piRw
+https://unsplash.com/photos/hpjSkU2UYSU
+
+Color Scheme:
+#0c2642 - slate-800
+#003f5c sky-900
+#931a51 pink - 800
+#ffa600 - amber-500
+
 
 
 # Retrospectives #
