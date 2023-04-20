@@ -31,7 +31,11 @@
     "express-async-handler": "^1.2.0",
     "express-rate-limit": "^6.7.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.7.5"
+    "mongoose": "^6.7.5",
+    "@babel/core": "^7.19.3",
+    "@babel/node": "^7.19.1",
+    "@babel/preset-env": "^7.19.4",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
