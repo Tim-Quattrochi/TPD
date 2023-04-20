@@ -1,15 +1,20 @@
-import "dotenv/config";
-import { API_URL, NODE_ENV, PORT, DB_URI } from "./config/constants";
-import express, { Router } from "express";
-import mongoose from "mongoose";
-import { AppError } from "./middleware/AppError";
-import path from "path";
-import cors from "cors";
-import colors from "colors";
-import cookieParser from "cookie-parser";
-import { logger } from "./middleware/logger";
-import corsOptions from "./config/corsOpt";
-import credentials from "./middleware/credentials";
+const dotenv = require("dotenv").config();
+const {
+  API_URL,
+  NODE_ENV,
+  PORT,
+  DB_URI,
+} = require("./config/constants");
+const express = require("express");
+const mongoose = require("mongoose");
+const { AppError } = require("./middleware/AppError");
+const path = require("path");
+const cors = require("cors");
+const colors = require("colors");
+const cookieParser = require("cookie-parser");
+const { logger } = require("./middleware/logger");
+const corsOptions = require("./config/corsOpt");
+const credentials = require("./middleware/credentials");
 
 mongoose
   .connect(DB_URI, {
