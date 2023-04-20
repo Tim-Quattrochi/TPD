@@ -1,340 +1,242 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
-
-import {
-	faCheck,
-	faTimes,
-	faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import axios from "../hooks/useAxios";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PASSWORD_REGEX =
-	/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+export default function Example() {
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    error: "",
+  };
 
-export default function RegistrationPage(props) {
-	const userRef = useRef();
-	const errRef = useRef();
+  const [formData, setFormData] = useState(initialValues);
+  const [isLoading, setIsLoading] = useState(false);
+  const [value, setValue] = useLocalStorage("user", null);
 
-	const [userName, setUserName] = useState("");
-	const [validName, setValidName] = useState(false);
-	const [userFocus, setUserFocus] = useState(false);
-	const [value, setValue] = useLocalStorage("user", null);
+  const navigate = useNavigate();
 
-	const [password, setPassword] = useState("");
-	const [validPassword, setValidPassword] = useState(false);
-	const [passwordFocus, setPasswordFocus] = useState(false);
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
+  const handleRegistration = async (e) => {
+    e.preventDefault();
 
-	const [confirmPassword, setconfirmPassword] = useState("");
-	const [validMatch, setValidMatch] = useState(false);
-	const [matchFocus, setMatchFocus] = useState(false);
+    setIsLoading(true);
 
-	const [errMsg, setErrMsg] = useState("");
-	const [success, setSuccess] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+    try {
+      const response = await axios.post("/users/signup", formData, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
 
-	const navigate = useNavigate();
+      const auth = {
+        firstName: response.data.data.user.firstName,
+        lastName: response.data.data.user.lastName,
+        userName: response.data.data.user.userName,
+        email: response.data.data.user.email,
+      };
 
-	useEffect(() => {
-		setValidName(USER_REGEX.test(userName));
-	}, [userName]); //do we want the result on  cnsole?
+      setValue(auth);
 
-	useEffect(() => {
-		setValidPassword(PASSWORD_REGEX.test(password));
+      navigate("/login");
+    } catch (err) {
+      if (!err?.response) {
+        setFormData(
+          ...formData,
+          (formData.error = "No Server Response")
+        );
+      } else if (err.response?.status === 422) {
+        setFormData(
+          ...formData,
+          (formData.error = "User already exists.")
+        );
+      } else {
+        setFormData(
+          ...formData,
+          (formData.error = "Registration failed.")
+        );
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-		password === confirmPassword ? setValidMatch(true) : setValidMatch(false);
-	}, [password, confirmPassword]);
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
-	useEffect(() => {
-		setErrMsg("");
-	}, [userName, password, confirmPassword, email, firstName, lastName]);
+  return (
+    <>
+      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-sky-900">
+              Begin your companies online expansion!
+            </h2>
+          </div>
+          <form
+            className="mt-8 space-y-6"
+            onSubmit={handleRegistration}
+          >
+            <input
+              type="hidden"
+              name="remember"
+              defaultValue="true"
+            />
+            <div className="-space-y-px rounded-md shadow-sm">
+              <div>
+                <label htmlFor="firstName" className="sr-only">
+                  First Name
+                </label>
+                <input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  autoComplete="First Name"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="First Name"
+                  onChange={handleInputChange}
+                  value={formData.firstName}
+                />
+              </div>
+              <div>
+                <label htmlFor="lastName" className="sr-only">
+                  Last Name
+                </label>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  autoComplete="last-name"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="Last Name"
+                  onChange={handleInputChange}
+                  value={formData.lastName}
+                />
+              </div>
+              <div>
+                <label htmlFor="userName" className="sr-only">
+                  Username
+                </label>
+                <input
+                  id="userName"
+                  name="userName"
+                  type="text"
+                  autoComplete="username"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="Username"
+                  onChange={handleInputChange}
+                  value={formData.userName}
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="sr-only">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="Email"
+                  onChange={handleInputChange}
+                  value={formData.email}
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="sr-only">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="Password"
+                  onChange={handleInputChange}
+                  value={formData.password}
+                />
+              </div>
+              <div>
+                <label htmlFor="confirmPassword" className="sr-only">
+                  Confirm Password
+                </label>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="Confirm Password"
+                  onChange={handleInputChange}
+                  value={formData.confirmPassword}
+                />
+              </div>
+            </div>
 
-	const handleRegistration = async (e) => {
-		e.preventDefault();
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                />
+                <label
+                  htmlFor="remember-me"
+                  className="ml-2 block text-sm text-gray-900"
+                >
+                  Remember me
+                </label>
+              </div>
 
-		const userValid = USER_REGEX.test(userName);
-		const passwordValid = PASSWORD_REGEX.test(password);
-		if (!userValid || !passwordValid) {
-			setErrMsg("Invalid Entry");
-			return;
-		}
+              <div className="text-sm">
+                <Link
+                  to="/login"
+                  className="font-medium text-sky-900 hover:text-indigo-500"
+                >
+                  Already have an account?
+                </Link>
+              </div>
+            </div>
 
-		setIsLoading(true);
-
-		try {
-			const response = await axios.post(
-				"/users/signup",
-				JSON.stringify({
-					firstName,
-					lastName,
-					email,
-					password,
-					confirmPassword,
-					userName,
-				}),
-				{
-					headers: { "Content-Type": "application/json" },
-					withCredentials: true,
-				},
-			);
-
-			const auth = {
-				firstName: response.data.data.user.firstName,
-				lastName: response.data.data.user.lastName,
-				userName: response.data.data.user.userName,
-				email: response.data.data.user.email,
-			};
-
-			setValue(auth);
-			setSuccess(true);
-			navigate("/login");
-		} catch (err) {
-			if (!err?.response) {
-				setErrMsg("No Server Response");
-			} else if (err.response?.status === 422) {
-				setErrMsg("User already exists");
-			} else {
-				setErrMsg("Registration Failed");
-			}
-			errRef.current.focus();
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
-	if (isLoading) {
-		return <LoadingSpinner />;
-	}
-
-	return (
-		
-		<>
-			{success ? (
-				<div className="flex flex-col items-center text-center p-20 bg-cyan-900">
-					<div className="bg-white w-fit pl-8 pr-8 pb-5 pt-5">
-						<h1 className=" text-pink-800 font-bold text-5xl shadow-sm mb-3 border-solid border-2 border-b-red-900 border-t-0 border-l-0 border-r-0">
-							Success!
-						</h1>
-
-						<Link to={"/login"}> Sign In </Link>
-					</div>
-				</div>
-			) : (
-
-    		<div className='grid place-content-center pl-44 h-screen bg-sky-900 overflow-scroll'>  
-				
-					<div className="bg-slate-800 bg-opacity-80 shadow-md shadow-black rounded px-8 pt-6 pb-8 mb-4">
-
-						<h2 className="text-center text-amber-500 underline text-lg font-bold shadow-sm shadow-pink-800  bg-transparent mb-3">
-							{" "}
-							Begin your companies online expansion!{" "}
-											
-						</h2>
-					
-
-						<p
-							ref={errRef}
-							aria-live="assertive"
-							className={`${errMsg ? "errmsg" : "offscreen"}`}
-						>
-							{errMsg}
-						</p>
-
-						<form
-							onSubmit={handleRegistration}
-							className="flex flex-col items-center"
-						>
-							<div className="firstNameInputField w-full pl-9 p-2">
-								<input
-									onChange={(e) => setFirstName(e.target.value)}
-									type="text"
-									name="firstName"
-									placeholder="First Name..."
-									required
-									className=" bg-white w-9/12 ml-4 mb-3"
-								/>
-							</div>
-
-							<div className="lastNameInputField w-full pl-9 p-2">
-								<input
-									onChange={(e) => setLastName(e.target.value)}
-									type="text"
-									name="lastName"
-									placeholder="Last Name..."
-									required
-									className=" bg-white w-9/12 ml-4 mb-3"
-								/>
-							</div>
-
-							<div className="usernameInputField w-full p-2">
-								<label htmlFor="userName" className="p-2">
-									<span className={validName ? " bg-amber-500 rounded-full visible" : "invisible"}>
-										<FontAwesomeIcon icon={faCheck} />
-									</span>
-									<span className={validName ? "invisible" : " bg-pink-800 rounded-full visible"}>
-										<FontAwesomeIcon icon={faTimes} />
-									</span>
-								</label>
-								<input
-									type="text"
-									placeholder="Username..."
-									name="username"
-									id="userName"
-									ref={userRef}
-									autoComplete="off"
-									value={userName}
-									required
-									aria-invalid={validName ? "false" : "true"}
-									aria-describedby="uidnote"
-									onChange={(e) => setUserName(e.target.value)}
-									onFocus={() => setUserFocus(true)}
-									onBlur={() => setUserFocus(false)}
-									className=" bg-white w-8/12 mb-3"
-								/>
-								<p
-									id="uidnote"
-									className={`${
-										userFocus && userName && !validName
-											? "visible text-left pl-34 flex-wrap"
-											: "invisible p-0 m-0 h-0 w-0"
-									} `}
-								>
-									<FontAwesomeIcon icon={faInfoCircle} />
-									4 to 24 characters.
-									<br />
-									Must begin with a letter.
-									<br />
-									Letters, numbers, underscores,
-									<br />
-									hyphens allowed.
-								</p>
-							</div>
-
-							<div className="emailInputField w-full pl-9 p-2">
-								<input
-									onChange={(e) => setEmail(e.target.value)}
-									type="email"
-									name="email"
-									placeholder="Email..."
-									className="bg-white w-9/12 ml-4 mb-3"
-								/>
-							</div>
-
-							<div className="passwordInputField w-full p-2">
-								<label htmlFor="password" className="p-2">
-									<FontAwesomeIcon
-										icon={faCheck}
-										className={validPassword ? " bg-amber-500 rounded-full visible" : "invisible"}
-									/>
-									<FontAwesomeIcon
-										icon={faTimes}
-										className={validPassword ? "invisible" : " bg-pink-800 rounded-full visible"}
-									/>
-								</label>
-								<input
-									onChange={(e) => setPassword(e.target.value)}
-									type="password"
-									name="password"
-									id="password"
-									placeholder="Password..."
-									value={password}
-									required
-									aria-invalid={validPassword ? "false" : "true"}
-									aria-describedby="pwdnote"
-									onFocus={() => setPasswordFocus(true)}
-									onBlur={() => setPasswordFocus(false)}
-									className=" bg-white w-8/12 mb-3"
-								/>
-
-								<p
-									id="pwdnote"
-									className={`${
-										passwordFocus && !validPassword
-											? "visible text-left text-white pl-30"
-											: "invisible p-0 m-0 h-0 w-0"
-									}`}
-								>
-									<FontAwesomeIcon icon={faInfoCircle} />
-									8 to 24 characters.
-									<br />
-									Must include uppercase and lowercase <br />
-									letters, a number and a special character.
-									<br />
-									Allowed special characters:
-									<span aria-label="exclamation mark"> !</span>
-									<span aria-label="at symbol">@</span>
-									<span aria-label="hashtag">#</span>
-									<span aria-label="dollar sign">$</span>
-									<span aria-label="percent">%</span>
-								</p>
-							</div>
-
-							<div className="pswConfirmInputField w-full p-2">
-								<label htmlFor="confirm_password" className="p-2">
-									<FontAwesomeIcon
-										icon={faCheck}
-										className={
-											validMatch && confirmPassword ? " bg-amber-500 rounded-full visible" : "invisible"
-										}
-									/>
-									<FontAwesomeIcon
-										icon={faTimes}
-										className={
-											!validMatch || !confirmPassword ? " bg-pink-800 rounded-full visible" : "invisible"
-										}
-									/>
-								</label>
-
-								<input
-									onChange={(e) => setconfirmPassword(e.target.value)}
-									type="password"
-									name="confirmPassword"
-									id="confirm_password"
-									placeholder="Confirm Password..."
-									// value={confirmPassword}
-									required
-									aria-invalid={validMatch ? "false" : "true"}
-									aria-describedby="confirmnote"
-									onFocus={() => setMatchFocus(true)}
-									onBlur={() => setMatchFocus(false)}
-									className=" bg-white w-8/12 mb-3"
-								/>
-
-								<p
-									id="confirmnote"
-									className={
-										matchFocus && !validMatch
-											? "visible text-left text-white pl-30"
-											: "invisible p-0 m-0 h-0 w-0"
-									}
-								>
-									<FontAwesomeIcon icon={faInfoCircle} />
-									Must match the first password input field.
-								</p>
-							</div>
-
-							<button
-								className=" shadow-lg shadow-gray-900  bg-amber-500 w-4/12 text-pink-800 rounded-md font-bold self-center p-2"
-								disabled={
-									!validName || !validPassword || !validMatch ? true : false
-								}
-							>
-								Register
-							</button>
-						</form>
-					</div>
-				</div>
-			)}
-		</>
-	);
+            <div>
+              <button
+                type="submit"
+                className="group relative flex w-full justify-center rounded-md border border-transparent bg-sky-900 py-2 px-4 text-sm font-medium text-white hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <LockClosedIcon
+                    className="h-5 w-5 text-indigo-500 group-hover:text-white"
+                    aria-hidden="true"
+                  />
+                </span>
+                Register
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
 }

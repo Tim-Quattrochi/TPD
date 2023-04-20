@@ -32,22 +32,20 @@ export default function Dashboard(props) {
 
   return (
     <>
-      <div className="pl-44 h-screen max-h-screen flex flex-col bg-sky-900 overflow-scroll ml-2">
+      <div className=" h-screen max-h-screen flex flex-col flex-wrap content-center bg-sky-900 overflow-scroll ml-2 lg:w-full">
         <h2 className="text-center text-2xl text-amber-500 font-bold tracking-wide p-5">
           Welcome, {firstName}
         </h2>
 
-        <div className="flex flex-col md:flex-row col-span-9">
-          <div id="userTickets" className=" pr-4 w-96 flex-1 p-4">
-            <UserTickets />
-          </div>
+        <div
+          id="userProjects"
+          className=" bg-transparent w-96 flex-1 p-4"
+        >
+          <UserProjects />
+        </div>
 
-          <div
-            id="userProjects"
-            className=" bg-transparent w-96 flex-1 p-4"
-          >
-            <UserProjects />
-          </div>
+        <div id="userTickets" className=" pr-4 w-96 flex-1 p-4">
+          <UserTickets />
         </div>
       </div>
     </>

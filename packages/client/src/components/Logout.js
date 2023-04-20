@@ -34,7 +34,11 @@ function Logout() {
     return <LoadingSpinner />;
   }
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <button className="ml-4 text-white" onClick={handleLogout}>
+      Logout
+    </button>
+  );
 }
 
 export default Logout;
