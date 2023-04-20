@@ -47,14 +47,15 @@ app.use(`${API_URL}/users`, require("./routes/userRoute"));
 app.use(`${API_URL}/tasks`, require("./routes/taskRoute"));
 app.use(`${API_URL}/project`, require("./routes/projectsRoute"));
 
-if (NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-  app.all("*", (req, res, next) => {
-    res.sendFile(
-      path.resolve(__dirname, "../client/build/index.html")
-    );
-  });
-}
+//commenting out for Vercel/Render deployment.
+// if (NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../client/build")));
+//   app.all("*", (req, res, next) => {
+//     res.sendFile(
+//       path.resolve(__dirname, "../client/build/index.html")
+//     );
+//   });
+// }
 
 app.use(AppError); //use error handler middleware
 
