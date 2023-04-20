@@ -4,7 +4,7 @@
   "description": "Kenzie FSWD Capstone project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node app.js",
+    "start": "node --exec babel-node app.js",
     "build": "babel-node app.js"
   },
   "repository": {
