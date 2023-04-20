@@ -1,10 +1,5 @@
 const dotenv = require("dotenv").config();
-const {
-  API_URL,
-  NODE_ENV,
-  PORT,
-  DB_URI,
-} = require("./config/constants");
+const { PORT, DB_URI } = require("./config/constants");
 const express = require("express");
 const mongoose = require("mongoose");
 const { AppError } = require("./middleware/AppError");
@@ -39,13 +34,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(express.static(path.join(__dirname, "public")));
 
 //routes
-app.use(`${API_URL}/auth`, require("./routes/authRoutes"));
-app.use(`${API_URL}/users`, require("./routes/userRoute"));
-app.use(`${API_URL}/tasks`, require("./routes/taskRoute"));
-app.use(`${API_URL}/project`, require("./routes/projectsRoute"));
+app.use(`/auth`, require("./routes/authRoutes"));
+app.use(`/users`, require("./routes/userRoute"));
+app.use(`/tasks`, require("./routes/taskRoute"));
+app.use(`/project`, require("./routes/projectsRoute"));
 
 //commenting out for Vercel/Render deployment.
 // if (NODE_ENV === "production") {
