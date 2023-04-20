@@ -8,7 +8,6 @@ const cors = require("cors");
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
 const { logger } = require("./middleware/logger");
-const corsOptions = require("./config/corsOpt");
 const credentials = require("./middleware/credentials");
 
 mongoose
@@ -30,7 +29,7 @@ const app = express();
 
 app.use(credentials);
 app.use(logger);
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
